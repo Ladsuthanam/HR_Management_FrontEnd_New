@@ -1,12 +1,16 @@
 .fixed {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 30;
-  }
-  
-  .app-slide-panel {
-    overflow-y: auto;
-    max-height: 100%;
-  }
-  
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 30;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.app-slide-panel {
+  width: 350px;
+  height: 75%;
+  background-color: #c4ecf6;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}

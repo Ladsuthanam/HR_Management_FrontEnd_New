@@ -7,5 +7,4 @@ export interface ITodo{
     status :ITodoType;
     created_at?: string;
     updated_at?:string;
-    date?:Date;
 }
