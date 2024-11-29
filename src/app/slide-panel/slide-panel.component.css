@@ -1,0 +1,12 @@
+.fixed {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 30;
+  }
+  
+  .app-slide-panel {
+    overflow-y: auto;
+    max-height: 100%;
+  }
+  

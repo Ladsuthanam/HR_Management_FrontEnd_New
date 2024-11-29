@@ -1,0 +1,17 @@
+.navbar{
+    background-color:  #058ea7;
+}
+nav a{
+    padding-left: 250px;
+}
+.full_box{  
+    background-color: #011a1f;
+    padding-left: 250px;
+    
+}
+
+.btn{
+    height: 35px;
+    border-radius: 25px;
+    
+}

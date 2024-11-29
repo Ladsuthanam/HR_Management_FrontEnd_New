@@ -1,0 +1,235 @@
+<div class="main">
+    <div class="container-fluid mb-4">
+        <div class="row">
+          <nav class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-3 bg-white shadow-sm">
+            <div class="row">
+              <button class="btn btn-link" id="sidebar-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                </svg>
+              </button>
+              <div class="col-md-4 ps-md-0 ps-4">
+                <form role="search">
+                  <div class="search-group">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                    <input type="search" class="form-control" placeholder="Search..." aria-label="Search" />
+                  </div>
+                </form>
+                <!-- ./form -->
+              </div>
+              <!-- ./col -->
+              <div class="col-md-8">
+      
+                <div class="dropdown text-end dropdown-usrn">
+                  <a
+                    href="#"
+                    class="link-dark text-decoration-none dropdown-toggle"
+                    (click)="toggleDropdown($event)"
+                    [attr.aria-expanded]="isDropdownOpen"
+                  >
+                    <img
+                      src="https://via.placeholder.com/32/D9D9D9/595959?text=PH"
+                      alt="mdo"
+                      width="32"
+                      height="32"
+                      class="rounded-circle"
+                    />
+                    decodesalot
+                  </a>
+                  <ul
+                    class="dropdown-menu text-small"
+                    [class.show]="isDropdownOpen"
+                  >
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                  </ul>
+                </div>
+                
+                
+                <!-- ./dropdown -->
+              </div>
+              <!-- ./col -->
+            </div>
+            <!-- ./row -->
+          </nav>
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <h1 class="h2 my-4">Dashboard</h1>
+            <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-4 row-stats">
+              <div class="col">
+                <a href="#" class="h-primary-outline">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">                   
+                        </div>
+                        <div class="col-md-10">
+                          <h3 class="h5">Total Admin</h3>
+                          <p class="m-0 text-muted">
+                            Active Admins : 125
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <!-- link -->
+              </div>
+              <!-- ./col -->
+              <div class="col">
+                <a href="#" class="h-primary-outline">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">                      
+                        </div>
+                        <div class="col-md-10">
+                          <h3 class="h5">Total Staffs</h3>
+                          <p class="m-0 text-muted">
+                            Active Staffs: 20
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <!-- link -->
+              </div>
+              <!-- ./col -->
+              <div class="col">
+                <a href="#" class="h-primary-outline">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                         
+                        </div>
+                        <div class="col-md-10">
+                          <h3 class="h5">Total Employees</h3>
+                          <p class="m-0 text-muted">
+                            Active Employees: 10
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <!-- link -->
+              </div>
+              <!-- ./col -->
+              <div class="col">
+                <a href="#" class="h-primary-outline">
+                  <div class="card shadow-sm">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-2">
+                          
+                        </div>
+                        <div class="col-md-10">
+                          <h3 class="h5">Total Students</h3>
+                          <p class="m-0 text-muted">
+                            Active Students : 100
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <!-- link -->
+              </div>
+             
+           
+              <!-- ./col -->
+              <div class="col-12 col-sm-6 col-md-12">
+                <div class="card shadow-sm">
+                  <div class="card-body p-3">
+                    <h2 class="my-0 h3">Lorem Ipsum</h2>
+                    <div class="chart-container">
+                        <canvas id="MyChart"> {{chart}}</canvas>
+                    </div>
+                  </div>
+                  <!-- ./card-body -->
+                 </div>       
+                 <!-- ./col -->
+                 <hr>
+               </div>
+               
+               <div class="row col-md-12 calan_body">
+                <div class="side_calanserTask-left col-6">
+                  <p>Events</p>
+                  <div id="eventsList">
+                    <!-- Events will be dynamically added here -->
+                    <div *ngFor="let event of events">
+                      <div class="event-card">
+                        <h4>{{ event.title }}</h4>
+                        <p>{{ event.description }}</p>
+                        <p><strong>Date:</strong> {{ event.date }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="addEventForm" style="display: none;">
+                    <input type="text" id="eventTitle" placeholder="Event Title" />
+                    <textarea id="eventDescription" placeholder="Event Description"></textarea>
+                    <input type="date" id="eventDate" />
+                    <button id="saveEventBtn" (click)="saveEvent()">Save</button>
+                    <button id="cancelEventBtn" (click)="cancelEvent()">Cancel</button>
+                  </div>
+                  <button id="addEventBtn" (click)="showAddEventForm()">Add Event</button>
+                </div>
+              
+                <div class="side_calanserTask-right col-6">
+                  <div class="calendar-container">
+                    <!-- Header: Current month and year -->
+                    <div class="calendar-header">
+                      <button class="nav-btn" (click)="prevMonth()">&#9664;</button>
+                      <span class="month-year">{{ currentMonthName }} {{ displayedYear }}</span>
+                      <button class="nav-btn" (click)="nextMonth()">&#9654;</button>
+                    </div>
+                  
+                    <!-- Calendar Table -->
+                    <table class="calendar-table">
+                      <thead>
+                        <tr>
+                          <th>Sun</th>
+                          <th>Mon</th>
+                          <th>Tue</th>
+                          <th>Wed</th>
+                          <th>Thu</th>
+                          <th>Fri</th>
+                          <th>Sat</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let week of calendarDays">
+                          <td *ngFor="let day of week" [ngClass]="{'empty': !day}" (click)="onDayClick(day)">
+                            <span *ngIf="day">{{ day }}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  
+                    <!-- Current Time Display -->
+                    <div class="current-time">
+                      <span>{{ currentTime }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <!-- ./row -->
+          </main>
+        </div>
+        <!-- ./row -->
+      </div>
+     
+    </div> 
+    <div>
+      
+      <router-outlet></router-outlet>
+    </div>
