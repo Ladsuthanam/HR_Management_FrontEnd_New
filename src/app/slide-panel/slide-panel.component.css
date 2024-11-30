@@ -9,7 +9,7 @@
 
 .app-slide-panel {
   width: 350px;
-  height: 75%;
+  height: 65%;
   background-color: #c4ecf6;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;

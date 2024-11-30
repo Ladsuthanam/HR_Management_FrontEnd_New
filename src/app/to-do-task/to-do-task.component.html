@@ -28,9 +28,8 @@
     <app-slide-panel
     [headerText]="'Task Details'"
     [isOpen]="isSlidePanelOpen"
-    (onClose)="onCloseSlidePanel()"
-  >
-    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" class="p-3">
+    (onClose)="onCloseSlidePanel()">
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" autocomplete="off" novalidate class="p-3">
       <div class="form-group mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" id="title" class="form-control"
