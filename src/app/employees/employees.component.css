@@ -1,10 +1,14 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 .main{
-  height: 900px !important;
+  height: 1000px !important;
   width: 100%;
-  text-align: center;
-  background-color: rgb(234, 234, 234);
+  background-color: rgb(207, 231, 235);
+ 
+}
+.containerBody{
+padding-top: 120px;
+padding-left: 350px;
 }
 /* 
 :root {
