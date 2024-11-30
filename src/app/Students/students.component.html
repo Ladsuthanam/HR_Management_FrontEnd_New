@@ -1,0 +1,76 @@
+<div class="containers ms-2">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="container-fluid">
+            <form class="d-flex" (submit)="onSearch($event)">
+              <input 
+                class="form-control me-2" 
+                type="search" 
+                placeholder="Search by Student ID, Name or Date" 
+                aria-label="Search" 
+                [(ngModel)]="searchTerm">
+              <button class="btn btn-outline-primary" type="submit">Search</button>
+            </form>
+          </div>
+      </nav>
+    <div class="container mt-5 table-Con">
+      <h2 class="text-center">Attendance Records</h2>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Attendance ID</th>
+            <th>Student ID</th>
+            <th>Student Name</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of attendanceRecords; let i = index">
+            <td>{{ record.id }}</td>
+            <td>{{ record.studentId }}</td>
+            <td>{{ record.firstName }}</td>
+            <td>{{ record.date | date: 'short' }}</td>
+            <td>
+              <!-- Editable Status Dropdown or Text -->
+              <ng-container *ngIf="record.isEditing">
+                <select [(ngModel)]="record.status" class="form-select" (change)="onStatusChange(record)">
+                  <option value="Present">Present</option>
+                  <option value="Absent">Absent</option>
+                </select>
+              </ng-container>
+              <ng-container *ngIf="!record.isEditing">
+                {{ record.status }}
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngIf="record.isEditing">
+                <!-- Save and Cancel Buttons when Editing -->
+                <button class="btn btn-success btn-sm" (click)="saveAttendance(record)">
+                  <i class="fas fa-save"></i> Save
+                </button>
+                <button class="btn btn-secondary btn-sm ml-2" (click)="cancelEdit(record)">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </ng-container>
+              <ng-container *ngIf="!record.isEditing">
+                <!-- Edit Button when not Editing -->
+                <button class="btn btn-warning btn-sm" (click)="editAttendance(record)">
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+                <!-- Delete Button -->
+                <button class="btn btn-danger btn-sm ml-2" (click)="deleteAttendance(record.id)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  

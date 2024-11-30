@@ -7,6 +7,13 @@ import { EmployeesComponent } from './employees/employees.component';
 import { ToDoTaskComponent } from './to-do-task/to-do-task.component';
 import { Component } from '@angular/core';
 import { SlidePanelComponent } from './slide-panel/slide-panel.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { Title } from 'chart.js';
+import { StudentsComponent } from './Students/students.component';
+import { StaffComponent } from './staff/staff.component';
+import { LecturesComponent } from './lectures/lectures.component';
+import { SalaryComponent } from './salary/salary.component';
+import { AttendanceReportComponent } from './Students/attendance-report/attendance-report.component';
 
 export const routes: Routes = [
     {
@@ -33,10 +40,40 @@ export const routes: Routes = [
                 title: 'Employees'
             },
             {
+                path:'students',
+                component:StudentsComponent,
+                title:'Students'
+            },
+            {
+                path:'staff',
+                component:StaffComponent,
+                title:'Staff'
+
+            },
+            {
+                path:'lectures',
+                component:LecturesComponent,
+                title:"Lectures"
+            },
+
+            {
                 path:'todo',
                 component: ToDoTaskComponent,
                 title:'ToDo-Task',
+            },
+            {
+              path:'studentReport',
+              component: AttendanceReportComponent,
+              title:'AttendanceReport'
+
+            },
+            {
+              path:'salary',
+              component:SalaryComponent,
+              title:'Salary-Managemet'
+
             }
+          
         ]
     }
 ];
