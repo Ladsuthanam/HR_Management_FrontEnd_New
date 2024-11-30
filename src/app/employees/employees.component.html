@@ -50,7 +50,8 @@
        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Employee</button>
       </div>
       <div class="search-employees">
-        <input type="search" class="form-control" placeholder="Search Employees">
+        <input type="search" class="form-control" placeholder="Search Employees"
+        (input)="searchEmployees(searchInput.value)" #searchInput>
       </div>
     </div>
     <div class="employees black-border">
@@ -121,6 +122,10 @@
                 <div class="col-md-6 mb-3">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control" id="email" placeholder="Enter Email">
+                </div>
+                <div class="col-md-6 mb-3">
+                   <label for="profile" class="form-label">Profile Image</label>
+                   <input type="file" class="form-control" id="profile">
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="maritalStatus" class="form-label">Marital Status</label>

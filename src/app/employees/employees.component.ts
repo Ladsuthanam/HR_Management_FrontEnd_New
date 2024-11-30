@@ -138,5 +138,9 @@ export class EmployeesComponent implements OnInit {
     console.log('Saving changes...');
     this.closeModal();
   }
+
+  searchEmployees(event:any){
+
+  }
 }
 
