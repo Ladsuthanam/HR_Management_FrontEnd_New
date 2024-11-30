@@ -1,7 +1,5 @@
-<div class="main ">
-  <main class="full-body">
-
-    <header class="bg-light p-4 shadow-sm fixed">
+ <div class="main">
+    <header class="p-4 shadow-sm fixed">
       <nav>
         <!-- Notification Icon with Count -->
         <div class="notification-wrapper" (click)="toggleNotificationModal()">
@@ -25,9 +23,7 @@
               <li><ion-icon name="log-out-outline" class="dropdown-list-icon"></ion-icon><span>Logout</span></li>
             </ul>
           </div>
-        </div>
-
-        
+        </div>       
       </nav>
     </header>
      
@@ -44,22 +40,20 @@
         </div>
       </div>
     </div>
-    <div>
-      
-  </div>
+  <div>
 
   <div class="containerBody">
     <h1 class="text-danger text-center">Employee Details</h1>
     <hr>
     <div class="toolbar">
       <div class="add-employee">
-      <button type="button" class="btn btn-outline-success btn-lg">Add Employee</button>
+       <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Employee</button>
       </div>
       <div class="search-employees">
         <input type="search" class="form-control" placeholder="Search Employees">
       </div>
     </div>
-    <div class="employees">
+    <div class="employees black-border">
       <div class="roe mt-5">
         <div class="col text-center">
           <span class="text-secondary fs-2 fw-bold fdt-italic">
@@ -67,10 +61,349 @@
           </span>
         </div>
       </div>
+    </div>  
+  </div> 
+<!--********************************************************************************-->
+<!-- Modal -->
+<div class="modal fade" id="employeeDetailsModal" tabindex="-1" aria-labelledby="employeeDetailsModalLabel" aria-hidden="true" [ngClass]="{'show': isModalOpen}">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Tabs for Sections -->
+        <ul class="nav nav-tabs mb-3" id="employeeTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="employee-details-tab" data-bs-toggle="tab" data-bs-target="#employeeDetails" type="button" role="tab" aria-controls="employeeDetails" aria-selected="true">Employee Details</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="employee-address-tab" data-bs-toggle="tab" data-bs-target="#employeeAddress" type="button" role="tab" aria-controls="employeeAddress" aria-selected="false">Address</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="employee-olevel-tab" data-bs-toggle="tab" data-bs-target="#employeeOLevel" type="button" role="tab" aria-controls="employeeOLevel" aria-selected="false">O-Level</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="employee-alevel-tab" data-bs-toggle="tab" data-bs-target="#employeeALevel" type="button" role="tab" aria-controls="employeeALevel" aria-selected="false">A-Level</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="employee-higher-tab" data-bs-toggle="tab" data-bs-target="#employeeHigher" type="button" role="tab" aria-controls="employeeHigher" aria-selected="false">Higher Studies</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="employee-experience-tab" data-bs-toggle="tab" data-bs-target="#employeeExperience" type="button" role="tab" aria-controls="employeeExperience" aria-selected="false">Experience</button>
+          </li>
+          
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="employeeTabContent">
+          <!-- Employee Details -->
+          <div class="tab-pane fade show active" id="employeeDetails" role="tabpanel" aria-labelledby="employee-details-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="userId" class="form-label">User ID</label>
+                  <input type="text" class="form-control" id="userId" placeholder="Enter User ID">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="firstName" placeholder="Enter First Name"  [(ngModel)]="employee.firstName">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="nic" class="form-label">NIC</label>
+                  <input type="text" class="form-control" id="nic" placeholder="Enter NIC">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter Email">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="maritalStatus" class="form-label">Marital Status</label>
+                  <select class="form-select" id="maritalStatus">
+                    <option selected>Choose...</option>
+                    <option>Single</option>
+                    <option>Married</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="phoneNumber" class="form-label">Phone Number</label>
+                  <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="dob" class="form-label">Date of Birth</label>
+                  <input type="date" class="form-control" id="dob">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="role" class="form-label">Role</label>
+                  <select class="form-select" id="role">
+                    <option selected>Choose...</option>
+                    <option>Employee</option>
+                    <option>Student</option>
+                    <option>Lecture</option>
+                    <option>Staff</option>
+                    <option>Admin</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select class="form-select" id="gender">
+                    <option selected>Choose...</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Employee Address -->
+          <div class="tab-pane fade" id="employeeAddress" role="tabpanel" aria-labelledby="employee-address-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="houseNumber" class="form-label">House Number</label>
+                  <input type="text" class="form-control" id="houseNumber" placeholder="Enter House Number">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="street" class="form-label">Street</label>
+                  <input type="text" class="form-control" id="street" placeholder="Enter Street">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="city" class="form-label">City</label>
+                  <input type="text" class="form-control" id="city" placeholder="Enter City">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="state" class="form-label">State</label>
+                  <input type="text" class="form-control" id="state" placeholder="Enter State">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="postalCode" class="form-label">Postal Code</label>
+                  <input type="text" class="form-control" id="postalCode" placeholder="Enter Postal Code">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="country" class="form-label">Country</label>
+                  <input type="text" class="form-control" id="country" placeholder="Enter Country">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane fade" id="employeeOLevel" role="tabpanel" aria-labelledby="employee-olevel-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="indexNo" class="form-label">Index Number</label>
+                  <input type="text" class="form-control" id="indexNo" placeholder="Enter Index Number">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="year" class="form-label">Year</label>
+                  <input type="text" class="form-control" id="year" placeholder="Enter Year of Examination">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="school" class="form-label">School</label>
+                  <input type="text" class="form-control" id="school" placeholder="Enter School Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="tamil" class="form-label">Tamil</label>
+                  <input type="text" class="form-control" id="tamil" placeholder="Enter Grade for Tamil">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="science" class="form-label">Science</label>
+                  <input type="text" class="form-control" id="science" placeholder="Enter Grade for Science">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="maths" class="form-label">Maths</label>
+                  <input type="text" class="form-control" id="maths" placeholder="Enter Grade for Maths">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="religion" class="form-label">Religion</label>
+                  <input type="text" class="form-control" id="religion" placeholder="Enter Grade for Religion">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="english" class="form-label">English</label>
+                  <input type="text" class="form-control" id="english" placeholder="Enter Grade for English">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="history" class="form-label">History</label>
+                  <input type="text" class="form-control" id="history" placeholder="Enter Grade for History">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="basket1" class="form-label">Basket 1 (Subject)</label>
+                  <input type="text" class="form-control" id="basket1" placeholder="Enter Basket 1 Subject">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="basket2" class="form-label">Basket 2</label>
+                  <input type="text" class="form-control" id="basket2" placeholder="Enter Basket 2 Subject">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="basket3" class="form-label">Basket 3</label>
+                  <input type="text" class="form-control" id="basket3" placeholder="Enter Basket 3 Subject">
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="tab-pane fade" id="employeeALevel" role="tabpanel" aria-labelledby="employee-alevel-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="indexNo" class="form-label">Index Number</label>
+                  <input type="text" class="form-control" id="indexNo" placeholder="Enter Index Number">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="year" class="form-label">Year</label>
+                  <input type="text" class="form-control" id="year" placeholder="Enter Year of Examination">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="school" class="form-label">School</label>
+                  <input type="text" class="form-control" id="school" placeholder="Enter School Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="stream" class="form-label">Stream</label>
+                  <input type="text" class="form-control" id="stream" placeholder="Enter Stream (e.g., Science, Commerce)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="subject1" class="form-label">Subject 1</label>
+                  <input type="text" class="form-control" id="subject1" placeholder="Enter Subject 1">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="subject2" class="form-label">Subject 2</label>
+                  <input type="text" class="form-control" id="subject2" placeholder="Enter Subject 2">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="subject3" class="form-label">Subject 3</label>
+                  <input type="text" class="form-control" id="subject3" placeholder="Enter Subject 3">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="generalEnglish" class="form-label">General English</label>
+                  <input type="text" class="form-control" id="generalEnglish" placeholder="Enter Grade for General English">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="generalKnowledge" class="form-label">General Knowledge</label>
+                  <input type="number" class="form-control" id="generalKnowledge" placeholder="Enter General Knowledge Marks">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="git" class="form-label">GIT</label>
+                  <input type="text" class="form-control" id="git" placeholder="Enter Grade for GIT">
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="tab-pane fade" id="employeeHigherStudies" role="tabpanel" aria-labelledby="employee-higher-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="type" class="form-label">Type</label>
+                  <input type="text" class="form-control" id="type" placeholder="Enter Type of Higher Studies (e.g., Degree, Masters)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="stream" class="form-label">Stream</label>
+                  <input type="text" class="form-control" id="stream" placeholder="Enter Stream (e.g., Computer Science, Engineering)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="year" class="form-label">Year</label>
+                  <input type="text" class="form-control" id="year" placeholder="Enter Year of Completion">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="duration" class="form-label">Duration</label>
+                  <input type="text" class="form-control" id="duration" placeholder="Enter Duration (e.g., 2 years)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="description" class="form-label">Description</label>
+                  <input type="text" class="form-control" id="description" placeholder="Enter Description of the Program">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="institute" class="form-label">Institute</label>
+                  <input type="text" class="form-control" id="institute" placeholder="Enter Institute Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="grade" class="form-label">Grade</label>
+                  <input type="text" class="form-control" id="grade" placeholder="Enter Grade Achieved">
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <div class="tab-pane fade" id="employeeHigher" role="tabpanel" aria-labelledby="employee-higher-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="type" class="form-label">Type</label>
+                  <input type="text" class="form-control" id="type" placeholder="Enter Type of Higher Studies (e.g., Degree, Masters)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="stream" class="form-label">Stream</label>
+                  <input type="text" class="form-control" id="stream" placeholder="Enter Stream (e.g., Computer Science, Engineering)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="year" class="form-label">Year</label>
+                  <input type="text" class="form-control" id="year" placeholder="Enter Year of Completion">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="duration" class="form-label">Duration</label>
+                  <input type="text" class="form-control" id="duration" placeholder="Enter Duration (e.g., 2 years)">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="description" class="form-label">Description</label>
+                  <input type="text" class="form-control" id="description" placeholder="Enter Description of the Program">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="institute" class="form-label">Institute</label>
+                  <input type="text" class="form-control" id="institute" placeholder="Enter Institute Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="grade" class="form-label">Grade</label>
+                  <input type="text" class="form-control" id="grade" placeholder="Enter Grade Achieved">
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="tab-pane fade" id="employeeExperience" role="tabpanel" aria-labelledby="employee-experience-tab">
+            <form>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="companyName" class="form-label">Company Name</label>
+                  <input type="text" class="form-control" id="companyName" placeholder="Enter Company Name">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="position" class="form-label">Position</label>
+                  <input type="text" class="form-control" id="position" placeholder="Enter Position Held">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="startDate" class="form-label">Start Date</label>
+                  <input type="date" class="form-control" id="startDate">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="endDate" class="form-label">End Date</label>
+                  <input type="date" class="form-control" id="endDate">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="experienceDescription" class="form-label">Description</label>
+                  <textarea class="form-control" id="experienceDescription" placeholder="Enter a brief description of your responsibilities and achievements"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="saveChanges()">Save Details</button>
+      </div>
     </div>
-    
   </div>
- 
-</main>
+</div>    
+<!--**********************************************************************************-->
+
+  <div>
     <router-outlet></router-outlet>
-</div>
+  </div>
+

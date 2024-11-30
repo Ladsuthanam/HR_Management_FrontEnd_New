@@ -3,12 +3,13 @@
 .main{
   height: 1000px !important;
   width: 100%;
-  background-color: rgb(207, 231, 235);
- 
+  background-color: rgb(229, 247, 250);
+  overflow: visible !important;
+
 }
 .containerBody{
 padding-top: 120px;
-padding-left: 350px;
+padding-left: 300px;
 }
 /* 
 :root {
@@ -28,7 +29,7 @@ header {
   -webkit-align-items: center;
   align-items: center;
   position: fixed;
- 
+  background-color: #058ea7;
 }
 
 nav {
@@ -358,6 +359,7 @@ ion-icon[name="notifications-outline"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-right: 5px;
 }
 .add-employee{
   width: 20%;
@@ -369,6 +371,13 @@ ion-icon[name="notifications-outline"] {
   width: 350px;
   border-radius: 1rem;
   box-shadow: 0px 0px 10px rgb(39, 123, 145);
- 
-
 }
+.search-employees input{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  font-size: 1rem;
+}
+
+
+

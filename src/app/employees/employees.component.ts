@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 interface Notification {
   id: number;
@@ -14,7 +14,7 @@ interface Notification {
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterOutlet, FormsModule],
+  imports: [IonicModule, CommonModule, RouterOutlet, FormsModule,ReactiveFormsModule],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css']
 })
@@ -55,6 +55,88 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
    
+  }
+
+  employee = {
+    firstName: '',
+    lastName: '',
+    nic: '',
+    email: '',
+    maritalStatus: '',
+    phoneNumber: '',
+    dateOfBirth: '',
+    role: '',
+    gender: '',
+    address: {
+      houseNumber: '',
+      street: '',
+      city: '',
+      state: '',
+      postalCode: '',
+      country: ''
+    },
+    oLevel: {
+      indexNo: '',
+      year: '',
+      school: '',
+      tamil: '',
+      science: '',
+      maths: '',
+      religion: '',
+      english: '',
+      history: '',
+      basket1: '',
+      basket2: '',
+      basket3: ''
+    },
+    aLevel: {
+      indexNo: '',
+      year: '',
+      school: '',
+      stream: '',
+      subject1: '',
+      subject2: '',
+      subject3: '',
+      generalEnglish: '',
+      generalKnowledge: '',
+      git: ''
+    },
+    higherStudies: {
+      type: '',
+      stream: '',
+      year: '',
+      duration: '',
+      description: '',
+      institute: '',
+      grade: ''
+    },
+    experience: {
+      companyName: '',
+      position: '',
+      startDate: '',
+      endDate: '',
+      description: ''
+    }
+  };
+
+
+  isModalOpen: boolean = false;
+
+  // Method to open the modal
+  openModal(): void {
+    this.isModalOpen = true;
+  }
+
+  // Method to close the modal
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  // Method to handle save changes
+  saveChanges(): void {
+    // Add your logic for saving changes
+    console.log('Saving changes...');
+    this.closeModal();
   }
 }
 

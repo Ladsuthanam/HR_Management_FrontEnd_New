@@ -6,7 +6,7 @@ import { FilterPipe } from '../pipes/filter.pipe';
 @Component({
   selector: 'app-students',
   standalone: true, 
-  imports: [RouterOutlet, CommonModule, FormsModule,FilterPipe],
+  imports: [RouterOutlet, CommonModule, FormsModule],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css']
 })
