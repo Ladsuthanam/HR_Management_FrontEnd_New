@@ -66,57 +66,7 @@ export class EmployeesComponent implements OnInit {
     phoneNumber: '',
     dateOfBirth: '',
     role: '',
-    gender: '',
-    address: {
-      houseNumber: '',
-      street: '',
-      city: '',
-      state: '',
-      postalCode: '',
-      country: ''
-    },
-    oLevel: {
-      indexNo: '',
-      year: '',
-      school: '',
-      tamil: '',
-      science: '',
-      maths: '',
-      religion: '',
-      english: '',
-      history: '',
-      basket1: '',
-      basket2: '',
-      basket3: ''
-    },
-    aLevel: {
-      indexNo: '',
-      year: '',
-      school: '',
-      stream: '',
-      subject1: '',
-      subject2: '',
-      subject3: '',
-      generalEnglish: '',
-      generalKnowledge: '',
-      git: ''
-    },
-    higherStudies: {
-      type: '',
-      stream: '',
-      year: '',
-      duration: '',
-      description: '',
-      institute: '',
-      grade: ''
-    },
-    experience: {
-      companyName: '',
-      position: '',
-      startDate: '',
-      endDate: '',
-      description: ''
-    }
+    gender: ''
   };
 
 
@@ -134,13 +84,11 @@ export class EmployeesComponent implements OnInit {
 
   // Method to handle save changes
   saveChanges(): void {
-    // Add your logic for saving changes
-    console.log('Saving changes...');
-    this.closeModal();
+
   }
 
-  searchEmployees(event:any){
-
+  searchEmployees(searchTerm: string): void {
+    console.log('Searching for:', searchTerm);
   }
 }
 
