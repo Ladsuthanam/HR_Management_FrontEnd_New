@@ -1,56 +1,71 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';  
-import { FilterPipe } from '../pipes/filter.pipe';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-students',
-  standalone: true, 
-  imports: [RouterOutlet, CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css']
 })
-export class StudentsComponent implements OnInit {
-  searchTerm: string = '';
-  attendanceRecords = [
-    { id: 1, studentId: 101, firstName: 'John', date: new Date(), status: 'Present', isEditing: false },
-    { id: 2, studentId: 102, firstName: 'Jane', date: new Date(), status: 'Absent', isEditing: false },
-    { id: 3, studentId: 103, firstName: 'Alex', date: new Date(), status: 'Present', isEditing: false }
-  ];
+export class StudentsComponent {
+  isModalOpen = false;
+  searchInput: string = '';
+  students: any[] = []; // Array to hold the list of students
+  newStudent: any = {
+    userId: '',
+    firstName: '',
+    lastName: '',
+    nic: '',
+    email: '',
+    profileImage: '',
+    phoneNumber: ''
+  };
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-  onSearch(event: Event): void {
-    event.preventDefault(); // Prevent the form from submitting and refreshing the page
-    console.log('Search term:', this.searchTerm); // Optional: Log the search term
+  // Toggle modal visibility
+  openModal() {
+    console.log('Modal should open');
+    this.isModalOpen = true;
   }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  // Adding student
+  addStudent() {
+    if (this.newStudent) {
+      this.students.push({ ...this.newStudent }); // Add a copy of newStudent to the students array
+      this.closeModal(); // Close the modal after adding the student
+      this.newStudent(); // Clear the form after submission
+    }
+  }
+
   
-  editAttendance(record: any): void {
-    record.isEditing = true; 
-  }
 
-  // Save the edited record
-  saveAttendance(record: any): void {
-    record.isEditing = false; 
-    console.log(`Attendance for ${record.firstName} saved with status: ${record.status}`);
+  // Search functionality
+  searchStudents(query: string) {
+    if (!query) {
+      console.log("Returning all students:", this.students);
+      return this.students; // Return the whole list of students
+    }
+
+    const filteredStudents = this.students.filter((student: { firstName: string; lastName: string; email: string; userId: string; }) =>
+      student.firstName.toLowerCase().includes(query.toLowerCase()) ||
+      student.lastName.toLowerCase().includes(query.toLowerCase()) ||
+      student.email.toLowerCase().includes(query.toLowerCase()) ||
+      student.userId.toLowerCase().includes(query.toLowerCase())
+    );
     
+    console.log("Filtered students:", filteredStudents);
+    return filteredStudents; // Return filtered list of students
   }
 
- 
-  cancelEdit(record: any): void {
-    record.isEditing = false; 
-  }
-
- 
-  onStatusChange(record: any): void {
-    console.log(`Attendance status updated for ${record.firstName} to ${record.status}`);
-   
-  }
-
-  // Delete attendance record
-  deleteAttendance(recordId: number): void {
-    this.attendanceRecords = this.attendanceRecords.filter(record => record.id !== recordId);
+  // View student details
+  viewDetails(student: any) {
+    console.log(student);  // You can display details in a modal or log it
+    // Example: open a detailed modal or navigate to another page with details
   }
 }

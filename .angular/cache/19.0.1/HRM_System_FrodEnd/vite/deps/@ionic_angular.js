@@ -1,10 +1,3 @@
-import {
-  MaxValidator,
-  MinValidator,
-  NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  NgControl
-} from "./chunk-6CRCVR3X.js";
 import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
 import {
@@ -39,6 +32,13 @@ import {
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
 } from "./chunk-2TYK2BCW.js";
+import {
+  MaxValidator,
+  MinValidator,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  NgControl
+} from "./chunk-6CRCVR3X.js";
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
