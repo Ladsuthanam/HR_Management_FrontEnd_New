@@ -42,4 +42,15 @@ select.form-select {
     background-color: #6c757d;
     color: white;
   }
+  .add-employee{
+    padding-left: 300px;
+  }
+  .search-employees{
+    padding-left: 365px;
+  }
+  .toolbar{
+    display: flex;
+  }
+
+  
   
