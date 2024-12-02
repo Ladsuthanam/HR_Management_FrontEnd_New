@@ -32,12 +32,7 @@ export class EmployeesComponent implements OnInit {
       type: 'select',
       options: ['Single', 'Married', 'Divorced', 'Widowed'],
     },
-    {
-      controlName: 'role',
-      label: 'Role',
-      type: 'select',
-      options: ['Employee', 'Student', 'Lecturer', 'Staff', 'Admin'],
-    },
+    
     {
       controlName: 'gender',
       label: 'Gender',
@@ -52,12 +47,11 @@ export class EmployeesComponent implements OnInit {
       profile: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      nic: ['', [Validators.required, Validators.pattern('^(\\d{9}V|\\d{12})$')]],
+      nic: ['', [Validators.required, Validators.pattern('^(\\d{9}[vV]|\\d{12})$')]],
       email: ['', [Validators.required, Validators.email]],
       maritalStatus: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       dob: ['', Validators.required],
-      role: ['', Validators.required],
       gender: ['', Validators.required],
     });
   }
