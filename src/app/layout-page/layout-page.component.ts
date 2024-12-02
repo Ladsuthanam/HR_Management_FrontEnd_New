@@ -3,6 +3,14 @@ import { Component,  AfterViewInit, OnInit ,HostListener} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+
+
+interface Notification {
+  id: number;
+  message: string;
+  isRead: boolean;
+}
 
 
 
@@ -10,7 +18,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
   styleUrls: ['./layout-page.component.css'],
-  imports: [FormsModule,CommonModule,RouterOutlet,RouterLink],
+  imports: [FormsModule,CommonModule,RouterOutlet,RouterLink,IonicModule],
 })
 export class LayoutPageComponent implements OnInit, AfterViewInit{
   private sidebar!: HTMLElement;
@@ -18,16 +26,41 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
 
   isDropdownOpen = false;
   
- 
+  notifications: Notification[] = [
+    { id: 1, message: 'New leave request submitted', isRead: false },
+    { id: 2, message: 'Meeting scheduled for tomorrow', isRead: false },
+    { id: 3, message: 'Update your profile information', isRead: false }
+  ];
 
-  // ngOnInit(): void {
-  //   this.sidebar = document.querySelector('#sidebar') as HTMLElement;
-  //   this.toggleButton = document.querySelector('#sidebar-toggle') as HTMLElement;
+  newNotificationCount: number = this.notifications.filter(n => !n.isRead).length;
+  isNotificationModalOpen: boolean = false;
 
-  //   this.toggleButton.addEventListener('click', this.showSidebar.bind(this));
-    
-  // }
-ngOnInit(): void {
+  toggleNotificationModal(): void {
+    this.isNotificationModalOpen = !this.isNotificationModalOpen;
+    this.markNotificationsAsRead();
+  }
+
+  closeNotificationModal(): void {
+    this.isNotificationModalOpen = false;
+  }
+
+  markNotificationsAsRead(): void {
+    this.notifications.forEach(notification => (notification.isRead = true));
+    this.updateNotificationCount();
+  }
+
+  updateNotificationCount(): void {
+    this.newNotificationCount = this.notifications.filter(n => !n.isRead).length;
+  }
+
+  replyToNotification(notificationId: number): void {
+    const notification = this.notifications.find(n => n.id === notificationId);
+    if (notification) {
+      alert(`Replying to: "${notification.message}"`);
+    }
+  }
+
+   ngOnInit(): void {
     // Initialization logic that doesn't depend on the DOM
   }
 

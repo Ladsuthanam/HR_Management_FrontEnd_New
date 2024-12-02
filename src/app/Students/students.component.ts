@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import bootstrap from 'bootstrap';
 
+
 @Component({
   selector: 'app-students',
   standalone: true,
@@ -12,6 +13,7 @@ import bootstrap from 'bootstrap';
   styleUrls: ['./students.component.css']
 })
 export class StudentsComponent {
+
   itemName: string = '';
   items: string[] = []; // Array to store saved items
 
@@ -33,4 +35,5 @@ export class StudentsComponent {
       modal.hide(); // Programmatically hide the modal
     }
   }
+
 }

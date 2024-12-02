@@ -1,46 +1,4 @@
  <div class="main">
-    <header class="p-4 shadow-sm fixed">
-      <nav>
-        <!-- Notification Icon with Count -->
-        <div class="notification-wrapper" (click)="toggleNotificationModal()">
-          <ion-icon name="notifications-outline"></ion-icon>
-          <span class="notification-count" *ngIf="newNotificationCount > 0">
-            {{ newNotificationCount }}
-          </span>
-        </div>
-  
-        <!-- Profile Dropdown -->
-        <div class="dropdown-wrapper">
-          <input type="checkbox" id="dropdown-toggle" class="dropdown-toggle">
-          <label for="dropdown-toggle" class="dropdown-label"></label>
-          <div class="dropdown-menu dropdown-menu--display">
-            <div class="upper-triangle"></div>
-            <ul class="dropdown-list">
-              <li><ion-icon name="person-outline" class="dropdown-list-icon"></ion-icon><span>Profile</span></li>
-              <li><ion-icon name="mail-outline" class="dropdown-list-icon"></ion-icon><span>Inbox</span></li>
-              <li><ion-icon name="settings-outline" class="dropdown-list-icon"></ion-icon><span>Settings</span></li>
-              <li><ion-icon name="help-circle-outline" class="dropdown-list-icon"></ion-icon><span>Help</span></li>
-              <li><ion-icon name="log-out-outline" class="dropdown-list-icon"></ion-icon><span>Logout</span></li>
-            </ul>
-          </div>
-        </div>       
-      </nav>
-    </header>
-     
-    <!-- Notification Modal -->
-    <div class="notification-modal" *ngIf="isNotificationModalOpen">
-      <div class="notification-header">
-        <h3>Notifications</h3>
-        <button (click)="closeNotificationModal()">✖</button>
-      </div>
-      <div class="notification-content">
-        <div *ngFor="let notification of notifications" class="notification-item">
-          <p>{{ notification.message }}</p>
-          <button (click)="replyToNotification(notification.id)">Reply</button>
-        </div>
-      </div>
-    </div>
-  <div>
 
   <div class="containerBody">
     <h1 class="text-danger text-center">Employee Details</h1>
