@@ -1,48 +1,76 @@
-
-
-<!-- Modal -->
-<div
-  class="modal fade"
-  id="addItemModal"
-  tabindex="-1"
-  aria-labelledby="addItemModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"></button>
+<div class="main">
+  <div class="containerBody">
+    <h1 class="text-danger text-center">Student Details</h1>
+    <hr>
+    <div class="toolbar">
+      <div class="add-employee">
+        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">+ Add Student</button>
       </div>
-      <div class="modal-body">
-        <label for="itemName" class="form-label">Item Name:</label>
-        <input
-          type="text"
-          id="itemName"
-          [(ngModel)]="itemName"
-          class="form-control"
-          placeholder="Enter item name" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveItem()">Save Item</button>
+      <div class="search-employees">
+        <input type="search" class="form-control" placeholder="Search Students"
+               (input)="searchEmployees(searchInput.value)" #searchInput>
       </div>
     </div>
+    <div class="students-container">
+      <!-- Loop through the filtered list of students and display them in cards -->
+      <div class="row">
+        <div *ngFor="let student of filteredUsers" class="col-md-4 mb-3">
+          <div class="card">
+         
+            <div class="card-body">
+              <h5 class="card-title">{{ student.firstName }} {{ student.lastName }}</h5>
+              <p class="card-text">Student ID: {{ student.userId }}</p>
+              <p class="card-text">NIC: {{ student.nic }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
   </div>
-</div>
 
-<div class="container mt-5">
-  <div class="row">
-    <div *ngFor="let item of items" class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{ item }}</h5>
+  <!-- Modal for adding student -->
+  <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true" [ngClass]="{'show': isModalOpen}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">Add Student</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="userId" class="form-label">Student ID</label>
+              <input type="text" class="form-control" id="userId" formControlName="userId" placeholder="Enter User ID">
+              <div *ngIf="userForm.get('userId')?.invalid && userForm.get('userId')?.touched" class="text-danger">
+                Student ID is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter First Name">
+              <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched" class="text-danger">
+                First Name is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter Last Name">
+              <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched" class="text-danger">
+                Last Name is required
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="nic" class="form-label">NIC</label>
+              <input type="text" class="form-control" id="nic" formControlName="nic" placeholder="Enter NIC">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit</button>
+            <button type="button" class="btn btn-secondary" (click)="cancle()">Cancel</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<router-outlet></router-outlet>
