@@ -1,132 +1,104 @@
- <div class="main">
-
-  <div class="containerBody">
-      
-         <h1 class="text-danger text-center">Employee Details</h1>
-         <button class="btn bg-dark dtail-btn text-white">Information Details Of Employee</button>
-    
-    
-    <div class="toolbar">
-      <div class="add-employee">
-       <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Employee</button>
-       
-      </div>
-      <div class="search-employees">
-        <input type="search" class="form-control" placeholder="Search Employees"
-        (input)="searchEmployees(searchInput.value)" #searchInput>
-      </div>
-    </div>
-    <hr>
-    <div class="employees black-border">
-      <div class="roe mt-5">
-        <div class="col text-center">
-          <span class="text-secondary fs-2 fw-bold fdt-italic">
-            There Are No Employee Details Here
-          </span>
+ 
+  <div class="main">
+    <div class="containerBody">
+      <h1 class="text-danger text-center">Employee Details</h1>
+      <button class="btn bg-dark dtail-btn text-white" routerLink="/employeedata">Information Details Of Employee</button>
+  
+      <div class="toolbar mt-4">
+        <div class="add-employee mb-3">
+          <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Employee</button>
+        </div>
+        <div class="search-employees">
+          <input
+            type="search"
+            class="form-control"
+            placeholder="Search Employees"
+            (input)="searchEmployees(searchInput.value)"
+            #searchInput
+          />
         </div>
       </div>
-    </div>  
-  </div> 
-<!--********************************************************************************-->
-<!-- Modal -->
-<div class="modal fade" id="employeeDetailsModal" tabindex="-1" aria-labelledby="employeeDetailsModalLabel" aria-hidden="true" [ngClass]="{'show': isModalOpen}">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
-        
+  
+      <hr />
+  
+      <div class="employees black-border mt-4">
+        <div class="row">
+          <div *ngIf="filteredUsers.length > 0; else noEmployees" class="d-flex flex-wrap">
+            <!-- Iterate through employees -->
+            <div class="col-md-4 mb-4" *ngFor="let employee of filteredUsers">
+              <div class="card h-100 w-75">
+                <div class="card-body text-center">
+                  <img
+                    [src]="employee.profile || 'https://via.placeholder.com/150'"
+                    alt="Profile Image"
+                    class="img-thumbnail mb-3"
+                    style="width: 100px; height: 100px; border-radius: 50px;"
+                  />
+                  <h5 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h5>
+                  <p class="card-text">User ID: {{ employee.userId }}</p>
+                  <p class="card-text">NIC: {{ employee.nic }}</p>
+                  <p class="card-text">Email: {{employee.email}}</p>
+                </div>
+                <button class="bg-dark text-white">More Info</button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- No employees message -->
+          <ng-template #noEmployees>
+            <div class="col text-center">
+              <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Employee Details Here</span>
+            </div>
+          </ng-template>
+        </div>
       </div>
-      <div class="modal-body">
-        <!-- Tabs for Sections -->
-        <ul class="nav nav-tabs mb-3" id="employeeTabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="employee-details-tab" data-bs-toggle="tab" data-bs-target="#employeeDetails" type="button" role="tab" aria-controls="employeeDetails" aria-selected="true">Employee Details</button>
-          </li>         
-        </ul>
-
-        <!-- Tab Content -->
-        <div class="tab-content" id="employeeTabContent">
-          <!-- Employee Details -->
-          <div class="tab-pane fade show active" id="employeeDetails" role="tabpanel" aria-labelledby="employee-details-tab">
-            <form class="form">
+    </div>
+  
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="employeeDetailsModal"
+      tabindex="-1"
+      aria-labelledby="employeeDetailsModalLabel"
+      aria-hidden="true"
+      [ngClass]="{ show: isModalOpen }"
+      style="display: block;"
+      *ngIf="isModalOpen"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
               <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="userId" class="form-label">User ID</label>
-                  <input type="text" class="form-control" id="userId" name="userId" placeholder="Enter User ID" formControlName="userId">
-                  <small *ngIf="" class="text-danger">*User Id Must want.</small>
+                <div class="col-md-6 mb-3" *ngFor="let field of employeeFields">
+                  <label [for]="field.controlName" class="form-label">{{ field.label }}</label>
+                  <input
+                    [type]="field.type || 'text'"
+                    class="form-control"
+                    [id]="field.controlName"
+                    [formControlName]="field.controlName"
+                    [placeholder]="field.placeholder || ''"
+                  />
+                  <small *ngIf="isInvalid(field.controlName)" class="text-danger">
+                    * {{ field.label }} is required.
+                  </small>
                 </div>
-                <div class="col-md-6 mb-3">
-                  <label for="firstName" class="form-label">First Name</label>
-                  <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name"  [(ngModel)]="employee.firstName">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="lastName" class="form-label">Last Name</label>
-                  <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter Last Name">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="nic" class="form-label">NIC</label>
-                  <input type="text" class="form-control" name="nic" id="nic" placeholder="Enter NIC">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
-                </div>
-                <div class="col-md-6 mb-3">
-                   <label for="profile" class="form-label">Profile Image</label>
-                   <input type="text" class="form-control" id="profile" name= "profile" placeholder="Enter Url link ">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="maritalStatus" class="form-label">Marital Status</label>
-                  <select class="form-select" id="maritalStatus">
-                    <option value="default" selected>Choose...</option>
-                    <option>Single</option>
-                    <option>Married</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="phoneNumber" class="form-label">Phone Number</label>
-                  <input type="text" class="form-control" id="phoneNumber" placeholder="Enter Phone Number">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="dob" class="form-label">Date of Birth</label>
-                  <input type="date" class="form-control" id="dob">
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="role" class="form-label">Role</label>
-                  <select class="form-select" id="role">
-                    <option selected>Choose...</option>
-                    <option>Employee</option>
-                    <option>Student</option>
-                    <option>Lecture</option>
-                    <option>Staff</option>
-                    <option>Admin</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="gender" class="form-label">Gender</label>
-                  <select class="form-select" id="gender">
-                    <option selected>Choose...</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                  </select>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cancel()">Close</button>
+                <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
               </div>
             </form>
           </div>
-          
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
-        <button type="submit" class="btn btn-primary" (click)="saveChanges()">Submit</button>
       </div>
     </div>
   </div>
-</div>    
-<!--**********************************************************************************-->
-
+  
   <div>
     <router-outlet></router-outlet>
   </div>
