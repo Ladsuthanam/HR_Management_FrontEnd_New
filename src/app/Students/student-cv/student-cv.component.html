@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <div *ngIf="student; else noData" class="card p-4">
+      <div class="text-center">
+        <img
+          [src]="student.profile || 'https://via.placeholder.com/150'"
+          alt="Profile Image"
+          class="img-thumbnail mb-3"
+          style="width: 150px; height: 150px; border-radius: 50%;"
+        />
+      </div>
+      <h2 class="text-center">{{ student.firstName }} {{ student.lastName }}</h2>
+      <p><strong>Student ID:</strong> {{ student.studentId }}</p>
+      <p><strong>NIC:</strong> {{ student.nic }}</p>
+      <p><strong>Email:</strong> {{ student.email }}</p>
+      <p><strong>Phone Number:</strong> {{ student.phoneNumber }}</p>
+      <p><strong>Date of Birth:</strong> {{ student.dob }}</p>
+      <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
+      <p><strong>Gender:</strong> {{ student.gender }}</p>
+    </div>
+  
+    <ng-template #noData>
+      <p class="text-danger text-center">No student details found.</p>
+    </ng-template>
+  </div>
+  

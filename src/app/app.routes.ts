@@ -16,6 +16,7 @@ import { SalaryComponent } from './salary/salary.component';
 import { AttendanceReportComponent } from './Students/attendance-report/attendance-report.component';
 import { EmployeeCvComponent } from './employees/employee-cv/employee-cv.component';
 import { EmployeeModelComponent } from './employees/employee-model/employee-model.component';
+import { StudentCvComponent } from './Students/student-cv/student-cv.component';
 
 export const routes: Routes = [
     {
@@ -57,6 +58,12 @@ export const routes: Routes = [
                 path:'students',
                 component:StudentsComponent,
                 title:'Students'
+            },
+            {
+                path:'student-cv/:studentId',
+                component:StudentCvComponent,
+                title:'StudentCv'
+
             },
             {
                 path:'staff',
