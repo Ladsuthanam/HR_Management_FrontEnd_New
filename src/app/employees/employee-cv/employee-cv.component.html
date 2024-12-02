@@ -1,4 +1,29 @@
-
-<div>
-<router-outlet></router-outlet>
-</div>
+<div class="container mt-4">
+    <div class="text-center">
+      <img
+        [src]="employee?.profile || 'https://via.placeholder.com/150'"
+        alt="Profile"
+        class="img-thumbnail"
+        style="width: 150px; height: 150px; border-radius: 50%;"
+      />
+      <h2>{{ employee?.firstName }} {{ employee?.lastName }}</h2>
+      <p>User ID: {{ employee?.userId }}</p>
+      <p>Email: {{ employee?.email }}</p>
+      <p>NIC: {{ employee?.nic }}</p>
+      <p>Phone: {{ employee?.phoneNumber }}</p>
+      <p>Date of Birth: {{ employee?.dob | date }}</p>
+    </div>
+  
+    <div class="row mt-4">
+      <div class="col-md-4 mb-3">
+        <button class="btn btn-outline-info btn-block">Add Address</button>
+      </div>
+      <div class="col-md-4 mb-3">
+        <button class="btn btn-outline-info btn-block">Add Education</button>
+      </div>
+      <div class="col-md-4 mb-3">
+        <button class="btn btn-outline-info btn-block">Add Experience</button>
+      </div>
+    </div>
+  </div>
+  
