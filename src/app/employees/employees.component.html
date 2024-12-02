@@ -1,17 +1,22 @@
  <div class="main">
 
   <div class="containerBody">
-    <h1 class="text-danger text-center">Employee Details</h1>
-    <hr>
+      
+         <h1 class="text-danger text-center">Employee Details</h1>
+         <button class="btn bg-dark dtail-btn text-white">Information Details Of Employee</button>
+    
+    
     <div class="toolbar">
       <div class="add-employee">
        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Employee</button>
+       
       </div>
       <div class="search-employees">
         <input type="search" class="form-control" placeholder="Search Employees"
         (input)="searchEmployees(searchInput.value)" #searchInput>
       </div>
     </div>
+    <hr>
     <div class="employees black-border">
       <div class="roe mt-5">
         <div class="col text-center">
@@ -30,6 +35,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        
       </div>
       <div class="modal-body">
         <!-- Tabs for Sections -->
@@ -43,11 +49,12 @@
         <div class="tab-content" id="employeeTabContent">
           <!-- Employee Details -->
           <div class="tab-pane fade show active" id="employeeDetails" role="tabpanel" aria-labelledby="employee-details-tab">
-            <form>
+            <form class="form">
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="userId" class="form-label">User ID</label>
-                  <input type="text" class="form-control" id="userId" name="userId" placeholder="Enter User ID">
+                  <input type="text" class="form-control" id="userId" name="userId" placeholder="Enter User ID" formControlName="userId">
+                  <small *ngIf="" class="text-danger">*User Id Must want.</small>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="firstName" class="form-label">First Name</label>

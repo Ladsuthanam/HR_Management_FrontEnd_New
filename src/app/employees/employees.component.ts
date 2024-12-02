@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule,ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 @Component({
@@ -15,7 +15,12 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 export class EmployeesComponent implements OnInit {
   
 
+  constructor(private fb: FormBuilder){
+
+
+  }
   ngOnInit(): void {
+   
    
   }
 

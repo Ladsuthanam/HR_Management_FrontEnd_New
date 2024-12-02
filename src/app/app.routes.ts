@@ -15,6 +15,7 @@ import { LecturesComponent } from './lectures/lectures.component';
 import { SalaryComponent } from './salary/salary.component';
 import { AttendanceReportComponent } from './Students/attendance-report/attendance-report.component';
 import { EmployeeCvComponent } from './employees/employee-cv/employee-cv.component';
+import { EmployeeModelComponent } from './employees/employee-model/employee-model.component';
 
 export const routes: Routes = [
     {
@@ -38,12 +39,18 @@ export const routes: Routes = [
             {
                 path: 'employees',
                 component: EmployeesComponent,
-                title: 'Employees'
+                title: 'Employees',
             },
             {
                 path:'employee-cv:id',
                 component:EmployeeCvComponent,
                 title:'EmployeeCv'
+
+            },
+            {
+                path:'employeedata',
+                component:EmployeeModelComponent,
+                title:'EmployeeDetails'
 
             },
             {
