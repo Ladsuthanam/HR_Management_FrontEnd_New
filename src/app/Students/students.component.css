@@ -1,56 +1,10 @@
-.containers{
- padding-left: 90px;
- background-color: rgb(225, 251, 255);
- height: auto;
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-/* Optional: Add custom styling here */
-.container {
-    max-width: 1000px;
-  }
-  .navbar{
-    padding-left: 250px;
-   
-  }
-  
-  table th, table td {
-    text-align: center;
-  }
 
- 
- 
-/* Optional styling for the dropdown and buttons */
-select.form-select {
-    width: 150px;
-    margin-right: 10px;
-  }
-  
-  button {
-    margin-right: 5px;
-  }
-  
-  button.btn-warning {
-    background-color: #f0ad4e;
-    color: white;
-  }
-  
-  button.btn-success {
-    background-color: #5cb85c;
-    color: white;
-  }
-  
-  button.btn-secondary {
-    background-color: #6c757d;
-    color: white;
-  }
-  .add-employee{
-    padding-left: 300px;
-  }
-  .search-employees{
-    padding-left: 365px;
-  }
-  .toolbar{
-    display: flex;
-  }
-
-  
-  
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}

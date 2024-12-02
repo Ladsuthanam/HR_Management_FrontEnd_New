@@ -1,89 +1,58 @@
-<div class="main">
-  <header class="p-4 shadow-sm fixed">
-    <!-- Add Notification and Profile Dropdown as before -->
-  </header>
+<div class="container text-center mt-5">
+  <!-- Button to trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary d-flex align-items-center justify-content-center mx-auto"
+    data-bs-toggle="modal"
+    data-bs-target="#addItemModal"
+    style="border-radius: 20px;">
+    <span class="me-2" style="font-size: 18px; font-weight: bold;">+</span>
+    ADD ITEM
+  </button>
+</div>
 
-  <div class="containerBody">
-    <h1 class="text-danger text-center">Student Details</h1>
-    <hr>
-    <div class="toolbar">
-      <div class="add-employee">
-        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Student</button>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="addItemModal"
+  tabindex="-1"
+  aria-labelledby="addItemModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"></button>
       </div>
-      <form>
-        <input [(ngModel)]="searchInput" name="searchInput" placeholder="Search Students">
-      </form>
+      <div class="modal-body">
+        <label for="itemName" class="form-label">Item Name:</label>
+        <input
+          type="text"
+          id="itemName"
+          [(ngModel)]="itemName"
+          class="form-control"
+          placeholder="Enter item name" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveItem()">Save Item</button>
+      </div>
     </div>
+  </div>
+</div>
 
-    <!-- Display students in card view -->
-    <div class="students-container">
-      <div *ngFor="let student of searchStudents(searchInput)" class="student-card">
-        <div class="card">
-          <div class="card-body">
-            <img [src]="student.profileImage" class="card-img-top" alt="Profile Image">
-            <h5 class="card-title">{{ student.firstName }} {{ student.lastName }}</h5>
-            <p class="card-text">User ID: {{ student.userId }}</p>
-            <p class="card-text">NIC: {{ student.nic }}</p>
-            <p class="card-text">Email: {{ student.email }}</p>
-            <p class="card-text">Phone: {{ student.phoneNumber }}</p>
-            <button class="btn btn-outline-primary" (click)="viewDetails(student)">View Details</button>
-          </div>
+<div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let item of items" class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ item }}</h5>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Modal for Adding Student -->
-  <!-- Modal for Adding Student -->
-  <div *ngIf="isModalOpen" class="modal fade show" id="studentDetailsModal" tabindex="-1"
-    aria-labelledby="studentDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="studentDetailsModalLabel">Add Student Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="closeModal()"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="userId" class="form-label">User ID</label>
-                <input type="text" class="form-control" id="userId" [(ngModel)]="newStudent.userId" name="userId" placeholder="Enter User ID">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" [(ngModel)]="newStudent.firstName" name="firstName" placeholder="Enter First Name">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" [(ngModel)]="newStudent.lastName" name="lastName" placeholder="Enter Last Name">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="nic" class="form-label">NIC</label>
-                <input type="text" class="form-control" id="nic" [(ngModel)]="newStudent.nic" name="nic" placeholder="Enter NIC">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" [(ngModel)]="newStudent.email" name="email" placeholder="Enter Email">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="profileImage" class="form-label">Profile Image URL</label>
-                <input type="text" class="form-control" id="profileImage" [(ngModel)]="newStudent.profileImage" name="profileImage" placeholder="Enter Profile Image URL">
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="phoneNumber" class="form-label">Phone Number</label>
-                <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="newStudent.phoneNumber" name="phoneNumber" placeholder="Enter Phone Number">
-              </div>
-            </div>
-            <button type="button" class="btn btn-primary" (click)="addStudent()">Add Student</button>
-          </form>
-          
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <router-outlet></router-outlet>
 </div>
