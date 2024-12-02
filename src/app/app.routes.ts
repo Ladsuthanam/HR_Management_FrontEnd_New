@@ -42,7 +42,7 @@ export const routes: Routes = [
                 title: 'Employees',
             },
             {
-                path:'employee-cv:id',
+                path:'employee-cv/:userId',
                 component:EmployeeCvComponent,
                 title:'EmployeeCv'
 

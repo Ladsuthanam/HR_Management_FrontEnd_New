@@ -20,11 +20,9 @@
       </div>
   
       <hr />
-  
       <div class="employees black-border mt-4">
         <div class="row">
           <div *ngIf="filteredUsers.length > 0; else noEmployees" class="d-flex flex-wrap">
-            <!-- Iterate through employees -->
             <div class="col-md-4 mb-4" *ngFor="let employee of filteredUsers">
               <div class="card h-100 w-75">
                 <div class="card-body text-center">
@@ -37,9 +35,10 @@
                   <h5 class="card-title">{{ employee.firstName }} {{ employee.lastName }}</h5>
                   <p class="card-text">User ID: {{ employee.userId }}</p>
                   <p class="card-text">NIC: {{ employee.nic }}</p>
-                  <p class="card-text">Email: {{employee.email}}</p>
+                  <p class="card-text">Email: {{ employee.email }}</p>
+                  <p class="card-text">Gender: {{ employee.gender }}</p>
                 </div>
-                <button class="bg-dark text-white">More Info</button>
+                <button class="bg-dark text-white" [routerLink]="['/employee-cv', employee.userId]">More info</button>
               </div>
             </div>
           </div>
@@ -56,26 +55,36 @@
   
     <!-- Modal -->
     <div
-      class="modal fade"
-      id="employeeDetailsModal"
-      tabindex="-1"
-      aria-labelledby="employeeDetailsModalLabel"
-      aria-hidden="true"
-      [ngClass]="{ show: isModalOpen }"
-      style="display: block;"
-      *ngIf="isModalOpen"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
-            <button type="button" class="btn-close" (click)="closeModal()"></button>
-          </div>
-          <div class="modal-body">
-            <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <div class="col-md-6 mb-3" *ngFor="let field of employeeFields">
-                  <label [for]="field.controlName" class="form-label">{{ field.label }}</label>
+    class="modal fade"
+    id="employeeDetailsModal"
+    tabindex="-1"
+    aria-labelledby="employeeDetailsModalLabel"
+    aria-hidden="true"
+    [ngClass]="{ show: isModalOpen }"
+    style="display: block;"
+    *ngIf="isModalOpen"
+  >
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Details</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3" *ngFor="let field of employeeFields">
+                <label [for]="field.controlName" class="form-label">{{ field.label }}</label>
+                <ng-container *ngIf="field.type === 'select'; else textField">
+                  <select
+                    class="form-select"
+                    [id]="field.controlName"
+                    [formControlName]="field.controlName"
+                  >
+                    <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+                  </select>
+                </ng-container>
+                <ng-template #textField>
                   <input
                     [type]="field.type || 'text'"
                     class="form-control"
@@ -83,21 +92,22 @@
                     [formControlName]="field.controlName"
                     [placeholder]="field.placeholder || ''"
                   />
-                  <small *ngIf="isInvalid(field.controlName)" class="text-danger">
-                    * {{ field.label }} is required.
-                  </small>
-                </div>
+                </ng-template>
+                <small *ngIf="isInvalid(field.controlName)" class="text-danger">
+                  * {{ field.label }} is required.
+                </small>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="cancel()">Close</button>
-                <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
-              </div>
-            </form>
-          </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancel()">Close</button>
+              <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+</div>
   
   <div>
     <router-outlet></router-outlet>
