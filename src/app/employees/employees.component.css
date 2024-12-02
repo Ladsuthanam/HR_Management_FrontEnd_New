@@ -91,3 +91,14 @@ padding-left: 300px;
 hr {
   border-top: 5px solid #095484;
 }
+
+.employees {
+  margin-top: 20px;
+}
+
+.card {
+  box-shadow: 1px 4px 6px rgba(1, 0, 0, 0.1);
+  background-color: #e4fbff;
+  
+    border-radius: 10px;
+  }
