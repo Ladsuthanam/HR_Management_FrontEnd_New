@@ -1,17 +1,19 @@
 <div class="container-fluid mt-5">
   <div class="row">
     <div class="d-flex justify-content-center align-items-center h-100 w-100 p-5">
-      
+
       <!-- Student Personal Details -->
       <div *ngIf="student; else noData" class="col-md-6">
         <div class="card p-4 shadow-sm border-0">
           <div class="text-center mb-4">
-            <img [src]="student.profile || 'https://via.placeholder.com/150'" alt="Profile Image"
-              class="img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;" />
+            <img [src]="student.profile || 'https://via.placeholder.com/150'" alt="Profile Image" class="img-thumbnail"
+              style="width: 150px; height: 150px; border-radius: 50%;" />
+
             <h2 class="mt-3">{{ student.firstName }} {{ student.lastName }}</h2>
           </div>
           <hr>
           <div class="content">
+            <h4><u class="text-danger">Student Details</u></h4>
             <p>
               <i class="bi bi-person-badge-fill text-primary me-2"></i>
               <strong>Student ID:</strong> {{ student.studentId }}
@@ -22,14 +24,14 @@
             </p>
             <p>
               <i class="bi bi-envelope-fill text-primary me-2"></i>
-              <strong>Email:</strong> 
+              <strong>Email:</strong>
               <a href="mailto:{{ student.email }}" class="text-decoration-none">
                 {{ student.email }}
               </a>
             </p>
             <p>
               <i class="bi bi-telephone-fill text-primary me-2"></i>
-              <strong>Phone Number:</strong> 
+              <strong>Phone Number:</strong>
               <a href="tel:{{ student.phoneNumber }}" class="text-decoration-none">
                 {{ student.phoneNumber }}
               </a>
@@ -49,42 +51,44 @@
 
             <div class="mt-4">
               <div *ngIf="studentData.parents">
-                <h4><u>Parent Details</u></h4>
+                <h4><u class="text-danger">Parent Details</u></h4>
                 <p><strong>Name: </strong>{{ studentData.parents.firstName }} {{ studentData.parents.lastName }}</p>
                 <p><strong>Job: </strong>{{ studentData.parents.job }}</p>
                 <p><strong>Contact: </strong>{{ studentData.parents.contactNo }}</p>
                 <p><strong>Address: </strong>{{ studentData.parents.address }}</p>
               </div>
-            
-              <button class="btn btn-outline-primary btn-sm w-100 mb-2"  data-bs-toggle="modal" data-bs-target="#ParentsModal">
+
+              <button class="btn btn-outline-primary btn-sm w-100 mb-2" data-bs-toggle="modal"
+                data-bs-target="#ParentsModal">
                 <i class="bi bi-people-fill me-1"></i> + Add Parents
               </button>
-            
+
               <div *ngIf="studentData.address; else noAddress">
-                <h4><u>Address</u></h4>
-                <ul>
-                  <p><strong>House Number:</strong> {{ studentData.address.houseNumber }}</p>
-                  <p><strong>Street:</strong> {{ studentData.address.street }}</p>
-                  <p><strong>Lane:</strong> {{ studentData.address.lane }}</p>
-                  <p><strong>City:</strong> {{ studentData.address.city }}</p>
-                  <p><strong>State:</strong> {{ studentData.address.state }}</p>
-                  <p><strong>Postal Code:</strong> {{ studentData.address.postalCode }}</p>
-                  <p><strong>Country:</strong> {{ studentData.address.country }}</p>
-                </ul>
+                <h4><u class="text-danger">Address</u></h4>
+
+                <p><strong>House Number:</strong> {{ studentData.address.houseNumber }}</p>
+                <p><strong>Street:</strong> {{ studentData.address.street }}</p>
+                <p><strong>Lane:</strong> {{ studentData.address.lane }}</p>
+                <p><strong>City:</strong> {{ studentData.address.city }}</p>
+                <p><strong>State:</strong> {{ studentData.address.state }}</p>
+                <p><strong>Postal Code:</strong> {{ studentData.address.postalCode }}</p>
+                <p><strong>Country:</strong> {{ studentData.address.country }}</p>
                 <!-- Edit Address Button -->
-                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#Address">
+                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
+                  data-bs-target="#Address">
                   <i class="bi bi-geo-alt-fill me-1"></i> Edit Address
                 </button>
               </div>
-            
+
               <!-- Show when no address data exists -->
               <ng-template #noAddress>
-                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal" data-bs-target="#Address" data-bs-dismiss="modal">
+                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
+                  data-bs-target="#Address" data-bs-dismiss="modal">
                   <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
                 </button>
               </ng-template>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -93,12 +97,52 @@
       <div class="col-md-6">
         <div class="card p-4 shadow-sm border-0">
           <div class="mb-3">
+            <div *ngIf="studentData.olQualification; else noOlQualification">
+              <h4><u class="text-danger">O-Level Qualification</u></h4>
+          
+              <p><strong>Index Number:</strong> {{ studentData.olQualification.indexNo }}</p>
+              <p><strong>Year:</strong> {{ studentData.olQualification.year }}</p>
+              <p><strong>School:</strong> {{ studentData.olQualification.school }}</p>
+              <p><strong>Tamil:</strong> {{ studentData.olQualification.tamil }}</p>
+              <p><strong>Science:</strong> {{ studentData.olQualification.science }}</p>
+              <p><strong>Mathematics:</strong> {{ studentData.olQualification.maths }}</p>
+              <p><strong>Religion:</strong> {{ studentData.olQualification.religion }}</p>
+              <p><strong>English:</strong> {{ studentData.olQualification.english }}</p>
+              <p><strong>History:</strong> {{ studentData.olQualification.history }}</p>
+              <p><strong>Basket 1:</strong> {{ studentData.olQualification.basket1 }}</p>
+              <p><strong>Basket 2:</strong> {{ studentData.olQualification.basket2 }}</p>
+              <p><strong>Basket 3:</strong> {{ studentData.olQualification.basket3 }}</p>
+            </div>
+          
+            <!-- Template for when O-Level Qualification is not available -->
+            <ng-template #noOlQualification>
+              <p class="text-muted">O-Level Qualification not provided.</p>
+            </ng-template>
+          
+            <!-- Add O-Level Qualification Button -->
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#olQualification">
-              <i class="bi bi-book-half me-1"></i> + Add OLevel Qualification
+              <i class="bi bi-book-half me-1"></i> 
+              {{ studentData.olQualification ? 'Edit O-Level Qualification' : '+ Add O-Level Qualification' }}
             </button>
           </div>
+          
           <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#AlQualification">
+            <div *ngIf="studentData.alQualification">
+              <h4><u class="text-danger">A-Level Qualification</u></h4>
+              <p><strong>Index No: </strong>{{ studentData.alQualification.indexNo }}</p>
+              <p><strong>Year: </strong>{{ studentData.alQualification.year }}</p>
+              <p><strong>School: </strong>{{ studentData.alQualification.school }}</p>
+              <p><strong>Stream: </strong>{{ studentData.alQualification.stream }}</p>
+              <p><strong>Subject 1: </strong>{{ studentData.alQualification.subject1 }}</p>
+              <p><strong>Subject 2: </strong>{{ studentData.alQualification.subject2 }}</p>
+              <p><strong>Subject 3: </strong>{{ studentData.alQualification.subject3 }}</p>
+              <p><strong>General English: </strong>{{ studentData.alQualification.generalEnglish }}</p>
+              <p><strong>General Knowledge: </strong>{{ studentData.alQualification.generalKnowledge }}</p>
+              <p><strong>Git: </strong>{{ studentData.alQualification.git }}</p>
+            </div>
+            
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
+              data-bs-target="#AlQualification">
               <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
             </button>
           </div>
@@ -127,8 +171,6 @@
 </div>
 
 
-
-<!-- Modal -->
 <!-- Parents Modal -->
 <div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -162,7 +204,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" >Save Changes</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
         </div>
       </form>
     </div>
@@ -181,101 +223,150 @@
         <div class="modal-body">
           <div class="mb-3" *ngFor="let field of addressFields">
             <label [for]="field.id" class="form-label">{{ field.label }}</label>
-            <input
-              type="text"
-              [id]="field.id"
-              class="form-control"
-              [placeholder]="field.placeholder"
-              [formControlName]="field.id"
-            />
-            <div 
-              *ngIf="addressForm.get(field.id)?.invalid && addressForm.get(field.id)?.touched" 
-              class="text-danger">
+            <input type="text" [id]="field.id" class="form-control" [placeholder]="field.placeholder"
+              [formControlName]="field.id" />
+            <div *ngIf="addressForm.get(field.id)?.invalid && addressForm.get(field.id)?.touched" class="text-danger">
               {{ field.error }}
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid" data-bs-dismiss="modal">Save</button>
+          <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid"
+            data-bs-dismiss="modal">Save</button>
         </div>
       </form>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
+
+<!-- AL Qualification Modal -->
 <div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="alQualificationForm" (ngSubmit)="saveAlQualification()">
+          <div class="mb-3">
+            <label for="indexNo" class="form-label">Index No</label>
+            <input type="text" id="indexNo" class="form-control" formControlName="indexNo" />
+          </div>
+          <div class="mb-3">
+            <label for="year" class="form-label">Year</label>
+            <input type="text" id="year" class="form-control" formControlName="year" />
+          </div>
+          <div class="mb-3">
+            <label for="school" class="form-label">School</label>
+            <input type="text" id="school" class="form-control" formControlName="school" />
+          </div>
+          <div class="mb-3">
+            <label for="stream" class="form-label">Stream</label>
+            <input type="text" id="stream" class="form-control" formControlName="stream" />
+          </div>
+          <div class="mb-3">
+            <label for="subject1" class="form-label">Subject 1</label>
+            <input type="text" id="subject1" class="form-control" formControlName="subject1" />
+          </div>
+          <div class="mb-3">
+            <label for="subject2" class="form-label">Subject 2</label>
+            <input type="text" id="subject2" class="form-control" formControlName="subject2" />
+          </div>
+          <div class="mb-3">
+            <label for="subject3" class="form-label">Subject 3</label>
+            <input type="text" id="subject3" class="form-control" formControlName="subject3" />
+          </div>
+          <div class="mb-3">
+            <label for="generalEnglish" class="form-label">General English</label>
+            <input type="text" id="generalEnglish" class="form-control" formControlName="generalEnglish" />
+          </div>
+          <div class="mb-3">
+            <label for="generalKnowledge" class="form-label">General Knowledge</label>
+            <input type="text" id="generalKnowledge" class="form-control" formControlName="generalKnowledge" />
+          </div>
+          <div class="mb-3">
+            <label for="git" class="form-label">Git</label>
+            <input type="text" id="git" class="form-control" formControlName="git" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="saveAlQualification()" data-bs-dismiss="modal">Save Changes</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- O-Level Qualification Modal -->
+<div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="olQualificationLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h5 class="modal-title" id="olQualificationLabel">O-Level Qualification</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="olQualificationForm">
+          <div class="mb-3" *ngFor="let field of olQualificationForm.controls | keyvalue">
+            <label class="form-label">{{ field.key | titlecase }}</label>
+            <input type="text" [formControlName]="field.key" class="form-control" placeholder="Enter {{ field.key }}" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="olQualificationForm.invalid" (click)="saveQualification()" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="HigherStudy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- Higher Study Modal -->
+<div class="modal fade" id="HigherStudy" tabindex="-1" aria-labelledby="higherStudyLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h5 class="modal-title" id="higherStudyLabel">Higher Study</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="higherStudyForm">
+          <div class="mb-3" *ngFor="let field of higherStudyFields">
+            <label class="form-label">{{ field.label }}</label>
+            <input type="text" [formControlName]="field.id" class="form-control" [placeholder]="'Enter ' + field.label" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="higherStudyForm.invalid" (click)="saveHigherStudy()" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="Experience" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Experience Modal -->
+<div class="modal fade" id="Experience" tabindex="-1" aria-labelledby="experienceLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h5 class="modal-title" id="experienceLabel">Experience</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form [formGroup]="experienceForm">
+          <div class="mb-3" *ngFor="let field of experienceFields">
+            <label class="form-label">{{ field.label }}</label>
+            <input type="text" [formControlName]="field.id" class="form-control" [placeholder]="'Enter ' + field.label" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="experienceForm.invalid" (click)="saveExperience()" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
