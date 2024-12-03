@@ -9,7 +9,7 @@
 }
 .containerBody{
 padding-top: 120px;
-padding-left: 300px;
+/* padding-left: 300px; */
 }
 /* 
 :root {
@@ -94,6 +94,7 @@ hr {
 
 .employees {
   margin-top: 20px;
+  padding-left: 55px;
 }
 
 .card {

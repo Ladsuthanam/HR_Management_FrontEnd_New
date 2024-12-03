@@ -1,4 +1,4 @@
-<header class="p-4 shadow-sm fixed">
+<header class="p-4 mb-4 shadow-sm fixed">
   <nav class="navs">
     <!-- Notification Icon with Count -->
     <div class="notification-wrapper" (click)="toggleNotificationModal()">
@@ -22,10 +22,10 @@
           <li><ion-icon name="log-out-outline" class="dropdown-list-icon"></ion-icon><span>Logout</span></li>
         </ul>
       </div>
-    </div>       
+    </div>
   </nav>
 </header>
- 
+
 <!-- Notification Modal -->
 <div class="notification-modal" *ngIf="isNotificationModalOpen">
   <div class="notification-header">
@@ -39,87 +39,94 @@
     </div>
   </div>
 </div>
-  <div class="container-fluid">
-        <div class="row">
-          <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-            <div class="position-sticky sidebar-sticky">
-              <div class="logo-wrap text-center">
-                <img width="100px" height="75px" src="Images/logo.png" alt="the-legend-of-zelda-skyward-sword"/>
-              </div>
-              <ul class="nav flex-column mt-2">
-                <li class="nav-item">
-                  <a routerLink="/dashboard" routerLinkActive="active" class="nav-link active" aria-current="page" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home align-text-bottom" aria-hidden="true">
-                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                    Dashboard
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
+<div class="container-fluid d-flex justify-content-between">
+  <div class="row ">
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="position: fixed;">
+      <div class="position-sticky sidebar-sticky">
+        <div class="logo-wrap text-center">
+          <img width="100px" height="75px" src="Images/logo.png" alt="the-legend-of-zelda-skyward-sword" />
+        </div>
+        <ul class="nav flex-column mt-2">
+          <li class="nav-item">
+            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link active" aria-current="page" href="#">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-home align-text-bottom" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <!-- <li class="nav-item">
                   <a routerLink="/dashboard" class="nav-link" href="#">
                     <img width="24" height="24" src="https://img.icons8.com/material/24/user--v1.png" alt="user--v1"/>
                     Home
                   </a>
                 </li> -->
-                <li class="nav-item">
-                  <a routerLink="/staff"  routerLinkActive="active" class="nav-link" href="#">
-                    <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow"/>
-                    Staffs
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/employees"  routerLinkActive="active" class="nav-link" href="#">
-                    <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow"/>
-                    Employees
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/students"  routerLinkActive="active" class="nav-link" >
-                    <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow"/>
-                    Students
-                  </a>
-                </li>  
-                <li class="nav-item">
-                  <a  routerLink="/lectures" class="nav-link"  routerLinkActive="active" href="#">
-                    <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow"/>
-                    Lecturers
-                  </a>
-                </li> 
-              </ul>
-      
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-                
-              </h6>
-              <ul class="nav flex-column mb-2">
-                <li class="nav-item">
-                  <a class="nav-link"  routerLinkActive="active" href="#">
-                    <img width="23" height="22" src="https://img.icons8.com/ink/48/leave.png" alt="leave"/>
-                  
-                    Leave Management
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a  routerLinkActive="active" class="nav-link" href="#" routerLink="/todo">
-                    <img width="24" height="24" src="https://img.icons8.com/ink/48/task.png" alt="task"/>
-                    Task Management
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/salary" routerLinkActive="active" class="nav-link" href="#">
-                    <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/receive-change.png" alt="receive-change"/>
-                    Salary Management
-                  </a>
-                </li>
+          <li class="nav-item">
+            <a routerLink="/staff" routerLinkActive="active" class="nav-link" href="#">
+              <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
+              Staffs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/employees" routerLinkActive="active" class="nav-link" href="#">
+              <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
+              Employees
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/students" routerLinkActive="active" class="nav-link">
+              <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
+              Students
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/lectures" class="nav-link" routerLinkActive="active" href="#">
+              <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
+              Lecturers
+            </a>
+          </li>
+        </ul>
 
-              </ul>
-            </div>
-          </nav>
-          
-        </div>
-        <!-- ./row -->
-   </div>
-    
-    <div>      
-      <router-outlet></router-outlet>
-    </div>
+        <h6
+          class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active" href="#">
+              <img width="23" height="22" src="https://img.icons8.com/ink/48/leave.png" alt="leave" />
+
+              Leave Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLinkActive="active" class="nav-link" href="#" routerLink="/todo">
+              <img width="24" height="24" src="https://img.icons8.com/ink/48/task.png" alt="task" />
+              Task Management
+            </a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/salary" routerLinkActive="active" class="nav-link" href="#">
+              <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/receive-change.png"
+                alt="receive-change" />
+              Salary Management
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+  </div>
+  <!-- ./row -->
+</div>
+
+
+<main class="col-md-9 ms-sm-auto col-lg-10 ">
+  <router-outlet></router-outlet>
+</main>
+
+
