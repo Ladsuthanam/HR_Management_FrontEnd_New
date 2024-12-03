@@ -2,15 +2,15 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 .main{
-  height: 1000px !important;
+  height:auto;
   width: 100%;
-  background-color: rgb(229, 247, 250);
+  background-color: rgb(240, 253, 255);
   overflow: visible !important;
 
 }
 .containerBody{
 padding-top: 120px;
-padding-left: 300px;
+/* padding-left: 300px; */
 }
 /* 
 :root {
@@ -36,7 +36,9 @@ padding-left: 300px;
   padding-left: 600px;
   padding-top: 250px;
 }
-
+hr {
+  border-top: 5px solid #020b10;
+}
 .modal.show {
   display: block;
   z-index: 1050;
@@ -93,8 +95,15 @@ padding-left: 300px;
   font-size: 1rem;
 }
 /* Add these styles to ensure the cards are displayed correctly */
-.card {
-  width: 100%;
-  margin: 50px 0;
+
+  .card {
+    box-shadow: 1px 4px 6px rgba(1, 0, 0, 0.1);
+    background-color: #e4fbff;
+    
+      border-radius: 10px;
+    }
+
+.student{
+  padding-left: 55px;
 }
 

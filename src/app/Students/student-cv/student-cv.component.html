@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
   <div class="row">
     <div class="d-flex justify-content-center align-items-center h-100 w-100 p-5">
       
@@ -48,10 +48,10 @@
             </p>
 
             <div class="mt-4">
-              <button class="btn btn-outline-primary btn-sm w-100 mb-2">
+              <button class="btn btn-outline-primary btn-sm w-100 mb-2"  data-bs-toggle="modal" data-bs-target="#ParentsModal">
                 <i class="bi bi-people-fill me-1"></i> + Add Parents
               </button>
-              <button class="btn btn-outline-primary btn-sm w-100">
+              <button class="btn btn-outline-primary btn-sm w-100"  data-bs-toggle="modal" data-bs-target="#Address">
                 <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
               </button>
             </div>
@@ -63,22 +63,22 @@
       <div class="col-md-6">
         <div class="card p-4 shadow-sm border-0">
           <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#olQualification">
               <i class="bi bi-book-half me-1"></i> + Add OLevel Qualification
             </button>
           </div>
           <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#AlQualification">
               <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
             </button>
           </div>
           <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#HigherStudy">
               <i class="bi bi-mortarboard-fill me-1"></i> + Add Higher Study
             </button>
           </div>
           <div>
-            <button class="btn btn-outline-primary btn-sm w-100">
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Experience">
               <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
             </button>
           </div>
@@ -94,4 +94,140 @@
       <p class="text-danger fw-bold">No student details found.</p>
     </div>
   </ng-template>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ParentsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="Address" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="HigherStudy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Experience" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

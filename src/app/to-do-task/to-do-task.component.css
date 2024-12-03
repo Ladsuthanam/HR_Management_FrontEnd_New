@@ -1,13 +1,13 @@
 .navbar{
     background-color:  #058ea7;
-    margin-top: 75px;
+    margin-top: 105px;
 }
 nav a{
     padding-left: 250px;
 }
 .full_box{  
     background-color: #011a1f;
-    padding-left: 250px;
+    padding: 40px 20px;
     
 }
 

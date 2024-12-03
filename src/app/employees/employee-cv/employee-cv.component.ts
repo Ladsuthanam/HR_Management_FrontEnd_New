@@ -17,31 +17,22 @@ import { DatePipe } from '@angular/common';
 export class EmployeeCvComponent implements OnInit{
   employee: any;
 
-  constructor(private datePipe: DatePipe,
-    private route: ActivatedRoute,
-    private employeeService: EmployeeService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
+  
   ngOnInit(): void {
-    const userId = this.route.snapshot.paramMap.get('userId');
-    if (userId) {
-      this.fetchEmployeeDetails(userId);
+    
+    const employeeId = this.route.snapshot.paramMap.get('employeeId');
+    if (employeeId) {
+      // Fetch student data from local storage
+      const employees = JSON.parse(localStorage.getItem('employees') || '[]');
+      this.employee = employees.find((emp: any) => emp.employeeId === employeeId);
+
+      if (!this.employee) {
+        console.error('Employee not found with ID:', employeeId);
+      }
+    } else {
+      console.error('No employeeId found in route parameters.');
     }
   }
-
-  fetchEmployeeDetails(userId: string): void {
-    this.employeeService.getEmployeeByUserId(userId).subscribe(
-      (data:any) => {
-        this.employee = data;
-      },
-      (error:any) => {
-        console.error('Error fetching employee details:', error);
-      }
-    );
-  }
-
-  formatDate(date: string): string {
-    return this.datePipe.transform(date, 'MM/dd/yyyy') || 'Invalid Date';
-  }
-  
 }
