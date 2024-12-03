@@ -53,8 +53,23 @@ export class StudentCvComponent implements OnInit {
     { id: 'country', label: 'Country', placeholder: 'Enter Country', error: 'Country is required.' },
   ];
 
+  higherStudyFields = [
+    { id: 'stream', label: 'Stream', placeholder: 'Enter Stream', error: 'Stream is required.' },
+    { id: 'year', label: 'Year', placeholder: 'Enter Year', error: 'Year is required.' },
+    { id: 'duration', label: 'Duration', placeholder: 'Enter Duration', error: 'Duration is required.' },
+    { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
+    { id: 'institute', label: 'Institute', placeholder: 'Enter Institute', error: 'Institute is required.' },
+    { id: 'grade', label: 'Grade', placeholder: 'Enter Grade', error: 'Grade is required.' },
+  ];
   
-
+  experienceFields = [
+    { id: 'position', label: 'Position', placeholder: 'Enter Position', error: 'Position is required.' },
+    { id: 'company', label: 'Company', placeholder: 'Enter Company', error: 'Company is required.' },
+    { id: 'startDate', label: 'Start Date', placeholder: 'Enter Start Date', error: 'Start date is required.' },
+    { id: 'endDate', label: 'End Date', placeholder: 'Enter End Date', error: 'End date is required.' },
+    { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
+  ];
+  
   initializeForms() {
     this.parentsForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -119,7 +134,7 @@ export class StudentCvComponent implements OnInit {
     });
   
   }
-   // Save the parent data to localStorage
+  
    saveData(form: FormGroup, key: string) {
     if (form.valid) {
       this.studentData[key] = form.value;
@@ -164,6 +179,12 @@ export class StudentCvComponent implements OnInit {
     } else {
       alert('Please fill all required fields correctly.');
     }
+  }
+
+  saveExperience(){
+  }
+
+  saveHigherStudy(){
   }
   
 

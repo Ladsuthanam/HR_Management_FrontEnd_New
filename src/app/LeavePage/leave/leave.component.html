@@ -1,0 +1,130 @@
+<div class="main container">
+    <div class="row">  
+      <div class="ml-2">
+        <form class="d-flex">
+            <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+      </div>
+    </div>
+  </div>
+
+  
+ <!-- Modal -->
+<div class="modal" id="leaveModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="leaveModalLabel">Apply for Leave</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #leaveForm="ngForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="leaveDetails.name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="role" class="form-label">Role</label>
+              <select class="form-select" id="role" [(ngModel)]="leaveDetails.role" name="role" required>
+                <option value="Employee">Employee</option>
+                <option value="Lecturer">Lecturer</option>
+                <option value="Staff">Staff</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="applyDate" class="form-label">Apply Date</label>
+              <input type="date" class="form-control" id="applyDate" [(ngModel)]="leaveDetails.applyDate" name="applyDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="reason" class="form-label">Reason</label>
+              <textarea class="form-control" id="reason" rows="3" [(ngModel)]="leaveDetails.reason" name="reason" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="leaveDate" class="form-label">Leave Date</label>
+              <input type="date" class="form-control" id="leaveDate" [(ngModel)]="leaveDetails.leaveDate" name="leaveDate" required>
+            </div>
+            <div class="mb-3">
+              <label for="rejoinDate" class="form-label">Rejoin Date</label>
+              <input type="date" class="form-control" id="rejoinDate" [(ngModel)]="leaveDetails.rejoinDate" name="rejoinDate" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveLeaveDetails()" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container  mt-4">
+    <div class="row justify-content-evenly">
+        <div class="col-4">
+       <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#leaveModal">
+         Apply for Leave
+      </button>
+       </div>
+       <div class="col-4">
+     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#hollyModal">
+        + Add HollyDay
+     </button>
+     </div>
+    </div>
+    
+    <table class="table table-info table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Apply Date</th>
+          <th>Reason</th>
+          <th>Leave Date</th>
+          <th>Rejoin Date</th>
+        </tr>
+      </thead >
+      <tbody>
+        <tr *ngFor="let record of leaveRecords">
+          <td>{{ record.name }}</td>
+          <td>{{ record.role }}</td>
+          <td>{{ record.applyDate }}</td>
+          <td>{{ record.reason }}</td>
+          <td>{{ record.leaveDate }}</td>
+          <td>{{ record.rejoinDate }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal" id="hollyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HollyDayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="hollyModalLabel">Apply for Leave</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #leaveForm="ngForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="leaveDetails.name" name="name" required>
+            </div>
+           
+            <div class="mb-3">
+              <label for="hollyDate" class="form-label"> Date</label>
+              <input type="date" class="form-control" id="hollyDate" [(ngModel)]="leaveDetails.applyDate" name="hollyDate" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="saveHollyDay()" data-bs-dismiss="modal">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div>
+  <router-outlet></router-outlet>
+  </div>
