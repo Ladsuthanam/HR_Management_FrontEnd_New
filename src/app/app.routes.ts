@@ -17,6 +17,7 @@ import { AttendanceReportComponent } from './Students/attendance-report/attendan
 import { EmployeeCvComponent } from './employees/employee-cv/employee-cv.component';
 import { EmployeeModelComponent } from './employees/employee-model/employee-model.component';
 import { StudentCvComponent } from './Students/student-cv/student-cv.component';
+import { LeaveComponent } from './LeavePage/leave/leave.component';
 
 export const routes: Routes = [
     {
@@ -93,6 +94,11 @@ export const routes: Routes = [
               component:SalaryComponent,
               title:'Salary-Managemet'
 
+            },
+            {
+                path:'leavePage',
+                component:LeaveComponent,
+                title:'LeavePage'
             }
           
         ]
