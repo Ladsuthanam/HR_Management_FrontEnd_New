@@ -19,7 +19,7 @@ export class StudentService {
     return this.http.get(`${this.url}Student/${studentId}`);
   }
 
-  // Corrected method signature by adding the return type
+
   GetAllStudents(pageNumber: number, pageSize: number): Observable<any> {
     return this.http.get<any>(this.url + `Student/Get_All_Students?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
@@ -28,8 +28,9 @@ export class StudentService {
     return this.http.put(this.url + `Student/UpdateStudent/${studentId}`, data);
   }
 
-  DeleteStudent(studentId: number) {
-    return this.http.delete(this.url + `Student/DeleteStudent/${studentId}`);
+  DeleteStudent(studentId: number): Observable<void> {
+    const deleteUrl = `${this.url}Student/${studentId}`;
+    return this.http.delete<void>(deleteUrl);
   }
-
+  
 }
