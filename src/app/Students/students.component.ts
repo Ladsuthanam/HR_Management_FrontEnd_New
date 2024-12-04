@@ -111,7 +111,7 @@ export class StudentsComponent implements OnInit {
     if (this.studentForm.valid) {
       const formData = { ...this.studentForm.value };
   
-      // Map `maritalStatus` and `gender` to numeric values
+      
       const maritalStatusMapping: { [key: string]: number } = { Single: 1, Married: 2, Divorced: 3, Widowed: 4 };
       const genderMapping: { [key: string]: number } = { Male: 1, Female: 2, Other: 3 };
   
@@ -120,14 +120,14 @@ export class StudentsComponent implements OnInit {
 
       if (!formData.maritalStatus) {
         console.error('Invalid marital status');
-        formData.maritalStatus = 0; // Default or error value
+        formData.maritalStatus = 0; 
       }
       if (!formData.gender) {
         console.error('Invalid gender');
-        formData.gender = 0; // Default or error value
+        formData.gender = 0; 
       }
   
-      // Format `dateOfBirth` to match the expected backend format
+   
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
       formData.isDeleted = false;
   
@@ -150,21 +150,21 @@ export class StudentsComponent implements OnInit {
       );
     } else {
       console.log('Form is invalid:', this.studentForm.errors);
-      this.studentForm.markAllAsTouched(); // Mark invalid fields for better UX
+      this.studentForm.markAllAsTouched(); 
     }
   }
   
   
 
-  // Updated `onPageChange` to handle pagination
+  
 onPageChange(event: any): void {
   const { pageIndex, pageSize } = event;
-  this.pageNumber = pageIndex + 1; // pageIndex is zero-based, so we add 1
+  this.pageNumber = pageIndex + 1; 
   this.pageSize = pageSize;
-  this.getAllStudents(); // Call API with updated pagination
+  this.getAllStudents(); 
 }
 
-// Updated `getAllStudents` method to handle paginated data fetch
+
 getAllStudents(): void {
   this.studentService.GetAllStudents(this.pageNumber, this.pageSize).subscribe(
     (response: any) => {
@@ -175,7 +175,7 @@ getAllStudents(): void {
         console.error('No students found or unexpected response:', response);
         this.student = []; 
         this.filteredStudents = [];
-      } // Assuming the API returns the total count of students
+      } 
     },
     (error) => {
       console.error('Error fetching students:', error);
@@ -184,7 +184,7 @@ getAllStudents(): void {
   );
 }
 
-// Modify `searchStudents` to reset pagination when searching
+
 searchStudents(searchTerm: string): void {
   this.filteredStudents = this.student.filter(
     (stu) =>
@@ -192,18 +192,18 @@ searchStudents(searchTerm: string): void {
       stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Reset pagination when searching
-  this.pageNumber = 1; // Always reset to the first page
+  
+  this.pageNumber = 1; 
   this.getAllStudents();
 }
 
 
-deleteStudent(studentId: number): void { // Use string since the studentId appears to be a UUID (string)
+deleteStudent(studentId: number): void { 
   this.studentService.DeleteStudent(studentId).subscribe(
     () => {
-      // Remove the student from the list after deletion
+     
       this.student = this.student.filter((student) => student.id !== studentId);
-      this.filteredStudents = [...this.student]; // Update the filtered list if necessary
+      this.filteredStudents = [...this.student]; 
       alert('Student deleted successfully!');
     },
     (error) => {
@@ -212,6 +212,29 @@ deleteStudent(studentId: number): void { // Use string since the studentId appea
     }
   );
 }
+
+updateStudent(studentId: number): void {
+ 
+  const updatedStudentData = { ...this.studentForm.value }; 
+
+  this.studentService.UpdateStudent(studentId, updatedStudentData).subscribe(
+    (response) => {
+    
+      this.student = this.student.map((student) =>
+        student.id === studentId ? { ...student, ...updatedStudentData } : student
+      );
+
+      console.log(`Student with ID ${studentId} updated successfully.`);
+      alert('Student updated successfully.');
+    },
+    (error) => {
+      console.error(`Failed to update student with ID ${studentId}.`, error);
+      alert('An error occurred while updating the student.');
+    }
+  );
+}
+
+
 
  
   getStudentDetails(studentId: string): void {
