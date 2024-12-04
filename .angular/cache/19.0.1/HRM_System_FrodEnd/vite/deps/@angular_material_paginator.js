@@ -1,10 +1,4 @@
 import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  Validators
-} from "./chunk-62WUQUFL.js";
-import {
   animate,
   animateChild,
   query,
@@ -13,6 +7,12 @@ import {
   transition,
   trigger
 } from "./chunk-I3ZN3WKM.js";
+import {
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+  Validators
+} from "./chunk-62WUQUFL.js";
 import {
   DOCUMENT,
   Location,
