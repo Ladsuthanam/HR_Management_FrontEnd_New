@@ -106,4 +106,10 @@ hr {
 .student{
   padding-left: 55px;
 }
+.delete{
+  background-color: red;
+}
+.update{
+  background-color: green;
+}
 
