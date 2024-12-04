@@ -198,14 +198,21 @@ searchStudents(searchTerm: string): void {
 }
 
 
+deleteStudent(studentId: number): void { // Use string since the studentId appears to be a UUID (string)
+  this.studentService.DeleteStudent(studentId).subscribe(
+    () => {
+      // Remove the student from the list after deletion
+      this.student = this.student.filter((student) => student.id !== studentId);
+      this.filteredStudents = [...this.student]; // Update the filtered list if necessary
+      alert('Student deleted successfully!');
+    },
+    (error) => {
+      console.error('Error deleting student:', error);
+      alert('An error occurred while deleting the student.');
+    }
+  );
+}
 
-  deleteStudent(Id: number): void {
-    this.studentService.DeleteStudent(Id).subscribe(() => {
-      this.student = this.student.filter(student => student.Id !== Id);
-      this.filteredStudents = [...this.student];
-    });
-  }
- 
  
   getStudentDetails(studentId: string): void {
     this.studentService.GetStudentById(studentId).subscribe(

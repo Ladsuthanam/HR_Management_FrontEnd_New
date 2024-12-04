@@ -38,8 +38,7 @@
                 <p class="card-text">Gender: {{ student.gender }}</p>
               </div>
               <div class="d-flex justify-content-evenly">
-                <button class="btn delete" (click)="deleteStudent(student.studentId)"><ion-icon name="trash" style="color: white;"></ion-icon></button>
-                <button class="btn update" ><ion-icon style="color: white;" name="create"></ion-icon></button>
+
               </div>
 
               <button class="bg-dark text-white" [routerLink]="['/student-cv', student.id]">More info</button>
