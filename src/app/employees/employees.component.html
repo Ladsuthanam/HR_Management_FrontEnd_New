@@ -38,6 +38,10 @@
                   <p class="card-text">Email: {{ employee.email }}</p>
                   <p class="card-text">Gender: {{ employee.gender }}</p>
                 </div>
+                <div class="d-flex justify-content-evenly">
+                  <button class="btn delete" ><ion-icon name="trash" style="color: white;"></ion-icon></button>
+                  <button class="btn update" ><ion-icon style="color: white;" name="create"></ion-icon></button>
+                </div>
                 <button class="bg-dark text-white" [routerLink]="['/employee-cv', employee.userId]">More info</button>
               </div>
             </div>

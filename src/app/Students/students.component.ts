@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { StudentCvComponent } from './student-cv/student-cv.component';
 
 @Component({
   selector: 'app-students',
@@ -17,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ReactiveFormsModule,
     RouterLink,
     HttpClientModule,MatPaginatorModule,
+    StudentCvComponent
    
     
   ],
@@ -262,12 +264,5 @@ updateStudent(studentId: number): void {
 
     return `${year}-${month}-${day}`;
   }
-
-
-
-   
-  
-
-
   
 }

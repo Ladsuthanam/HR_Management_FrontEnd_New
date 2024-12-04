@@ -3,7 +3,7 @@
 .main{
   height:auto;
   width: 100%;
-  background-color: rgb(240, 253, 255);
+  background-color: rgb(58, 68, 70);
   overflow: visible !important;
 
 }
@@ -158,4 +158,10 @@ hr {
     .dtail-btn {
       width: 100%;
     }
+  }
+  .delete{
+    background-color: red;
+  }
+  .update{
+    background-color: green;
   }
