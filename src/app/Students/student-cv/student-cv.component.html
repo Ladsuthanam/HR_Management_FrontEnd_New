@@ -14,40 +14,13 @@
           <hr>
           <div class="content">
             <h4><u class="text-danger">Student Details</u></h4>
-            <p>
-              <i class="bi bi-person-badge-fill text-primary me-2"></i>
-              <strong>Student ID:</strong> {{ student.studentId }}
-            </p>
-            <p>
-              <i class="bi bi-card-text text-primary me-2"></i>
-              <strong>NIC:</strong> {{ student.nic }}
-            </p>
-            <p>
-              <i class="bi bi-envelope-fill text-primary me-2"></i>
-              <strong>Email:</strong>
-              <a href="mailto:{{ student.email }}" class="text-decoration-none">
-                {{ student.email }}
-              </a>
-            </p>
-            <p>
-              <i class="bi bi-telephone-fill text-primary me-2"></i>
-              <strong>Phone Number:</strong>
-              <a href="tel:{{ student.phoneNumber }}" class="text-decoration-none">
-                {{ student.phoneNumber }}
-              </a>
-            </p>
-            <p>
-              <i class="bi bi-calendar-date-fill text-primary me-2"></i>
-              <strong>Date of Birth:</strong> {{ student.dob | date: 'longDate' }}
-            </p>
-            <p>
-              <i class="bi bi-person-heart text-primary me-2"></i>
-              <strong>Marital Status:</strong> {{ student.maritalStatus }}
-            </p>
-            <p>
-              <i class="bi bi-gender-ambiguous text-primary me-2"></i>
-              <strong>Gender:</strong> {{ student.gender }}
-            </p>
+            <p><strong>Name:</strong> {{ student.firstName }} {{ student.lastName }}</p>
+            <p><strong>NIC:</strong> {{ student.nic }}</p>
+            <p><strong>Email:</strong> {{ student.email }}</p>
+            <p><strong>Phone:</strong> {{ student.mobile }}</p>
+            <p><strong>Date of Birth:</strong> {{ student.dateOfBirth }}</p>
+            <p><strong>Gender:</strong> {{ student.gender }}</p>
+            <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
 
             <div class="mt-4">
               <div *ngIf="studentData.parents">
