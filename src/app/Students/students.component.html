@@ -38,6 +38,7 @@
                   <p class="card-text">Email: {{ student.email }}</p>
                   <p class="card-text">Gender: {{ student.gender }}</p>
                 </div>
+                <button class="btn btn-danger" (click)="deleteStudent(student.studentId)">Delete</button>
                 <button class="bg-dark text-white" [routerLink]="['/student-cv', student.studentId]">More info</button>
               </div>
             </div>
@@ -81,7 +82,7 @@
                     [id]="field.controlName"
                     [formControlName]="field.controlName"
                   >
-                    <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+                    <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
                   </select>
                 </ng-container>
                 <ng-template #textField>

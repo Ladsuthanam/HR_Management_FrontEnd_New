@@ -70,6 +70,7 @@ export class StudentCvComponent implements OnInit {
     { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
   ];
   
+
   initializeForms() {
     this.parentsForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -187,6 +188,7 @@ export class StudentCvComponent implements OnInit {
   saveHigherStudy(){
   }
   
+
 
   editAddress() {
     if (this.studentData.address) {
