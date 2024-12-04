@@ -38,8 +38,8 @@
                 <p class="card-text">Gender: {{ student.gender }}</p>
               </div>
               <div class="d-flex justify-content-evenly">
-                <button class="btn " (click)="deleteStudent(student.studentId)"><ion-icon name="trash" style="color: red;"></ion-icon></button>
-                <button class="btn update" ><ion-icon style="color: green;" name="create"></ion-icon></button>
+                <button class="btn delete" (click)="deleteStudent(student.studentId)"><ion-icon name="trash" style="color: white;"></ion-icon></button>
+                <button class="btn update" ><ion-icon style="color: white;" name="create"></ion-icon></button>
               </div>
 
               <button class="bg-dark text-white" [routerLink]="['/student-cv', student.id]">More info</button>
@@ -123,9 +123,13 @@
 ></mat-paginator>
 
 </div>
+<app-student-cv *ngIf="isStudentCvVisible" [studentId]="selectedStudentId">
+  
+</app-student-cv>
+
 
 <div>
   <router-outlet>
-    
+
   </router-outlet>
 </div>
