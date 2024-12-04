@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-student-cv',
@@ -24,24 +26,28 @@ export class StudentCvComponent implements OnInit {
   studentData: any = {};
   isEditingAddress: boolean = false;  
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder) {
-    this.initializeForms();
-    this.loadStudentData();
-  }
-
+  constructor(private route: ActivatedRoute,private studentService: StudentService, private fb: FormBuilder, private  http: HttpClient) { }
   ngOnInit(): void {
-    const studentId = this.route.snapshot.paramMap.get('studentId');
-    if (studentId) {
-      const students = JSON.parse(localStorage.getItem('students') || '[]');
-      this.student = students.find((stu: any) => stu.studentId === studentId);
-
-      if (!this.student) {
-        console.error('Student not found with ID:', studentId);
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.loadStudentDetails(id);
       }
-    } else {
-      console.error('No studentId found in route parameters.');
-    }
+    });
   }
+
+  loadStudentDetails(studentId: string): void {
+    this.http.get<any>(`http://localhost:5162/api/${studentId}`).subscribe(
+      (data) => {
+        this.student = data; // Assign the fetched student data to the component's student variable
+      },
+      (error) => {
+        console.error('Error fetching student data', error);
+      }
+    );
+  }
+
+  
 
   addressFields = [
     { id: 'houseNumber', label: 'House Number', placeholder: 'Enter House Number', error: 'House number is required.' },

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-students',
@@ -15,17 +16,24 @@ import { CommonModule } from '@angular/common';
     RouterOutlet,
     ReactiveFormsModule,
     RouterLink,
-    HttpClientModule
+    HttpClientModule,MatPaginatorModule,
+   
+    
   ],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
   providers: [StudentService]
 })
 export class StudentsComponent implements OnInit {
+
   studentForm: FormGroup;
   student: any[] = [];
   filteredStudents: any[] = [];
   isModalOpen: boolean = false;
+  studentDetails: any = {};
+  pageSize=12;
+  pageNumber=1;
+  totalItems = 0;
 
   studentFields = [
  
@@ -59,7 +67,7 @@ export class StudentsComponent implements OnInit {
     },
   ];
   
-  constructor(private fb: FormBuilder, private studentService: StudentService) {
+  constructor(private fb: FormBuilder, private studentService: StudentService, private router: ActivatedRoute) {
     this.studentForm = this.fb.group({
      
       image: ['', Validators.required],
@@ -75,6 +83,12 @@ export class StudentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      if (id) {
+        this.getStudentDetails(id);
+      }
+    });
     this.getAllStudents(); 
   }
 
@@ -101,6 +115,15 @@ export class StudentsComponent implements OnInit {
   
       formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
       formData.gender = genderMapping[formData.gender];
+
+      if (!formData.maritalStatus) {
+        console.error('Invalid marital status');
+        formData.maritalStatus = 0; // Default or error value
+      }
+      if (!formData.gender) {
+        console.error('Invalid gender');
+        formData.gender = 0; // Default or error value
+      }
   
       // Format `dateOfBirth` to match the expected backend format
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
@@ -131,20 +154,48 @@ export class StudentsComponent implements OnInit {
   
   
 
-  searchStudents(searchTerm: string): void {
-    this.filteredStudents = this.student.filter(
-      (stu) =>
-        stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
+  // Updated `onPageChange` to handle pagination
+onPageChange(event: any): void {
+  const { pageIndex, pageSize } = event;
+  this.pageNumber = pageIndex + 1; // pageIndex is zero-based, so we add 1
+  this.pageSize = pageSize;
+  this.getAllStudents(); // Call API with updated pagination
+}
 
-  getAllStudents(): void {
-    this.studentService.GetAllStudent(1, 10).subscribe((response: any) => {
-      this.student = response; 
-      this.filteredStudents = [...this.student];
-    });
-  }
+// Updated `getAllStudents` method to handle paginated data fetch
+getAllStudents(): void {
+  this.studentService.GetAllStudents(this.pageNumber, this.pageSize).subscribe(
+    (response: any) => {
+      if (Array.isArray(response) && response.length > 0) {
+        this.student = response;
+        this.filteredStudents = [...this.student];
+      } else {
+        console.error('No students found or unexpected response:', response);
+        this.student = []; 
+        this.filteredStudents = [];
+      } // Assuming the API returns the total count of students
+    },
+    (error) => {
+      console.error('Error fetching students:', error);
+      alert('An error occurred while fetching students.');
+    }
+  );
+}
+
+// Modify `searchStudents` to reset pagination when searching
+searchStudents(searchTerm: string): void {
+  this.filteredStudents = this.student.filter(
+    (stu) =>
+      stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Reset pagination when searching
+  this.pageNumber = 1; // Always reset to the first page
+  this.getAllStudents();
+}
+
+
 
   deleteStudent(Id: number): void {
     this.studentService.DeleteStudent(Id).subscribe(() => {
@@ -152,6 +203,21 @@ export class StudentsComponent implements OnInit {
       this.filteredStudents = [...this.student];
     });
   }
+ 
+ 
+  getStudentDetails(studentId: string): void {
+    this.studentService.GetStudentById(studentId).subscribe(
+      (response) => {
+        this.studentDetails = response;
+      },
+      (error) => {
+        console.error(`Error fetching student details with ID ${studentId}:`, error);
+      }
+    );
+  }
+  
+  
+  
 
   isInvalid(controlName: string): any {
     const control = this.studentForm.get(controlName);
@@ -166,4 +232,12 @@ export class StudentsComponent implements OnInit {
 
     return `${year}-${month}-${day}`;
   }
+
+
+
+   
+  
+
+
+  
 }

@@ -1,61 +1,60 @@
- 
-  <div class="main">
-    <div class="containerBody">
-      <h1 class="text-danger text-center">Student Details</h1>
-      
+<div class="main">
+  <div class="containerBody">
+    <h1 class="text-danger text-center">Student Details</h1>
 
-      <div class="toolbar mt-4">
-        <div class="add-student mb-3">
-          <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Student</button>
-        </div>
-        <div class="search-student">
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search Students"
-            (input)="searchStudents(searchInput.value)"
-            #searchInput
-          />
-        </div>
+    <div class="toolbar mt-4">
+      <div class="add-student mb-3">
+        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">Add Student</button>
       </div>
-  
-      <hr />
-      <div class="student black-border mt-4">
-        <div class="row">
-          <div *ngIf="filteredStudents.length > 0; else noStudents" class="d-flex flex-wrap">
-            <div class="col-md-4 mb-4" *ngFor="let student of filteredStudents">
-              <div class="card h-100 w-75">
-                <div class="card-body text-center">
-                  <img
-                    [src]="student.profile || 'https://via.placeholder.com/150'"
-                    alt="Profile Image"
-                    class="img-thumbnail mb-3"
-                    style="width: 100px; height: 100px; border-radius: 50px;"
-                  />
-                  <h5 class="card-title">{{ student.firstName }} {{ student.lastName }}</h5>
-                  <p class="card-text">Student ID: {{ student.studentId }}</p>
-                  <p class="card-text">NIC: {{ student.nic }}</p>
-                  <p class="card-text">Email: {{ student.email }}</p>
-                  <p class="card-text">Gender: {{ student.gender }}</p>
-                </div>
-                <button class="btn btn-danger" (click)="deleteStudent(student.studentId)">Delete</button>
-                <button class="bg-dark text-white" [routerLink]="['/student-cv', student.studentId]">More info</button>
-              </div>
-            </div>
-          </div>
-  
-          <!-- No Student message -->
-          <ng-template #noStudents>
-            <div class="col text-center">
-              <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Student Details Here</span>
-            </div>
-          </ng-template>
-        </div>
+      <div class="search-student">
+        <input
+          type="search"
+          class="form-control"
+          placeholder="Search Students"
+          (input)="searchStudents(searchInput.value)"
+          #searchInput
+        />
       </div>
     </div>
-  
-    <!-- Modal -->
-    <div
+
+    <hr />
+    <div class="student black-border mt-4">
+      <div class="row">
+        <div *ngIf="filteredStudents.length > 0; else noStudents" class="d-flex flex-wrap">
+          <div class="col-md-4 mb-4" *ngFor="let student of filteredStudents">
+            <div class="card h-100 w-75">
+              <div class="card-body text-center">
+                <img
+                [src]="student.image || 'https://via.placeholder.com/150'"
+                alt="Profile Image"
+                class="img-thumbnail mb-3"
+                style="width: 100px; height: 100px; border-radius: 50px;"
+              />
+              
+                <h5 class="card-title">{{ student.firstName }} {{ student.lastName }}</h5>
+                <p class="card-text">Student ID: {{ student.studentId }}</p>
+                <p class="card-text">NIC: {{ student.nic }}</p>
+                <p class="card-text">Email: {{ student.email }}</p>
+                <p class="card-text">Gender: {{ student.gender }}</p>
+              </div>
+              <button class="btn btn-danger" (click)="deleteStudent(student.studentId)">Delete</button>
+              <button class="bg-dark text-white" [routerLink]="['/student-cv', student.id]">More info</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Student message -->
+        <ng-template #noStudents>
+          <div class="col text-center">
+            <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Student Details Here</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
     class="modal fade"
     id="studentDetailsModal"
     tabindex="-1"
@@ -74,43 +73,49 @@
         <div class="modal-body">
           <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
             <div class="row">
-              <div class="col-md-6 mb-3" *ngFor="let field of studentFields">
-                <label [for]="field.controlName" class="form-label">{{ field.label }}</label>
-                <ng-container *ngIf="field.type === 'select'; else textField">
+              <div class="col-12">
+                <div *ngFor="let field of studentFields" class="mb-3">
+                  <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                  <input
+                    *ngIf="field.type !== 'select'"
+                    type="{{ field.type || 'text' }}"
+                    class="form-control"
+                    formControlName="{{ field.controlName }}"
+                    placeholder="{{ field.placeholder }}"
+                  />
+
                   <select
-                    class="form-select"
-                    [id]="field.controlName"
-                    [formControlName]="field.controlName"
+                    *ngIf="field.type === 'select'"
+                    formControlName="{{ field.controlName }}"
+                    class="form-control"
                   >
                     <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
                   </select>
-                </ng-container>
-                <ng-template #textField>
-                  <input
-                    [type]="field.type || 'text'"
-                    class="form-control"
-                    [id]="field.controlName"
-                    [formControlName]="field.controlName"
-                    [placeholder]="field.placeholder || ''"
-                  />
-                </ng-template>
-                <small *ngIf="isInvalid(field.controlName)" class="text-danger">
-                  * {{ field.label }} is required.
-                </small>
+
+                  <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                    <small>{{ field.controlName | uppercase }} is required!</small>
+                  </div>
+                </div>
               </div>
             </div>
+
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="cancel()">Close</button>
-              <button type="submit" class="btn btn-primary" [disabled]="studentForm.invalid">Submit</button>
+              <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-</div>
-  
-  <div>
-    <router-outlet></router-outlet>
-  </div>
 
+  <!-- Pagination -->
+  <mat-paginator
+  [length]="totalItems"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="[2, 4, 10, 15, 25, 50]"
+  showFirstLastButtons
+  (page)="onPageChange($event)"
+></mat-paginator>
+
+</div>
