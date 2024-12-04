@@ -24,10 +24,11 @@ export class StudentService {
     return this.http.get<any>(this.url + `Student/Get_All_Students?pageNumber=${pageNumber}&pageSize=${pageSize}`);
   }
 
-  UpdateStudent(studentId: number, data: any) {
-    return this.http.put(this.url + `Student/UpdateStudent/${studentId}`, data);
-  }
 
+  UpdateStudent(studentId: number, data: any): Observable<void> {
+    return this.http.put<void>(`${this.url}Student/${studentId}`, data);
+  }
+  
   DeleteStudent(studentId: number): Observable<void> {
     const deleteUrl = `${this.url}Student/${studentId}`;
     return this.http.delete<void>(deleteUrl);
