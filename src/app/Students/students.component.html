@@ -37,7 +37,11 @@
                 <p class="card-text">Email: {{ student.email }}</p>
                 <p class="card-text">Gender: {{ student.gender }}</p>
               </div>
-              <button class="btn btn-danger" (click)="deleteStudent(student.studentId)">Delete</button>
+              <div class="d-flex justify-content-evenly">
+                <button class="btn " (click)="deleteStudent(student.studentId)"><ion-icon name="trash" style="color: red;"></ion-icon></button>
+                <button class="btn update" ><ion-icon style="color: green;" name="create"></ion-icon></button>
+              </div>
+
               <button class="bg-dark text-white" [routerLink]="['/student-cv', student.id]">More info</button>
             </div>
           </div>
@@ -118,4 +122,10 @@
   (page)="onPageChange($event)"
 ></mat-paginator>
 
+</div>
+
+<div>
+  <router-outlet>
+    
+  </router-outlet>
 </div>

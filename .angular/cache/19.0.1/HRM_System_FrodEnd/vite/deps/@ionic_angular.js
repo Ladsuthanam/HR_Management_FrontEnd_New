@@ -41,6 +41,8 @@ import {
   isPlatform,
   printIonWarning
 } from "./chunk-5CLJQ7IX.js";
+import "./chunk-BPXEX5UZ.js";
+import "./chunk-ETJXED5C.js";
 import {
   MaxValidator,
   MinValidator,
@@ -48,8 +50,6 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl
 } from "./chunk-62WUQUFL.js";
-import "./chunk-BPXEX5UZ.js";
-import "./chunk-ETJXED5C.js";
 import {
   CommonModule,
   DOCUMENT,
