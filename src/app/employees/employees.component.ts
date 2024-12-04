@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EmployeeService } from '../services/employee.service';
 
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterOutlet, ReactiveFormsModule, RouterLink],
+  imports: [IonicModule, CommonModule, RouterOutlet, ReactiveFormsModule, RouterLink,EmployeeService,ActivatedRoute],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
 })
@@ -16,42 +17,55 @@ export class EmployeesComponent implements OnInit {
   employee: any[] = [];
   filteredUsers: any[] = [];
   isModalOpen: boolean = false;
+  employeeDetails: any = {};
+  pageSize=12;
+  pageNumber=1;
+  totalItems = 0;
 
   employeeFields = [
-    { controlName: 'userId', label: 'User ID', placeholder: 'Enter User ID' },
+    { controlName: 'usersId', label: 'User ID', placeholder: 'Enter User ID' },
     { controlName: 'profile', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
     { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
     { controlName: 'nic', label: 'NIC', placeholder: 'Enter NIC (e.g., 123456789V or 123456789012)' },
     { controlName: 'email', label: 'Email', placeholder: 'Enter Email' },
-    { controlName: 'phoneNumber', label: 'Phone Number', placeholder: 'Enter Phone Number' },
-    { controlName: 'dob', label: 'Date of Birth', type: 'date' },
+    { controlName: 'phoneNumbe', label: 'Phone Number', placeholder: 'Enter Phone Number' },
+    { controlName: 'dateOfBirth', label: 'Date of Birth', type: 'date' },
     {
-      controlName: 'maritalStatus',
+      controlName: 'merritalStatus',
       label: 'Marital Status',
       type: 'select',
-      options: ['Single', 'Married', 'Divorced', 'Widowed'],
+      options: [
+        { label: 'Single', value: 1 },
+        { label: 'Married', value: 2 },
+        { label: 'Divorced', value: 3 },
+        { label: 'Widowed', value: 4 },
+      ],
     },
     
     {
       controlName: 'gender',
       label: 'Gender',
       type: 'select',
-      options: ['Male', 'Female', 'Other'],
+      options: [
+        { label: 'Male', value: 1 },
+        { label: 'Female', value: 2 },
+        { label: 'Other', value: 3 },
+      ],
     },
   ];
   
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private employeeService : EmployeeService,private router: ActivatedRoute ) {
     this.employeeForm = this.fb.group({
-      userId: ['', Validators.required],
+      usersId: ['', Validators.required],
       profile: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nic: ['', [Validators.required, Validators.pattern('^(\\d{9}[vV]|\\d{12})$')]],
       email: ['', [Validators.required, Validators.email]],
-      maritalStatus: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
-      dob: ['', Validators.required],
+      merritalStatus: ['', Validators.required],
+      phoneNumbe: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
     });
   }
