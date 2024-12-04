@@ -53,7 +53,17 @@ export class StudentCvComponent implements OnInit {
     { id: 'country', label: 'Country', placeholder: 'Enter Country', error: 'Country is required.' },
   ];
 
-  
+  higherStudyFields = [
+    { fieldName: 'Institution', placeholder: 'Enter Institution Name' },
+    { fieldName: 'Degree', placeholder: 'Enter Degree Name' },
+    { fieldName: 'Year', placeholder: 'Enter Year of Graduation' },
+  ];
+
+  experienceFields = [
+    { fieldName: 'Company', placeholder: 'Enter Company Name' },
+    { fieldName: 'Role', placeholder: 'Enter Job Role' },
+    { fieldName: 'Duration', placeholder: 'Enter Job Duration' },
+  ];
 
   initializeForms() {
     this.parentsForm = this.fb.group({
@@ -165,7 +175,13 @@ export class StudentCvComponent implements OnInit {
       alert('Please fill all required fields correctly.');
     }
   }
-  
+
+  saveExperience(){
+
+  }
+  saveHigherStudy(){
+
+  }
 
   editAddress() {
     if (this.studentData.address) {
