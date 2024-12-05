@@ -72,7 +72,7 @@
           <div class="mb-3">
             <div *ngIf="studentData.olQualification; else noOlQualification">
               <h4><u class="text-danger">O-Level Qualification</u></h4>
-          
+
               <p><strong>Index Number:</strong> {{ studentData.olQualification.indexNo }}</p>
               <p><strong>Year:</strong> {{ studentData.olQualification.year }}</p>
               <p><strong>School:</strong> {{ studentData.olQualification.school }}</p>
@@ -86,19 +86,20 @@
               <p><strong>Basket 2:</strong> {{ studentData.olQualification.basket2 }}</p>
               <p><strong>Basket 3:</strong> {{ studentData.olQualification.basket3 }}</p>
             </div>
-          
+
             <!-- Template for when O-Level Qualification is not available -->
             <ng-template #noOlQualification>
               <p class="text-muted">O-Level Qualification not provided.</p>
             </ng-template>
-          
+
             <!-- Add O-Level Qualification Button -->
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#olQualification">
-              <i class="bi bi-book-half me-1"></i> 
+            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
+              data-bs-target="#olQualification">
+              <i class="bi bi-book-half me-1"></i>
               {{ studentData.olQualification ? 'Edit O-Level Qualification' : '+ Add O-Level Qualification' }}
             </button>
           </div>
-          
+
           <div class="mb-3">
             <div *ngIf="studentData.alQualification">
               <h4><u class="text-danger">A-Level Qualification</u></h4>
@@ -113,7 +114,7 @@
               <p><strong>General Knowledge: </strong>{{ studentData.alQualification.generalKnowledge }}</p>
               <p><strong>Git: </strong>{{ studentData.alQualification.git }}</p>
             </div>
-            
+
             <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
               data-bs-target="#AlQualification">
               <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
@@ -145,7 +146,7 @@
 
 
 <!-- Parents Modal -->
-<div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
+<!-- <div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form [formGroup]="parentsForm" (ngSubmit)="saveData(parentsForm, 'parents')">
@@ -182,10 +183,10 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- Address Modal -->
-<div class="modal fade" id="Address" tabindex="-1" aria-hidden="true">
+<!-- <div class="modal fade" id="Address" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
@@ -211,11 +212,11 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- AL Qualification Modal -->
-<div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
@@ -264,14 +265,15 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveAlQualification()" data-bs-dismiss="modal">Save Changes</button>
+        <button type="button" class="btn btn-primary" (click)="saveAlQualification()" data-bs-dismiss="modal">Save
+          Changes</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- O-Level Qualification Modal -->
-<div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="olQualificationLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="olQualificationLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -288,11 +290,12 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="olQualificationForm.invalid" (click)="saveQualification()" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="olQualificationForm.invalid"
+          (click)="saveQualification()" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 
 <!-- Higher Study Modal -->
@@ -307,13 +310,15 @@
         <form [formGroup]="higherStudyForm">
           <div class="mb-3" *ngFor="let field of higherStudyFields">
             <label class="form-label">{{ field.label }}</label>
-            <input type="text" [formControlName]="field.id" class="form-control" [placeholder]="'Enter ' + field.label" />
+            <input type="text" [formControlName]="field.id" class="form-control"
+              [placeholder]="'Enter ' + field.label" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="higherStudyForm.invalid" (click)="saveHigherStudy()" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="higherStudyForm.invalid" (click)="saveHigherStudy()"
+          data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
@@ -331,15 +336,16 @@
         <form [formGroup]="experienceForm">
           <div class="mb-3" *ngFor="let field of experienceFields">
             <label class="form-label">{{ field.label }}</label>
-            <input type="text" [formControlName]="field.id" class="form-control" [placeholder]="'Enter ' + field.label" />
+            <input type="text" [formControlName]="field.id" class="form-control"
+              [placeholder]="'Enter ' + field.label" />
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="experienceForm.invalid" (click)="saveExperience()" data-bs-dismiss="modal">Save changes</button>
+        <button type="button" class="btn btn-primary" [disabled]="experienceForm.invalid" (click)="saveExperience()"
+          data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
 </div> -->
-
