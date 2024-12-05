@@ -61,13 +61,9 @@ export const routes: Routes = [
                 title:'Students'
             },
             {
-                
                     path: 'student-cv/:id',
                     component: StudentCvComponent, 
-                    title:'student_Cv'
-               
-                  
-
+                    title:'student Cv'
             },
             {
                 path:'staff',

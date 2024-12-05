@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';  // Removed RouterLink from imports
 import { IonicModule } from '@ionic/angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
@@ -8,7 +8,7 @@ import { EmployeeService } from '../services/employee.service';
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [IonicModule, CommonModule, RouterOutlet, ReactiveFormsModule, RouterLink,EmployeeService,ActivatedRoute],
+  imports: [IonicModule, CommonModule, ReactiveFormsModule,RouterModule],  // Removed RouterLink from imports
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
 })
@@ -18,9 +18,6 @@ export class EmployeesComponent implements OnInit {
   filteredUsers: any[] = [];
   isModalOpen: boolean = false;
   employeeDetails: any = {};
-  pageSize=12;
-  pageNumber=1;
-  totalItems = 0;
 
   employeeFields = [
     { controlName: 'usersId', label: 'User ID', placeholder: 'Enter User ID' },
@@ -42,7 +39,6 @@ export class EmployeesComponent implements OnInit {
         { label: 'Widowed', value: 4 },
       ],
     },
-    
     {
       controlName: 'gender',
       label: 'Gender',
@@ -54,8 +50,8 @@ export class EmployeesComponent implements OnInit {
       ],
     },
   ];
-  
-  constructor(private fb: FormBuilder, private employeeService : EmployeeService,private router: ActivatedRoute ) {
+
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService, private router: ActivatedRoute) {
     this.employeeForm = this.fb.group({
       usersId: ['', Validators.required],
       profile: ['', Validators.required],

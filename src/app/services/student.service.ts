@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentService {
+  saveStudentData(arg0: string, experienceData: any) {
+    throw new Error('Method not implemented.');
+  }
 
   url = 'http://localhost:5162/api/';
 
@@ -15,8 +18,8 @@ export class StudentService {
     return this.http.post(this.url + 'Student/AddStudent', data);
   }
 
-  GetStudentById(studentId: string) {
-    return this.http.get(`${this.url}Student/${studentId}`);
+  GetStudentById(id: number): Observable<any> {
+    return this.http.get(`${this.url}Student/${id}`);
   }
 
 

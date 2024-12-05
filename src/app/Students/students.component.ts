@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
@@ -16,11 +17,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     CommonModule,
     RouterOutlet,
     ReactiveFormsModule,
-    RouterLink,
+  
     HttpClientModule,MatPaginatorModule,
-
-   
-    
+    MatButtonModule  
   ],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],
@@ -69,7 +68,7 @@ export class StudentsComponent implements OnInit {
     },
   ];
   
-  constructor(private fb: FormBuilder, private studentService: StudentService, private router: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router) {
     this.studentForm = this.fb.group({
      
       image: ['', Validators.required],
@@ -83,14 +82,11 @@ export class StudentsComponent implements OnInit {
       gender: ['', Validators.required],
     });
   }
-
+  goToStudentCv(id: number): void {
+    this.router.navigate([`/student-cv/${id}`]);
+  }
   ngOnInit(): void {
-    this.router.paramMap.subscribe((params) => {
-      const id = params.get('id');
-      if (id) {
-        this.getStudentDetails(id);
-      }
-    });
+ 
     this.getAllStudents(); 
   }
 
@@ -234,22 +230,6 @@ updateStudent(studentId: number): void {
   );
 }
 
-
-
- 
-  getStudentDetails(studentId: string): void {
-    this.studentService.GetStudentById(studentId).subscribe(
-      (response) => {
-        this.studentDetails = response;
-      },
-      (error) => {
-        console.error(`Error fetching student details with ID ${studentId}:`, error);
-      }
-    );
-  }
-  
-  
-  
 
   isInvalid(controlName: string): any {
     const control = this.studentForm.get(controlName);
