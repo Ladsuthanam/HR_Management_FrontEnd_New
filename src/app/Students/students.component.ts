@@ -34,7 +34,7 @@ export class StudentsComponent implements OnInit {
   studentDetails: any = {};
   pageSize=12;
   pageNumber=1;
-  totalItems = 0;
+  totalItems = 120;
 
   studentFields = [
  
@@ -108,11 +108,26 @@ export class StudentsComponent implements OnInit {
       const formData = { ...this.studentForm.value };
   
       
-      const maritalStatusMapping: { [key: string]: number } = { Single: 1, Married: 2, Divorced: 3, Widowed: 4 };
-      const genderMapping: { [key: string]: number } = { Male: 1, Female: 2, Other: 3 };
+      const maritalStatusMapping: { [key: number]: number } = { 
+        1: 1, 
+        2: 2, 
+        3: 3, 
+        4: 4  
+      };
+      const genderMapping: { [key: number]: number } = { 
+        1: 1,
+        2: 2, 
+        3: 3 
+      };
   
+      console.log('Marital Status:', formData.maritalStatus);
+console.log('Gender:', formData.gender);
+
       formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
       formData.gender = genderMapping[formData.gender];
+
+      console.log('Mapped Marital Status:', formData.maritalStatus);
+console.log('Mapped Gender:', formData.gender);
 
       if (!formData.maritalStatus) {
         console.error('Invalid marital status');
