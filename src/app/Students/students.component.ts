@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonLabel, IonicModule } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { controllers } from 'chart.js';
 
 
 @Component({
@@ -37,7 +38,8 @@ export class StudentsComponent implements OnInit {
   totalItems = 120;
 
   studentFields = [
- 
+
+    { controlName: 'studentId',label:'Student Id', placeholder:'Enter Student Id'},
     { controlName: 'image', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
     { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
@@ -70,7 +72,8 @@ export class StudentsComponent implements OnInit {
   
   constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router) {
     this.studentForm = this.fb.group({
-     
+
+      studentId:['', Validators.required],
       image: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
