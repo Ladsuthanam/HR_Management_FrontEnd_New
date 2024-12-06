@@ -19,8 +19,7 @@ import {MatIconModule} from '@angular/material/icon';
     CommonModule,
     RouterOutlet,
     ReactiveFormsModule,
-  
-    HttpClientModule,MatPaginatorModule,
+    MatPaginatorModule,
     MatButtonModule,
     MatIconModule
   ],
