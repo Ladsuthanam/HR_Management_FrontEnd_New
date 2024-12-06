@@ -1,4 +1,19 @@
+import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
+import {
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  createAnimation,
+  doc,
+  getIonMode,
+  getPlatforms,
+  isPlatform,
+  printIonWarning
+} from "./chunk-5CLJQ7IX.js";
 import {
   iosTransitionAnimation
 } from "./chunk-UWMSXM6I.js";
@@ -25,31 +40,16 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-HZYJQWGS.js";
-import "./chunk-H7QBR36Q.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  createAnimation,
-  doc,
-  getIonMode,
-  getPlatforms,
-  isPlatform,
-  printIonWarning
-} from "./chunk-5CLJQ7IX.js";
+} from "./chunk-46AWHX3B.js";
 import {
   MaxValidator,
   MinValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NgControl
-} from "./chunk-62WUQUFL.js";
-import "./chunk-BPXEX5UZ.js";
-import "./chunk-ETJXED5C.js";
+} from "./chunk-LCVV6GKC.js";
+import "./chunk-ORKPEZYI.js";
+import "./chunk-GGFYQDZU.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -57,7 +57,7 @@ import {
   LocationStrategy,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-3CL4EQYN.js";
+} from "./chunk-A6V7BW5E.js";
 import {
   APP_INITIALIZER,
   ApplicationRef,
@@ -130,7 +130,7 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-VY53XFF5.js";
+} from "./chunk-2LSNONSW.js";
 import {
   __awaiter,
   __decorate,

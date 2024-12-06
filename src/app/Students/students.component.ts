@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { controllers } from 'chart.js';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { controllers } from 'chart.js';
     ReactiveFormsModule,
   
     HttpClientModule,MatPaginatorModule,
-    MatButtonModule  
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.css'],

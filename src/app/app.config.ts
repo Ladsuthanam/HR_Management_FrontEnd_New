@@ -10,5 +10,5 @@ import { HttpClientModule} from '@angular/common/http';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
      provideRouter(routes),importProvidersFrom(BrowserAnimationsModule, HttpClientModule), 
-     provideAnimationsAsync()]
+     provideAnimationsAsync(), provideAnimationsAsync()]
 };
