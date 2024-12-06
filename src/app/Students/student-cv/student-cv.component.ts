@@ -29,20 +29,33 @@ export class StudentCvComponent implements OnInit {
   constructor(private route: ActivatedRoute, private studentService: StudentService, private fb: FormBuilder, private http: HttpClient) { }
 
   ngOnInit(): void {
-   this.studentId = Number(this.route.snapshot.paramMap.get('id'));
-   this.getStudentDetails();
+    this.route.paramMap.subscribe((params) => {
+      const id = (params.get('id'));
+      console.log('Fetched ID:', id);
+  
+      if (id) {
+        this.getStudent(id);
+      } else {
+        console.error('Invalid or missing ID');
+      }
+    });
   }
+  
+  
 
-  getStudentDetails(): void {
-    this.studentService.GetStudentById(this.studentId).subscribe(
-      (data)=>{
-        this.student = data;
-      }, 
+  getStudent(id: string): void {
+    this.studentService.GetStudentById(id).subscribe(
+      (response) => {
+        this.student = response; // Assign the response to the student object
+        console.log('Student Data:', this.student); // Log for debugging
+      },
       (error) => {
-        console.error('error fetching student details', error);
+        console.error('Error fetching student data:', error); // Handle errors
       }
     );
   }
+
+ 
 
   // Define field data for forms (unchanged)
   addressFields = [
