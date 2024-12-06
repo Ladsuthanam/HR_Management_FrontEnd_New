@@ -5,6 +5,15 @@ import {
   Validators
 } from "./chunk-62WUQUFL.js";
 import {
+  animate,
+  animateChild,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-I3ZN3WKM.js";
+import {
   A,
   A11yModule,
   ActiveDescendantKeyManager,
@@ -50,15 +59,6 @@ import {
   removeAriaReferencedId,
   supportsScrollBehavior
 } from "./chunk-KQVUJIJ2.js";
-import {
-  animate,
-  animateChild,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-I3ZN3WKM.js";
 import {
   DOCUMENT,
   Location,
