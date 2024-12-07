@@ -214,6 +214,7 @@ searchStudents(searchTerm: string): void {
 
 
 deleteStudent(studentId: number): void { 
+  
   this.studentService.DeleteStudent(studentId).subscribe(
     () => {
      

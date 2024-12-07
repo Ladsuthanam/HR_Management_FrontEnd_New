@@ -7,15 +7,18 @@
   background-color: rgb(149, 169, 174);
   background-size: cover;
   overflow: visible !important;
+  
 
 }
+
+
 .txt{
   color: rgb(4, 4, 52);
 }
 .containerBody{
-padding-top: 120px;
-/* padding-left: 300px; */
-}
+  padding-top: 120px;
+  /* padding-left: 300px; */
+  }
 /* 
 :root {
   --gray-100: #f3f4f6;
@@ -110,15 +113,19 @@ hr {
 .student{
   padding-left: 55px;
 }
-.delete{
-  background-color: red;
-  width: 35px;
-  height: 35px;
-}
+
 
 .btn{
   background-color: #030404;
   box-shadow: var(--mat-sys-level5);
   color:rgb(194, 212, 219);
 }
+.mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn{
+  color: red;
 
+}
+.mat-mdc-fab{
+  background-color: #eafcff;
+  box-shadow: none;
+
+}
