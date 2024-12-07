@@ -110,15 +110,19 @@ hr {
 .staff{
   padding-left: 55px;
 }
-.delete{
-  background-color: red;
-  width: 35px;
-  height: 35px;
-}
+
 
 .btn{
   background-color: #030404;
   box-shadow: var(--mat-sys-level5);
   color:rgb(194, 212, 219);
 }
+.mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn{
+  color: red;
 
+}
+.mat-mdc-fab{
+  background-color: #eafcff;
+  box-shadow: none;
+
+}
