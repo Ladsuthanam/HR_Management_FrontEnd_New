@@ -1,136 +1,105 @@
-
 <div class="main">
-    <div class="containerBody">
-      <h1 class="txt text-center">Staff Details</h1>
-  
-      <div class="toolbar mt-4">
-        <div class="add-staff mb-3">
-          <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>Add Staff</button>
-        </div>
-        <div class="search-staff">
-          <input
-            type="search"
-            class="form-control"
-            placeholder="Search Staffs"
-            (input)="searchStaffs(searchInput.value)"
-            #searchInput
-          />
-        </div>
+  <div class="containerBody">
+    <h1 class="txt text-center">Staff Details</h1>
+
+    <div class="toolbar mt-4">
+      <div class="add-staff mb-3">
+        <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+            <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+          </svg>Add Staff</button>
       </div>
-  
-      <hr />
-      <div class="staff black-border mt-4">
-        <div class="row">
-          <div *ngIf="filteredStaffs.length > 0; else noStaffs" class="d-flex flex-wrap">
-            <div class="col-md-4 mb-4" *ngFor="let staff of filteredStaffs">
-              <div class="card h-100 w-50">
-                <div class="card-body text-center">
-                  <img
-                  [src]="staff.image || 'https://via.placeholder.com/150'"
-                  alt="Profile Image"
-                  class="img-thumbnail mb-3"
-                  style="width: 100px; height: 100px; border-radius: 50px;"
-                />
-                
-                  <h5 class="card-title">{{ staff.firstName }} {{ staff.lastName }}</h5>
-                  <p class="card-text">Staff ID: {{ staff.usersId }}</p>
-             
-                </div>
-                <div class="d-flex justify-content-evenly">
-                <button class="delete" mat-fab aria-label="Example icon button with a delete icon" (click)="deleteStaff(staff.id)">
-                  <mat-icon>delete</mat-icon>
-                </button>  
-                </div>
-                <button class="bg-dark text-white" mat-raised-button (click)="goToStaffCv(staff.id)">More info</button>
-              </div>
-            </div>
-          </div>
-  
-          <!-- No Staff message -->
-          <ng-template #noStaffs>
-            <div class="col text-center">
-              <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Staff Details Here</span>
-            </div>
-          </ng-template>
-        </div>
+      <div class="search-staff">
+        <input type="search" class="form-control" placeholder="Search Staffs" (input)="searchStaffs(searchInput.value)"
+          #searchInput />
       </div>
     </div>
-  
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="staffDetailsModal"
-      tabindex="-1"
-      aria-labelledby="staffDetailsModalLabel"
-      aria-hidden="true"
-      [ngClass]="{ show: isModalOpen }"
-      style="display: block;"
-      *ngIf="isModalOpen"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="staffDetailsModalLabel">Add Staff Details</h5>
-            <button type="button" class="btn-close" (click)="closeModal()"></button>
+
+    <hr />
+    <div class="staff black-border mt-4">
+      <div class="row">
+        <div *ngIf="filteredStaffs.length > 0; else noStaffs" class="d-flex flex-wrap">
+          <div class="col-md-4 mb-4" *ngFor="let staff of filteredStaffs">
+            <div class="card h-100 w-50">
+              <div class="card-body text-center">
+                <img [src]="staff.image || 'https://via.placeholder.com/150'" alt="Profile Image"
+                  class="img-thumbnail mb-3" style="width: 100px; height: 100px; border-radius: 50px;" />
+
+                <h5 class="card-title">{{ staff.firstName }} {{ staff.lastName }}</h5>
+                <p class="card-text">Staff ID: {{ staff.usersId }}</p>
+
+              </div>
+              <div class="d-flex justify-content-center" type="button">
+                <mat-icon>delete</mat-icon>
+              </div>
+              <button class="bg-dark text-white" mat-raised-button (click)="goToStaffCv(staff.id)">More info</button>
+            </div>
           </div>
-          <div class="modal-body">
-            <form [formGroup]="staffForm" (ngSubmit)="onSubmit()">
-              <div class="row">
-                <div class="col-12">
-                  <div *ngFor="let field of staffFields" class="mb-3">
-                    <label for="field.controlName" class="form-label">{{ field.label }}</label>
-                    <input
-                      *ngIf="field.type !== 'select'"
-                      type="{{ field.type || 'text' }}"
-                      class="form-control"
-                      formControlName="{{ field.controlName }}"
-                      placeholder="{{ field.placeholder }}"
-                    />
-  
-                    <select
-                      *ngIf="field.type === 'select'"
-                      formControlName="{{ field.controlName }}"
-                      class="form-control"
-                    >
-                      <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
-                    </select>
-  
-                    <div *ngIf="isInvalid(field.controlName)" class="text-danger">
-                      <small>{{ field.controlName | uppercase }} is required!</small>
-                    </div>
+        </div>
+
+        <!-- No Staff message -->
+        <ng-template #noStaffs>
+          <div class="col text-center">
+            <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Staff Details Here</span>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="staffDetailsModal" tabindex="-1" aria-labelledby="staffDetailsModalLabel"
+    aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staffDetailsModalLabel">Add Staff Details</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-12">
+                <div *ngFor="let field of staffFields" class="mb-3">
+                  <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                  <input *ngIf="field.type !== 'select'" type="{{ field.type || 'text' }}" class="form-control"
+                    formControlName="{{ field.controlName }}" placeholder="{{ field.placeholder }}" />
+
+                  <select *ngIf="field.type === 'select'" formControlName="{{ field.controlName }}"
+                    class="form-control">
+                    <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+                  </select>
+
+                  <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                    <small>{{ field.controlName | uppercase }} is required!</small>
                   </div>
                 </div>
               </div>
-  
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <router-outlet></router-outlet>
-  
-    <footer>
+  </div>
+  <router-outlet></router-outlet>
+
+  <footer>
     <!-- Pagination -->
-    <mat-paginator
-    [length]="totalItems"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[2, 4, 10, 15, 25, 50]"
-    showFirstLastButtons
-    (page)="onPageChange($event)"
-  ></mat-paginator>
+    <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[2, 4, 10, 15, 25, 50]"
+      showFirstLastButtons (page)="onPageChange($event)"></mat-paginator>
   </footer>
-  
-  </div>
-  
-  
-  
-  <div>
-    <router-outlet>
-  
-    </router-outlet>
-  </div>
+
+</div>
+
+
+
+<div>
+  <router-outlet>
+
+  </router-outlet>
+</div>

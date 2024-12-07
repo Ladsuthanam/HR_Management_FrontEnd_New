@@ -29,11 +29,8 @@
                 <p class="card-text">Student ID: {{ student.studentId }}</p>
 
               </div>
-              <div class="d-flex justify-content-center" type = "button" (click)="deleteStudent(student.id)">
-                
-                  
-                  <mat-icon>delete</mat-icon>
-              
+              <div class="d-flex justify-content-center" type = "button" (click)="deleteStudent(student.id)">                 
+                  <mat-icon>delete</mat-icon>             
               </div>
               <button class="bg-dark text-white" mat-raised-button (click)="goToStudentCv(student.id)">More
                 info</button>

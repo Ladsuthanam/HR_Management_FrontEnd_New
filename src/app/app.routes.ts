@@ -18,6 +18,8 @@ import { EmployeeCvComponent } from './employees/employee-cv/employee-cv.compone
 import { EmployeeModelComponent } from './employees/employee-model/employee-model.component';
 import { StudentCvComponent } from './Students/student-cv/student-cv.component';
 import { LeaveComponent } from './LeavePage/leave/leave.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AttendancePageComponent } from './attendence/attendance-page/attendance-page.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +39,12 @@ export const routes: Routes = [
                 path: 'dashboard',
                 component: DashboardPageComponent,
                 title: 'Dashboard'
+            },
+            {
+                path:'admin',
+                component:AdminPageComponent,
+                title:'AdminPage'
+
             },
             {
                 path: 'employees',
@@ -98,6 +106,11 @@ export const routes: Routes = [
                 path:'leavePage',
                 component:LeaveComponent,
                 title:'LeavePage'
+            },
+            {
+                path:'attendancePage',
+                component:AttendancePageComponent,
+                title: 'AttendancePage'
             }
           
         ]
