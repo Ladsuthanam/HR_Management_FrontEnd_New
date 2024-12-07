@@ -14,26 +14,26 @@ export class StaffService {
 
   constructor(private http: HttpClient) { }
 
-  AddStudent(data: any) {
-    return this.http.post(this.url + 'Student/AddStudent', data);
+  AddStaff(data: any) {
+    return this.http.post(this.url + 'User/Add-Staff', data);
   }
 
-  GetStudentById(id: string): Observable<any> {
-    return this.http.get(`${this.url}Student/${id}`);
-  }
-
-
-  GetAllStudents(pageNumber: number, pageSize: number): Observable<any> {
-    return this.http.get<any>(this.url + `Student/Get_All_Students?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  GetStaffById(id: string): Observable<any> {
+    return this.http.get(`${this.url}User/${id}`);
   }
 
 
-  UpdateStudent(studentId: number, data: any): Observable<void> {
-    return this.http.put<void>(`${this.url}Student/${studentId}`, data);
+  GetAllStaffs(pageNumber: number, pageSize: number): Observable<any> {
+    return this.http.get<any>(this.url + `User/Get_All_Students?pageNumber=${pageNumber}&pageSize=${pageSize}`);
+  }
+
+
+  UpdateStaff(usersId: number, data: any): Observable<void> {
+    return this.http.put<void>(`${this.url}User/${usersId}`, data);
   }
   
-  DeleteStudent(studentId: number): Observable<void> {
-    const deleteUrl = `${this.url}Student/${studentId}`;
+  DeleteStaff(usersId: number): Observable<void> {
+    const deleteUrl = `${this.url}User/${usersId}`;
     return this.http.delete<void>(deleteUrl);
   }
 }

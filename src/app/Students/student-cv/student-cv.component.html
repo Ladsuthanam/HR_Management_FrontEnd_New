@@ -1,156 +1,97 @@
 <div class="container-fluid mt-5">
   <div class="row">
-    <div class="d-flex justify-content-center align-items-center h-100 w-100 p-5">
-
-      <!-- Student Personal Details -->
-      <div *ngIf="student; else noData" class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <div class="text-center mb-4">
-            <img
-            [src]="student.image || 'https://via.placeholder.com/150'"
-            alt="Profile Image"
-            class="img-thumbnail mb-3"
-            style="width: 100px; height: 100px; border-radius: 50px;"
-          />
-
-            <h2 class="mt-3">{{ student.firstName }} {{ student.lastName }}</h2>
-          </div>
-          <hr>
-          <div class="content">
-            
-            <p><strong>First Name:</strong> {{ student.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ student.lastName }}</p>
-            <p><strong>Student Id:</strong> {{ student.studentId}}</p>
-            <p><strong>NIC:</strong> {{ student.nic }}</p>
-            <p><strong>Email:</strong> {{ student.email }}</p>
-            <p><strong>Phone:</strong> {{ student.mobile }}</p>
-            <p><strong>Date of Birth:</strong> {{ student.dateOfBirth }}</p>
-            <p><strong>Gender:</strong> {{ student.gender }}</p>
-            <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
-
-            <div class="mt-4">
-              <div *ngIf="studentData.parents">
-                <h4><u class="text-danger">Parent Details</u></h4>
-                <p><strong>Name: </strong>{{ studentData.parents.firstName }} {{ studentData.parents.lastName }}</p>
-                <p><strong>Job: </strong>{{ studentData.parents.job }}</p>
-                <p><strong>Contact: </strong>{{ studentData.parents.contactNo }}</p>
-                <p><strong>Address: </strong>{{ studentData.parents.address }}</p>
-              </div>
-
-              <button class="btn btn-outline-primary btn-sm w-100 mb-2" data-bs-toggle="modal"
-                data-bs-target="#ParentsModal">
-                <i class="bi bi-people-fill me-1"></i> + Add Parents
-              </button>
-
-              <div *ngIf="studentData.address; else noAddress">
-                <h4><u class="text-danger">Address</u></h4>
-
-                <p><strong>House Number:</strong> {{ studentData.address.houseNumber }}</p>
-                <p><strong>Street:</strong> {{ studentData.address.street }}</p>
-                <p><strong>Lane:</strong> {{ studentData.address.lane }}</p>
-                <p><strong>City:</strong> {{ studentData.address.city }}</p>
-                <p><strong>State:</strong> {{ studentData.address.state }}</p>
-                <p><strong>Postal Code:</strong> {{ studentData.address.postalCode }}</p>
-                <p><strong>Country:</strong> {{ studentData.address.country }}</p>
-                <!-- Edit Address Button -->
-                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
-                  data-bs-target="#Address">
-                  <i class="bi bi-geo-alt-fill me-1"></i> Edit Address
-                </button>
-              </div>
-
-              <!-- Show when no address data exists -->
-              <ng-template #noAddress>
-                <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
-                  data-bs-target="#Address" data-bs-dismiss="modal">
-                  <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
-                </button>
-              </ng-template>
-            </div>
-
-          </div>
-        </div>
+    <!-- Left Column: Personal Details -->
+    <div class="col-lg-4 mb-4">
+      <div class="card p-4 shadow-sm border-0 text-center">
+        <img
+          [src]="student.image || 'https://via.placeholder.com/150'"
+          alt="Profile Image"
+          class="img-thumbnail mx-auto mb-3"
+          style="width: 120px; height: 120px; border-radius: 50%;"
+        />
+        <h3 class="text-primary">{{ student.firstName }} {{ student.lastName }}</h3>
+        <p class="text-muted">Student ID: {{ student.studentId }}</p>
+        <hr>
+        <p><i class="bi bi-envelope-fill"></i> {{ student.email }}</p>
+        <p><i class="bi bi-telephone-fill"></i> {{ student.mobile }}</p>
+        <p><i class="bi bi-calendar-fill"></i> {{ student.dateOfBirth }}</p>
+        <p><i class="bi bi-gender-ambiguous"></i> {{ student.gender }}</p>
+        <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
       </div>
 
-      <!-- Student Education Qualifications -->
-      <div class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <div class="mb-3">
-            <div *ngIf="studentData.olQualification; else noOlQualification">
-              <h4><u class="text-danger">O-Level Qualification</u></h4>
-
-              <p><strong>Index Number:</strong> {{ studentData.olQualification.indexNo }}</p>
-              <p><strong>Year:</strong> {{ studentData.olQualification.year }}</p>
-              <p><strong>School:</strong> {{ studentData.olQualification.school }}</p>
-              <p><strong>Tamil:</strong> {{ studentData.olQualification.tamil }}</p>
-              <p><strong>Science:</strong> {{ studentData.olQualification.science }}</p>
-              <p><strong>Mathematics:</strong> {{ studentData.olQualification.maths }}</p>
-              <p><strong>Religion:</strong> {{ studentData.olQualification.religion }}</p>
-              <p><strong>English:</strong> {{ studentData.olQualification.english }}</p>
-              <p><strong>History:</strong> {{ studentData.olQualification.history }}</p>
-              <p><strong>Basket 1:</strong> {{ studentData.olQualification.basket1 }}</p>
-              <p><strong>Basket 2:</strong> {{ studentData.olQualification.basket2 }}</p>
-              <p><strong>Basket 3:</strong> {{ studentData.olQualification.basket3 }}</p>
-            </div>
-
-            <!-- Template for when O-Level Qualification is not available -->
-            <ng-template #noOlQualification>
-              <p class="text-muted">O-Level Qualification not provided.</p>
-            </ng-template>
-
-            <!-- Add O-Level Qualification Button -->
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
-              data-bs-target="#olQualification">
-              <i class="bi bi-book-half me-1"></i>
-              {{ studentData.olQualification ? 'Edit O-Level Qualification' : '+ Add O-Level Qualification' }}
-            </button>
-          </div>
-
-          <div class="mb-3">
-            <div *ngIf="studentData.alQualification">
-              <h4><u class="text-danger">A-Level Qualification</u></h4>
-              <p><strong>Index No: </strong>{{ studentData.alQualification.indexNo }}</p>
-              <p><strong>Year: </strong>{{ studentData.alQualification.year }}</p>
-              <p><strong>School: </strong>{{ studentData.alQualification.school }}</p>
-              <p><strong>Stream: </strong>{{ studentData.alQualification.stream }}</p>
-              <p><strong>Subject 1: </strong>{{ studentData.alQualification.subject1 }}</p>
-              <p><strong>Subject 2: </strong>{{ studentData.alQualification.subject2 }}</p>
-              <p><strong>Subject 3: </strong>{{ studentData.alQualification.subject3 }}</p>
-              <p><strong>General English: </strong>{{ studentData.alQualification.generalEnglish }}</p>
-              <p><strong>General Knowledge: </strong>{{ studentData.alQualification.generalKnowledge }}</p>
-              <p><strong>Git: </strong>{{ studentData.alQualification.git }}</p>
-            </div>
-
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
-              data-bs-target="#AlQualification">
-              <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
-            </button>
-          </div>
-          <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#HigherStudy">
-              <i class="bi bi-mortarboard-fill me-1"></i> + Add Higher Study
-            </button>
-          </div>
-          <div>
-            <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Experience">
-              <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
-            </button>
-          </div>
+      <div class="mt-4">
+        <div *ngIf="studentData.parents">
+          <h4><u class="text-danger">Parent Details</u></h4>
+          <p><strong>Name: </strong>{{ studentData.parents.firstName }} {{ studentData.parents.lastName }}</p>
+          <p><strong>Job: </strong>{{ studentData.parents.job }}</p>
+          <p><strong>Contact: </strong>{{ studentData.parents.contactNo }}</p>
+          <p><strong>Address: </strong>{{ studentData.parents.address }}</p>
         </div>
+
+        <button class="btn btn-outline-primary btn-sm w-100 mb-2" data-bs-toggle="modal"
+          data-bs-target="#ParentsModal">
+          <i class="bi bi-people-fill me-1"></i> + Add Parents
+        </button>
+      
+        <div *ngIf="studentData.address; else noAddress">
+          <h4><u class="text-danger">Address</u></h4>
+
+          <p><strong>House Number:</strong> {{ studentData.address.houseNumber }}</p>
+          <p><strong>Street:</strong> {{ studentData.address.street }}</p>
+          <p><strong>Lane:</strong> {{ studentData.address.lane }}</p>
+          <p><strong>City:</strong> {{ studentData.address.city }}</p>
+          <p><strong>State:</strong> {{ studentData.address.state }}</p>
+          <p><strong>Postal Code:</strong> {{ studentData.address.postalCode }}</p>
+          <p><strong>Country:</strong> {{ studentData.address.country }}</p>
+          <!-- Edit Address Button -->
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
+            data-bs-target="#Address">
+            <i class="bi bi-geo-alt-fill me-1"></i> Edit Address
+          </button>
+        </div>
+
+        <!-- Show when no address data exists -->
+        <ng-template #noAddress>
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
+            data-bs-target="#Address" data-bs-dismiss="modal">
+            <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
+          </button>
+        </ng-template>
+      </div>
+    </div>
+
+
+    <!-- Right Column: Qualifications and Other Details -->
+  <div class="col-lg-8">
+    <div class="card p-4 shadow-sm border-0">
+        <h4 class="text-danger">Educational Qualifications</h4>
+        <hr>
+        <div *ngIf="studentData.olQualification; else noOl">
+          <h5>O-Level</h5>
+          <p><strong>Year:</strong> {{ studentData.olQualification.year }}</p>
+          <p><strong>School:</strong> {{ studentData.olQualification.school }}</p>
+          <p><strong>Tamil:</strong> {{ studentData.olQualification.tamil }}</p>
+          <p><strong>Science:</strong> {{ studentData.olQualification.science }}</p>
+          <p><strong>Mathematics:</strong> {{ studentData.olQualification.maths }}</p>
+          <p><strong>Religion:</strong> {{ studentData.olQualification.religion }}</p>
+          <p><strong>English:</strong> {{ studentData.olQualification.english }}</p>
+          <p><strong>History:</strong> {{ studentData.olQualification.history }}</p>
+          <p><strong>Basket 1:</strong> {{ studentData.olQualification.basket1 }}</p>
+          <p><strong>Basket 2:</strong> {{ studentData.olQualification.basket2 }}</p>
+          <p><strong>Basket 3:</strong> {{ studentData.olQualification.basket3 }}</p>
+          <button class="btn btn-outline-primary btn-sm">Edit O-Level</button>
+        </div>
+        
+        <ng-template #noOl>
+          <p class="text-muted">No O-Level qualification data.</p>
+        </ng-template>
       </div>
 
     </div>
-  </div>
-
-  <!-- No Data Template -->
-  <ng-template #noData>
-    <div class="text-center">
-      <p class="text-danger fw-bold">No student details found.</p>
-    </div>
-  </ng-template>
-</div>
+ </div>
 
 
+<!--***********************************************************************************************************-->
 <!-- Parents Modal -->
 <!-- <div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">

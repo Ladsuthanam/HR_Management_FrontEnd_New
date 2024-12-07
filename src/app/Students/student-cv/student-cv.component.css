@@ -1,12 +1,12 @@
-.container{
-   
-    background-color: rgb(240, 253, 255);
-   
-}
-.Content{
-    margin-top: 15px;
-}
-
-.card{
-    background-color: rgb(255, 235, 211);
-}
+.container-fluid {
+    background-color: #f8f9fa;
+    padding: 20px;
+  }
+  .card {
+    background-color: #ffffff;
+    border-radius: 10px;
+  }
+  h3, h4 {
+    color: #0d6efd;
+  }
+  
