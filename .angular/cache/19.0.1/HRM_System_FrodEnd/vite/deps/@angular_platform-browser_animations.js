@@ -6,6 +6,15 @@ import {
   NoopAnimationDriver,
   WebAnimationsDriver,
   WebAnimationsStyleNormalizer
+<<<<<<< HEAD
+} from "./chunk-KHQ2UVUX.js";
+import "./chunk-CVKKYXFN.js";
+import {
+  BrowserModule,
+  DomRendererFactory2
+} from "./chunk-ORKPEZYI.js";
+import "./chunk-GGFYQDZU.js";
+=======
 } from "./chunk-FANEINA7.js";
 import {
   BrowserModule,
@@ -13,6 +22,7 @@ import {
 } from "./chunk-IPN2NCBG.js";
 import "./chunk-545D7MUA.js";
 import "./chunk-ASH4A3QO.js";
+>>>>>>> f55b4748df9844aa97ae696d45755af1506b66eb
 import {
   DOCUMENT
 } from "./chunk-MGIHVETO.js";
