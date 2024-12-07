@@ -35,10 +35,11 @@
                 
                   <h5 class="card-title">{{ staff.firstName }} {{ staff.lastName }}</h5>
                   <p class="card-text">Staff ID: {{ staff.usersId }}</p>
+                  <p class="card-text">Role: {{ staff.role }}</p>
              
                 </div>
                 <div class="d-flex justify-content-evenly">
-                <button class="delete" mat-fab aria-label="Example icon button with a delete icon" (click)="deleteStaff(staff.id)">
+                <button class="delete" mat-fab aria-label="Example icon button with a delete icon" (click)=" deleteSaff(staff.id)">
                   <mat-icon>delete</mat-icon>
                 </button>  
                 </div>
@@ -115,14 +116,7 @@
     <router-outlet></router-outlet>
   
     <footer>
-    <!-- Pagination -->
-    <mat-paginator
-    [length]="totalItems"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="[2, 4, 10, 15, 25, 50]"
-    showFirstLastButtons
-    (page)="onPageChange($event)"
-  ></mat-paginator>
+    
   </footer>
   
   </div>

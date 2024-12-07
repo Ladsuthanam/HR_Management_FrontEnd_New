@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, JsonPipe } from '@angular/common';
+import { Component} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { Router, RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { StudentService } from '../services/student.service';
 import { controllers } from 'chart.js';
+import { UserService } from '../services/user.service';
+
 
 @Component({
   selector: 'app-staff',
@@ -17,7 +18,8 @@ import { controllers } from 'chart.js';
     ReactiveFormsModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatIconModule],
+    MatIconModule,
+  ],
   templateUrl: './staff.component.html',
   styleUrl: './staff.component.css'
 })
@@ -27,13 +29,11 @@ export class StaffComponent {
   filteredStaffs: any[] = [];
   isModalOpen: boolean = false;
   staffDetails: any = {};
-  pageSize=12;
-  pageNumber=1;
-  totalItems = 120;
+
 
   staffFields = [
 
-    { controlName: 'usersId',label:'Staff Id', placeholder:'Enter Staff Id'},
+    { controlName: 'usersId', label: 'Staff Id', placeholder: 'Enter Staff Id' },
     { controlName: 'image', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
     { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
@@ -41,7 +41,7 @@ export class StaffComponent {
     { controlName: 'email', label: 'Email', placeholder: 'Enter Email' },
     { controlName: 'phoneNumber', label: 'Phone Number', placeholder: 'Enter Phone Number' },
     { controlName: 'dateOfBirth', label: 'Date of Birth', type: 'date' },
-    {controlName:'password',label:'Password', placeholder:'Enter new password'},
+    { controlName: 'password', label: 'Password', placeholder: 'Enter new password' },
     {
       controlName: 'maritalStatus',
       label: 'Marital Status',
@@ -64,29 +64,29 @@ export class StaffComponent {
       ],
     },
   ];
-  
-  constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router) {
+
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.staffForm = this.fb.group({
 
-      usersId:['', Validators.required],
+      usersId: ['', Validators.required],
       image: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nic: ['', [Validators.required, Validators.pattern('^(\\d{9}[vV]|\\d{12})$')]],
       email: ['', [Validators.required, Validators.email]],
       maritalStatus: ['', Validators.required],
-      mobile: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
-      password:['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   goToStaffCv(id: number): void {
     this.router.navigate([`/student-cv/${id}`]);
   }
   ngOnInit(): void {
- 
-    this.getAllStudents(); 
+
+    this.getAllStaffs();
   }
 
   openModal(): void {
@@ -105,144 +105,120 @@ export class StaffComponent {
   onSubmit(): void {
     if (this.staffForm.valid) {
       const formData = { ...this.staffForm.value };
-  
-      
-      const maritalStatusMapping: { [key: number]: number } = { 
-        1: 1, 
-        2: 2, 
-        3: 3, 
-        4: 4  
-      };
-      const genderMapping: { [key: number]: number } = { 
+
+
+      const maritalStatusMapping: { [key: number]: number } = {
         1: 1,
-        2: 2, 
-        3: 3 
+        2: 2,
+        3: 3,
+        4: 4
       };
-  
+      const genderMapping: { [key: number]: number } = {
+        1: 1,
+        2: 2,
+        3: 3
+      };
+
       console.log('Marital Status:', formData.maritalStatus);
-console.log('Gender:', formData.gender);
+      console.log('Gender:', formData.gender);
 
       formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
       formData.gender = genderMapping[formData.gender];
 
       console.log('Mapped Marital Status:', formData.maritalStatus);
-console.log('Mapped Gender:', formData.gender);
+      console.log('Mapped Gender:', formData.gender);
 
       if (!formData.maritalStatus) {
         console.error('Invalid marital status');
-        formData.maritalStatus = 0; 
+        formData.maritalStatus = 0;
       }
       if (!formData.gender) {
         console.error('Invalid gender');
-        formData.gender = 0; 
+        formData.gender = 0;
       }
-  
-   
+
+
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
       formData.isDeleted = false;
-  
+      
+
       console.log('Sending staff data:', formData);
-  
-      this.studentService.AddStudent(formData).subscribe(
-        (response) => {
-          console.log('Staff added successfully', response);
-          this.getAllStudents();
+
+      this.userService.addStaff(formData).subscribe(
+        (response: any) => {
+          console.log('Staff added successfully:', response);
+          this.getAllStaffs();
           this.closeModal();
         },
-        (error) => {
-          console.error('Error adding staff:', error);
-          if (error.status === 400) {
-            alert('Validation error: ' + JSON.stringify(error.error));
-          } else {
-            alert('An unexpected error occurred');
+        (error)=>{
+          console.error('Error added Successfully', error);
+          if(error.status === 400){
+            alert('validation error:' + JSON.stringify(error.error));
+          }else{
+            alert('An une xpected error occurred');
           }
         }
       );
+      
     } else {
       console.log('Form is invalid:', this.staffForm.errors);
-      this.staffForm.markAllAsTouched(); 
+      this.staffForm.markAllAsTouched();
     }
   }
-  
+
+  getAllStaffs(): void {
+    this.userService.getStaffUsers().subscribe(
+      (respoce: any) => {
+        if(Array.isArray(respoce) && respoce.length >0 ) {
+          this.staff = respoce;
+          this.filteredStaffs = [...this.staff];
+
+        }
+        else{
+          console.error('No Staff found or Unexpected responce:', respoce);
+          this.staff =[];
+          this.filteredStaffs = [];
+        }
+      },
+      (error) => {
+        console.error('Error fetching staff:', error);
+        alert('An error occurred while fetching staff');  
+      }
+    );
+  }
   
 
-  
-onPageChange(event: any): void {
-  const { pageIndex, pageSize } = event;
-  this.pageNumber = pageIndex + 1; 
-  this.pageSize = pageSize;
-  this.getAllStudents(); 
-}
+
+  searchStaffs(searchTerm: string): void {
+    this.filteredStaffs = this.staff.filter(
+      (stu) =>
+        stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
 
-getAllStudents(): void {
-  this.studentService.GetAllStudents(this.pageNumber, this.pageSize).subscribe(
-    (response: any) => {
-      if (Array.isArray(response) && response.length > 0) {
-        this.staff= response;
+    this.getAllStaffs();
+  }
+
+
+  deleteSaff(userId: string): void { 
+
+    this.userService.deleteUserById(userId).subscribe(
+      () => {
+        this.staff = this.staff.filter((staff) => staff.id !== userId);
         this.filteredStaffs = [...this.staff];
-      } else {
-        console.error('No staffs found or unexpected response:', response);
-        this.staff = []; 
-        this.filteredStaffs = [];
-      } 
-    },
-    (error) => {
-      console.error('Error fetching staffs:', error);
-      alert('An error occurred while fetching staffs.');
-    }
-  );
-}
-
-
-searchStaffs(searchTerm: string): void {
-  this.filteredStaffs = this.staff.filter(
-    (stu) =>
-      stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
+        alert('Staff deleted successfully!');
+      },
+      (error) => {
+        console.error('Error deleting staff:', error);
+        alert('An error occurre d while deleting the staff.')
+      }
+    );
   
-  this.pageNumber = 1; 
-  this.getAllStudents();
-}
+  
+  }
 
-
-deleteStaff(usersId: number): void { 
-  this.studentService.DeleteStudent(usersId).subscribe(
-    () => {
-     
-      this.staff = this.staff.filter((staff) => staff.id !== usersId);
-      this.filteredStaffs = [...this.staff]; 
-      alert('Staff deleted successfully!');
-    },
-    (error) => {
-      console.error('Error deleting staff:', error);
-      alert('An error occurred while deleting the staff.');
-    }
-  );
-}
-
-updateStaff(usersId: number): void {
  
-  const updatedStudentData = { ...this.staffForm.value }; 
-
-  this.studentService.UpdateStudent(usersId, updatedStudentData).subscribe(
-    (response) => {
-    
-      this.staff = this.staff.map((staff) =>
-        staff.id === usersId ? { ...staff, ...updatedStudentData } : staff
-      );
-
-      console.log(`Staff with ID ${usersId} updated successfully.`);
-      alert('Staff updated successfully.');
-    },
-    (error) => {
-      console.error(`Failed to update staff with ID ${usersId}.`, error);
-      alert('An error occurred while updating the staff.');
-    }
-  );
-}
 
 
   isInvalid(controlName: string): any {
@@ -258,7 +234,7 @@ updateStaff(usersId: number): void {
 
     return `${year}-${month}-${day}`;
   }
-  
+
 }
 
 

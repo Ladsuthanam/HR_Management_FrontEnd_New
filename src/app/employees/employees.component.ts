@@ -1,17 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';  // Removed RouterLink from imports
+import { ActivatedRoute, RouterOutlet, Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmployeeService } from '../services/employee.service';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { UserService } from '../services/user.service';
+import { isArray } from 'chart.js/helpers';
+import { ThisReceiver } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [IonicModule, CommonModule, ReactiveFormsModule,RouterModule],  // Removed RouterLink from imports
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, MatButtonModule, MatIconModule, RouterOutlet],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css'],
 })
+
 export class EmployeesComponent implements OnInit {
   employeeForm: FormGroup;
   employee: any[] = [];
@@ -50,8 +56,9 @@ export class EmployeesComponent implements OnInit {
       ],
     },
   ];
+  staffForm: any;
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService, private router: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
     this.employeeForm = this.fb.group({
       usersId: ['', Validators.required],
       profile: ['', Validators.required],
@@ -65,11 +72,11 @@ export class EmployeesComponent implements OnInit {
       gender: ['', Validators.required],
     });
   }
-
+  goToEmployeeCv(id: number): void {
+    this.router.navigate([`/employee-cv/${id}`]);
+  }
   ngOnInit(): void {
-    const savedEmployees = JSON.parse(localStorage.getItem('employees') || '[]');
-    this.employee = [...savedEmployees];
-    this.filteredUsers = [...this.employee];
+    this.getAllEmployees()
   }
 
   openModal(): void {
@@ -87,13 +94,88 @@ export class EmployeesComponent implements OnInit {
 
   onSubmit(): void {
     if (this.employeeForm.valid) {
-      const newEmployee = this.employeeForm.value;
-      this.employee.push(newEmployee);
-      localStorage.setItem('employees', JSON.stringify(this.employee));
-      this.filteredUsers = [...this.employee];
-      this.employeeForm.reset();
-      this.closeModal();
+      const formData = { ...this.employeeForm.value };
+
+
+      const maritalStatusMapping: { [key: number]: number } = {
+        1: 1,
+        2: 2,
+        3: 3,
+        4: 4
+      };
+      const genderMapping: { [key: number]: number } = {
+        1: 1,
+        2: 2,
+        3: 3
+      };
+
+      console.log('Marital Status:', formData.maritalStatus);
+      console.log('Gender:', formData.gender);
+
+      formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
+      formData.gender = genderMapping[formData.gender];
+
+      console.log('Mapped Marital Status:', formData.maritalStatus);
+      console.log('Mapped Gender:', formData.gender);
+
+      if (!formData.maritalStatus) {
+        console.error('Invalid marital status');
+        formData.maritalStatus = 0;
+      }
+      if (!formData.gender) {
+        console.error('Invalid gender');
+        formData.gender = 0;
+      }
+
+
+      formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
+      formData.isDeleted = false;
+
+
+      console.log('Sending employee data:', formData);
+
+      this.userService.addEmployee(formData).subscribe(
+        (response: any) => {
+          console.log('Employee added Successfully:', response);
+          this.getAllEmployees();
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error adding employee:', error);
+          if (error.status === 400) {
+            alert('validation error:' + JSON.stringify(error.error));
+          }
+          else {
+            alert('An Un Expected error occurred');
+          }
+        }
+      );
+
+    } else {
+      console.log('Form is invalid:', this.employeeForm.errors);
+      this.employeeForm.markAllAsTouched();
     }
+  }
+ 
+  getAllEmployees(): void {
+    this.userService.getEmployeeUsers().subscribe(
+      (responce: any) => {
+        if (Array.isArray(responce) && responce.length > 0) {
+          this.employee = responce;
+          this.filteredUsers = [...this.employee];
+        }
+        else {
+          console.error('No Employee found or Unexpected responce:', responce);
+          this.employee = [];
+          this.filteredUsers = [];
+        }
+      },
+      (error) => {
+        console.error('Error fetching Employee:', error);
+        alert('An error occurred while fetching Employee');
+      }
+
+    );
   }
 
   searchEmployees(searchTerm: string): void {
@@ -104,8 +186,35 @@ export class EmployeesComponent implements OnInit {
     );
   }
 
+  deleteEmployee(userId: string): void{
+    this.userService.deleteUserById(userId).subscribe(
+      () => {
+        this.employee = this.employee.filter((employee)=> employee.id !== userId);
+        this.filteredUsers = [...this.employee];
+        alert('Employee deleted Successfully!');
+      },   
+      (error) => {
+        console.error('Error deleting staff:', error);
+        alert('An error occurre d while deleting the staff.')
+      }
+    );
+  }
+  
+ 
+
   isInvalid(controlName: string): any {
-    const control = this.employeeForm.get(controlName);
+    const control = this.staffForm.get(controlName);
     return control?.invalid && control?.touched;
   }
+
+  // Helper function to format the date as 'YYYY-MM-DD'
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed, so add 1
+    const day = String(date.getDate()).padStart(2, '0'); // Ensure 2 digits for day
+
+    return `${year}-${month}-${day}`;
+  }
+
 }
+

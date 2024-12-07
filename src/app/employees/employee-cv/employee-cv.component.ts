@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet,ActivatedRoute } from '@angular/router';
 import { Inject } from '@angular/core';
-import { EmployeeService } from '../../services/employee.service';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
