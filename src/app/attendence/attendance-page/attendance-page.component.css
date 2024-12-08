@@ -21,5 +21,6 @@
   }
   hr {
     border-top: 4px solid #000000;
+    box-shadow: 2px rgb(95, 214, 244);
   }
   
