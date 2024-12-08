@@ -4,9 +4,10 @@ import { AppComponent } from './app/app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom } from '@angular/core';
+import { NgChartsModule } from 'ng2-charts'; 
 
 
-// Extend the existing appConfig with additional providers
+
 const extendedAppConfig = {
   ...appConfig,
   providers: [
@@ -20,6 +21,7 @@ const extendedAppConfig = {
       })
     ),
   ],
+import:[NgChartsModule],
 };
 
 bootstrapApplication(AppComponent, extendedAppConfig)
