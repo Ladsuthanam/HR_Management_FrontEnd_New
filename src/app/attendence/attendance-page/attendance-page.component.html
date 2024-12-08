@@ -1,10 +1,179 @@
 <div class="attendance-container">
     <div class="top-section">
-      <button mat-raised-button color="primary" (click)="navigateTo('student-attendance')">Student Attendance</button>
-      <button mat-raised-button color="accent" (click)="navigateTo('staff-attendance')">Staff Attendance</button>
-      <button mat-raised-button color="warn" (click)="navigateTo('employee-attendance')">Employee Attendance</button>
-      <button mat-raised-button color="primary" (click)="navigateTo('lecturer-attendance')">Lecturer Attendance</button>
-    </div>      
-</div>
-<hr>
+      <button mat-raised-button color="primary" (click)="selectTab('student')">Student Attendance</button>
+      <button mat-raised-button color="accent" (click)="selectTab('staff')">Staff Attendance</button>
+      <button mat-raised-button color="warn" (click)="selectTab('employee')">Employee Attendance</button>
+      <button mat-raised-button color="primary" (click)="selectTab('lecturer')">Lecturer Attendance</button>
+    </div>
+  
+    <input matInput [(ngModel)]="searchQuery" placeholder="Search by ID or Name" (input)="applySearch()" />
+  
+    <div class="attendance-summary">
+      <div>Present: {{ presentCount }}</div>
+      <div>Absent: {{ absentCount }}</div>
+      <div>Latecome: {{ latecomeCount }}</div>
+    </div>
+  
+    <hr>
+  
+    <div class="table-section" *ngIf="selectedTab === 'student'">
+      <table mat-table [dataSource]="studentData">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef> First Name </th>
+          <td mat-cell *matCellDef="let element"> {{ element.firstName }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="inTime">
+          <th mat-header-cell *matHeaderCellDef> In Time </th>
+          <td mat-cell *matCellDef="let element"> {{ element.inTime }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="outTime">
+          <th mat-header-cell *matHeaderCellDef> Out Time </th>
+          <td mat-cell *matCellDef="let element"> {{ element.outTime }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="active">
+          <th mat-header-cell *matHeaderCellDef> Active </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox [(ngModel)]="element.active"></mat-checkbox>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  
+    <div class="table-section" *ngIf="selectedTab === 'staff'">
+        <div class="table-section" *ngIf="selectedTab === 'staff'">
+            <table mat-table [dataSource]="staffData">
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef> First Name </th>
+                <td mat-cell *matCellDef="let element"> {{ element.firstName }} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="inTime">
+                <th mat-header-cell *matHeaderCellDef> In Time </th>
+                <td mat-cell *matCellDef="let element"> {{ element.inTime }} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="outTime">
+                <th mat-header-cell *matHeaderCellDef> Out Time </th>
+                <td mat-cell *matCellDef="let element"> {{ element.outTime }} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
+              </ng-container>
+        
+              <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef> Active </th>
+                <td mat-cell *matCellDef="let element">
+                  <mat-checkbox [(ngModel)]="element.active"></mat-checkbox>
+                </td>
+              </ng-container>
+        
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+    </div>
+  
+    <div class="table-section" *ngIf="selectedTab === 'employee'">
+        <table mat-table [dataSource]="employeeData">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{ element.firstName }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="inTime">
+            <th mat-header-cell *matHeaderCellDef> In Time </th>
+            <td mat-cell *matCellDef="let element"> {{ element.inTime }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="outTime">
+            <th mat-header-cell *matHeaderCellDef> Out Time </th>
+            <td mat-cell *matCellDef="let element"> {{ element.outTime }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef> Active </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.active"></mat-checkbox>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+  
+      <div class="table-section" *ngIf="selectedTab === 'lecturer'">
+        <table mat-table [dataSource]="lecturerData">
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{ element.firstName }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="inTime">
+            <th mat-header-cell *matHeaderCellDef> In Time </th>
+            <td mat-cell *matCellDef="let element"> {{ element.inTime }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="outTime">
+            <th mat-header-cell *matHeaderCellDef> Out Time </th>
+            <td mat-cell *matCellDef="let element"> {{ element.outTime }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{ element.status }} </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef> Active </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.active"></mat-checkbox>
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+  
+    <button mat-raised-button color="primary" (click)="saveAttendance()">Save Attendance</button>
+  </div>
   

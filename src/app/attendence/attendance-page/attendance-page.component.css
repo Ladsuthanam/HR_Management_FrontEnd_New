@@ -14,13 +14,40 @@
     margin-bottom: 20px;
   }
   
-  .chart-section {
-    width: 100%;
-    max-width: 800px;
-    height: 400px;
-  }
   hr {
     border-top: 4px solid #000000;
-    box-shadow: 2px rgb(95, 214, 244);
+  }
+  
+  .table-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .table-section table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+  }
+  
+  mat-checkbox {
+    margin-top: 10px;
+  }
+  
+  .attendance-summary {
+    margin: 20px;
+    font-size: 16px;
+  }
+  
+  button {
+    margin-top: 20px;
   }
   
