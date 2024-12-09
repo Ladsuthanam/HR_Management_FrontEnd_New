@@ -2,33 +2,43 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+// Define the UserAttendance model (optional but useful for type safety)
+export interface UserAttendance {
+  Id: string;
+  UserId: string;
+  Name: string;
+  Role: string;
+  Date: string;
+  InTime: string | null;
+  OutTime: string | null;
+  Status: Status;
+  Active: boolean;
+}
+
+// Enum for status
+export enum Status {
+  Absent = 1,
+  Present = 2,
+  LateCome = 3
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AttendanceService {
-  private baseUrl = 'http://localhost:5162/api/User/Get_All_User';
+  private baseUrl: string = 'http://localhost:5162/api/UserAttendance';
 
-  constructor(private http: HttpClient) {}
-
-  addAttendance(userId: string, attendanceData: any): Observable<any> {
-    const url = `http://localhost:5162/api/UserAttendance/Add_User_Attendance?UserId=${userId}`;
-    return this.http.post<any>(url, attendanceData);
+  constructor(private http: HttpClient) { }
+  
+  // Add user attendance
+  addUserAttendance(userId: string, attendanceData: any): Observable<UserAttendance> {
+    const url = `${this.baseUrl}/Add_User_Attendance?UserId=${userId}`;
+    return this.http.post<UserAttendance>(url, attendanceData);
   }
   
-
-  getAllUsers(): Observable<any[]> {
-    const url = 'http://localhost:5162/api/User/Get_All_User';
-    return this.http.get<any[]>(url);
-  }
-  
-
-  getAttendanceData(role: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/Get_All_User/${role}`);
-  }
-
-   // Method to get all attendance data by date
-   getAllAttendance(date: string): Observable<any[]> {
-    const url = `${this.baseUrl}/Get_All_User_Attendance?date=${date}`;
-    return this.http.get<any[]>(url);
+  // Get all user attendance
+  getAllUserAttendance(): Observable<UserAttendance[]> {
+    const url = `${this.baseUrl}/Get_All_User_Attendance`;
+    return this.http.get<UserAttendance[]>(url);
   }
 }
