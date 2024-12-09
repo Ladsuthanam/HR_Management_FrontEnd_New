@@ -1,1 +1,106 @@
-<p>admin-page works!</p>
+<div class="main">
+    <div class="containerBody">
+      <h1 class="txt text-center">Admin Details</h1>
+  
+      <div class="toolbar mt-4">
+        <div class="add-admin mb-3">
+          <button type="button" class="btn btn-outline-success btn-lg" (click)="openModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+              <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+            </svg>Add Admin</button>
+        </div>
+        <div class="search-admin">
+            <input type="search" class="form-control" placeholder="Search Admin"
+              (input)="searchAdmins(searchInput.value)" #searchInput />
+          </div>
+
+      </div>
+  
+      <hr />
+      <div class="admin black-border mt-4">
+        <div class="row">
+          <div *ngIf="filteredAdmins.length > 0; else noAdmins" class="d-flex flex-wrap">
+            <div class="col-md-4 mb-4" *ngFor="let admin of filteredAdmins">
+              <div class="card h-100 w-50">
+                <div class="card-body text-center">
+                  <img [src]="admin.image || 'https://via.placeholder.com/150'" alt="Profile Image"
+                    class="img-thumbnail mb-3" style="width: 100px; height: 100px; border-radius: 50px;" />
+  
+                  <h5 class="card-title">{{ admin.firstName }} {{ admin.lastName }}</h5>
+                  <p class="card-text">Admin ID: {{ admin.usersId }}</p>
+  
+                </div>
+                <div class="d-flex justify-content-center" type="button">
+                  <mat-icon>delete</mat-icon>
+                </div>
+                <button class="bg-dark text-white" mat-raised-button (click)="goToAdminCv(admin.id)">More info</button>
+              </div>
+            </div>
+          </div>
+  
+          <!-- No Admin message -->
+          <ng-template #noAdmins>
+            <div class="col text-center">
+              <span class="text-secondary fs-2 fw-bold fst-italic">There Are No Admin Details Here</span>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal fade" id="adminDetailsModal" tabindex="-1" aria-labelledby="adminDetailsModalLabel"
+      aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="adminDetailsModalLabel">Add Admin Details</h5>
+            <button type="button" class="btn-close" (click)="closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="adminForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-12">
+                  <div *ngFor="let field of adminFields" class="mb-3">
+                    <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                    <input *ngIf="field.type !== 'select'" type="{{ field.type || 'text' }}" class="form-control"
+                      formControlName="{{ field.controlName }}" placeholder="{{ field.placeholder }}" />
+  
+                    <select *ngIf="field.type === 'select'" formControlName="{{ field.controlName }}"
+                      class="form-control">
+                      <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+                    </select>
+  
+                    <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                      <small>{{ field.controlName | uppercase }} is required!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  
+    <!-- <footer>
+      Pagination 
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[2, 4, 10, 15, 25, 50]"
+        showFirstLastButtons (page)="onPageChange($event)"></mat-paginator>
+    </footer> -->
+  
+  </div>
+  
+  
+  
+  <div>
+    <router-outlet>
+  
+    </router-outlet>
+</div>

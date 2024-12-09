@@ -6,8 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../services/user.service';
-import { isArray } from 'chart.js/helpers';
-import { ThisReceiver } from '@angular/compiler';
+
 
 
 @Component({
@@ -21,21 +20,23 @@ import { ThisReceiver } from '@angular/compiler';
 export class EmployeesComponent implements OnInit {
   employeeForm: FormGroup;
   employee: any[] = [];
-  filteredUsers: any[] = [];
+  filteredEmployees: any[] = [];
   isModalOpen: boolean = false;
   employeeDetails: any = {};
 
   employeeFields = [
-    { controlName: 'usersId', label: 'User ID', placeholder: 'Enter User ID' },
-    { controlName: 'profile', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
+
+    { controlName: 'usersId', label: 'Employee Id', placeholder: 'Enter Employee Id' },
+    { controlName: 'image', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
     { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
     { controlName: 'nic', label: 'NIC', placeholder: 'Enter NIC (e.g., 123456789V or 123456789012)' },
     { controlName: 'email', label: 'Email', placeholder: 'Enter Email' },
-    { controlName: 'phoneNumbe', label: 'Phone Number', placeholder: 'Enter Phone Number' },
+    { controlName: 'phoneNumber', label: 'Phone Number', placeholder: 'Enter Phone Number' },
     { controlName: 'dateOfBirth', label: 'Date of Birth', type: 'date' },
+    { controlName: 'password', label: 'Password', placeholder: 'Enter new password' },
     {
-      controlName: 'merritalStatus',
+      controlName: 'maritalStatus',
       label: 'Marital Status',
       type: 'select',
       options: [
@@ -56,27 +57,29 @@ export class EmployeesComponent implements OnInit {
       ],
     },
   ];
-  staffForm: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.employeeForm = this.fb.group({
+
       usersId: ['', Validators.required],
-      profile: ['', Validators.required],
+      image: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       nic: ['', [Validators.required, Validators.pattern('^(\\d{9}[vV]|\\d{12})$')]],
       email: ['', [Validators.required, Validators.email]],
-      merritalStatus: ['', Validators.required],
-      phoneNumbe: ['', Validators.required],
+      maritalStatus: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   goToEmployeeCv(id: number): void {
-    this.router.navigate([`/employee-cv/${id}`]);
+    this.router.navigate([`/student-cv/${id}`]);
   }
   ngOnInit(): void {
-    this.getAllEmployees()
+
+    this.getAllEmployees();
   }
 
   openModal(): void {
@@ -130,88 +133,91 @@ export class EmployeesComponent implements OnInit {
 
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
       formData.isDeleted = false;
-
+      
 
       console.log('Sending employee data:', formData);
 
       this.userService.addEmployee(formData).subscribe(
         (response: any) => {
-          console.log('Employee added Successfully:', response);
+          console.log('Employee added successfully:', response);
           this.getAllEmployees();
           this.closeModal();
         },
-        (error) => {
-          console.error('Error adding employee:', error);
-          if (error.status === 400) {
+        (error)=>{
+          console.error('Error added Successfully', error);
+          if(error.status === 400){
             alert('validation error:' + JSON.stringify(error.error));
-          }
-          else {
-            alert('An Un Expected error occurred');
+          }else{
+            alert('An une xpected error occurred');
           }
         }
       );
-
+      
     } else {
       console.log('Form is invalid:', this.employeeForm.errors);
       this.employeeForm.markAllAsTouched();
     }
   }
- 
+
   getAllEmployees(): void {
     this.userService.getEmployeeUsers().subscribe(
-      (responce: any) => {
-        if (Array.isArray(responce) && responce.length > 0) {
-          this.employee = responce;
-          this.filteredUsers = [...this.employee];
+      (respoce: any) => {
+        if(Array.isArray(respoce) && respoce.length >0 ) {
+          this.employee = respoce;
+          this.filteredEmployees = [...this.employee];
+
         }
-        else {
-          console.error('No Employee found or Unexpected responce:', responce);
-          this.employee = [];
-          this.filteredUsers = [];
+        else{
+          console.error('No Employee found or Unexpected responce:', respoce);
+          this.employee =[];
+          this.filteredEmployees = [];
         }
       },
       (error) => {
-        console.error('Error fetching Employee:', error);
-        alert('An error occurred while fetching Employee');
-      }
-
-    );
-  }
-
-  searchEmployees(searchTerm: string): void {
-    this.filteredUsers = this.employee.filter(
-      (emp) =>
-        emp.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        emp.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-
-  deleteEmployee(userId: string): void{
-    this.userService.deleteUserById(userId).subscribe(
-      () => {
-        this.employee = this.employee.filter((employee)=> employee.id !== userId);
-        this.filteredUsers = [...this.employee];
-        alert('Employee deleted Successfully!');
-      },   
-      (error) => {
-        console.error('Error deleting staff:', error);
-        alert('An error occurre d while deleting the staff.')
+        console.error('Error fetching employee:', error);
+        alert('An error occurred while fetching employee');  
       }
     );
   }
   
- 
+
+
+  searchEmployees(searchTerm: string): void {
+    this.filteredEmployees = this.employee.filter(
+      (emy) =>
+        emy.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        emy.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }
+
+
+  deleteEmployee(userId: string): void { 
+
+    this.userService.deleteUserById(userId).subscribe(
+      () => {
+        this.employee = this.employee.filter((employee) => employee.id !== userId);
+        this.filteredEmployees = [...this.employee];
+        alert('Employee deleted successfully!');
+      },
+      (error) => {
+        console.error('Error deleting employee:', error);
+        alert('An error occurre d while deleting the employee.')
+      }
+    ); 
+  }
+
+
 
   isInvalid(controlName: string): any {
-    const control = this.staffForm.get(controlName);
+    const control = this.employeeForm.get(controlName);
     return control?.invalid && control?.touched;
   }
 
   // Helper function to format the date as 'YYYY-MM-DD'
   formatDate(date: Date): string {
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed, so add 1
-    const day = String(date.getDate()).padStart(2, '0'); // Ensure 2 digits for day
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0'); 
 
     return `${year}-${month}-${day}`;
   }
