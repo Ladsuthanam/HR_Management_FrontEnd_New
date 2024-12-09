@@ -1,11 +1,14 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 .main{
-  height:auto;
+  
   width: 100%;
-  background-color: rgb(58, 68, 70);
+  background-color: rgb(149, 169, 174);
+  background-size: cover;
   overflow: visible !important;
 
+}
+.txt{
+  color: rgb(4, 4, 52);
 }
 .containerBody{
 padding-top: 120px;
@@ -35,7 +38,9 @@ padding-top: 120px;
   padding-left: 600px;
   padding-top: 250px;
 }
-
+hr {
+  border-top: 5px solid #020b10;
+}
 .modal.show {
   display: block;
   z-index: 1050;
@@ -76,92 +81,45 @@ padding-top: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
-.search-employees{
+.search-employee{
   width: 350px;
+  height: 40px;
   border-radius: 1rem;
   box-shadow: 0px 0px 10px rgb(39, 123, 145);
+  margin-top: 20px;
 }
-.search-employees input{
+.search-employee input{
   width: 100%;
   height: 100%;
   border-radius: 1rem;
   font-size: 1rem;
 }
-hr {
-  border-top: 5px solid #020b10;
-}
+/* Add these styles to ensure the cards are displayed correctly */
 
-.employees {
-  margin-top: 20px;
+  .card {
+    box-shadow: var(--mat-sys-level5);
+    background-color: #eafcff;
+    border: 4px solid rgb(51, 174, 205);
+    border-radius: 25px;
+    }
+
+.employee{
   padding-left: 55px;
 }
 
-.card {
-  box-shadow: 1px 4px 6px rgba(1, 0, 0, 0.1);
-  background-color: #e4fbff;
-  
-    border-radius: 10px;
-  }
 
-  @media (max-width: 992px) {
-    .toolbar {
-      flex-direction: column;
-      height: auto;
-    }
-  
-    .add-employee {
-      width: 100%;
-      margin-bottom: 10px;
-    }
-  
-    .search-employees {
-      width: 100%;
-    }
-  
-    .dtail-btn {
-      width: 100%;
-      text-align: center;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .containerBody {
-      padding-left: 50px;
-      padding-top: 50px;
-    }
-  
-    .card {
-      width: 100%;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .toolbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .add-employee {
-      margin-bottom: 15px;
-    }
-  
-    .search-employees {
-      width: 100%;
-    }
-  
-    .containerBody {
-      padding-left: 20px;
-      padding-top: 20px;
-    }
-  
-    .dtail-btn {
-      width: 100%;
-    }
-  }
-  .delete{
-    background-color: red;
-  }
-  .update{
-    background-color: green;
-  }
+.btn{
+  background-color: #030404;
+  box-shadow: var(--mat-sys-level5);
+  color:rgb(194, 212, 219);
+}
+.mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn{
+  color: red;
+
+}
+.mat-mdc-fab{
+  background-color: #eafcff;
+  box-shadow: none;
+}

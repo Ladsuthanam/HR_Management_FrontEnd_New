@@ -195,9 +195,6 @@ export class StaffComponent {
         stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-
-    this.getAllStaffs();
   }
 
 
