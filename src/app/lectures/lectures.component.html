@@ -19,7 +19,7 @@
     <hr id="line"/>
     <div class="lecturer black-border mt-4">
       <div class="row">
-        <div *ngIf="filteredLecturers.length > 0; else noLecturerfs" class="d-flex flex-wrap">
+        <div *ngIf="filteredLecturers.length > 0; else noLecturers" class="d-flex flex-wrap">
           <div class="col-md-4 mb-4" *ngFor="let lecturer of filteredLecturers">
             <div class="card h-50 w-75 m-5">
               <div class="card-body text-center">
@@ -31,7 +31,7 @@
 
               </div>
               <hr>
-              <div class="d-flex justify-content-center" type="button">
+              <div class="d-flex justify-content-center" type="button" (click)="deleteSaff(lecturer.id)">
                 <mat-icon>delete</mat-icon>
               </div>
               <button class="bg-dark text-white" mat-raised-button (click)="goToLecturerCv(lecturer.id)">More info</button>

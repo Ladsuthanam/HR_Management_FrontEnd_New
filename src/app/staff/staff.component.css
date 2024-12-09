@@ -40,9 +40,10 @@ padding-top: 120px;
   padding-left: 600px;
   padding-top: 250px;
 }
-hr {
+#line {
   border-top: 5px solid #020b10;
 }
+
 .modal.show {
   display: block;
   z-index: 1050;
@@ -102,8 +103,8 @@ hr {
 
   .card {
     box-shadow: var(--mat-sys-level5);
-    background-color: #eafcff;
-    border: 4px solid rgb(51, 174, 205);
+    background-color: #ffffff;
+    border: 4px solid rgb(32, 80, 92);
     border-radius: 25px;
     }
 

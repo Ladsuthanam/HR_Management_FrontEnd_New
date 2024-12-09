@@ -194,7 +194,7 @@ export class AdminPageComponent {
   }
 
 
-  deleteSaff(userId: string): void { 
+  deleteAdmin(userId: string): void { 
 
     this.userService.deleteUserById(userId).subscribe(
       () => {

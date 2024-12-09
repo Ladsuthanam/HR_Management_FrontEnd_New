@@ -17,7 +17,7 @@ import { UserService } from '../services/user.service';
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule],
-    templateUrl: './lectures.component.html',
+  templateUrl: './lectures.component.html',
   styleUrl: './lectures.component.css'
 })
 export class LecturesComponent {

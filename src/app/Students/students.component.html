@@ -15,12 +15,12 @@
       </div>
     </div>
 
-    <hr />
+    <hr id="line"/>
     <div class="student black-border mt-4">
       <div class="row">
         <div *ngIf="filteredStudents.length > 0; else noStudents" class="d-flex flex-wrap">
           <div class="col-md-4 mb-4" *ngFor="let student of filteredStudents">
-            <div class="card h-100 w-50">
+            <div class="card h-50 w-75 m-5">
               <div class="card-body text-center">
                 <img [src]="student.image || 'https://via.placeholder.com/150'" alt="Profile Image"
                   class="img-thumbnail mb-4" style="width: 100px; height: 100px; border-radius: 50px;" />
@@ -29,6 +29,7 @@
                 <p class="card-text">Student ID: {{ student.studentId }}</p>
 
               </div>
+              <hr>
               <div class="d-flex justify-content-center" type = "button" (click)="deleteStudent(student.id)">                 
                   <mat-icon>delete</mat-icon>             
               </div>
