@@ -20,6 +20,7 @@ import { StudentCvComponent } from './Students/student-cv/student-cv.component';
 import { LeaveComponent } from './LeavePage/leave/leave.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AttendancePageComponent } from './attendence/attendance-page/attendance-page.component';
+import { EventShowComponent } from './Event/event-show/event-show.component';
 
 export const routes: Routes = [
     {
@@ -111,7 +112,13 @@ export const routes: Routes = [
                 path:'attendancePage',
                 component:AttendancePageComponent,
                 title: 'AttendancePage'
+            },
+            {
+                path:'eventPage',
+                component:EventShowComponent,
+                title: 'EventPage'
             }
+
           
         ]
     }

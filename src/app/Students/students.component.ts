@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IonLabel, IonicModule } from '@ionic/angular';
-import { HttpClientModule } from '@angular/common/http';
+
 import { StudentService } from '../services/student.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-import { controllers } from 'chart.js';
+
 import {MatIconModule} from '@angular/material/icon';
 
 
@@ -206,10 +206,7 @@ searchStudents(searchTerm: string): void {
       stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  
   this.pageNumber = 1; 
-  this.getAllStudents();
 }
 
 
