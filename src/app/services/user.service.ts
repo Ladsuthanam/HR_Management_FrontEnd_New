@@ -24,6 +24,11 @@ export class UserService {
     return this.http.post(`${this.baseUrl}/Add-Admin`, admin, this.getHeaders());
   }
 
+  addLecturer(lecturer : any) : Observable<any>{
+    return this.http.post(`${this.baseUrl}/Add- Lecturers`,lecturer , this.getHeaders());
+
+  }
+
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.baseUrl}/Get_All_User`);
   }
@@ -31,6 +36,7 @@ export class UserService {
   getLecturerUsers(): Observable<any> {
     return this.http.get(`${this.baseUrl}/Get_Lecturer_User`);
   }
+  
   getEmployeeUsers(): Observable<any> {
     return this.http.get(`${this.baseUrl}/Get_Employee_User`);
   }

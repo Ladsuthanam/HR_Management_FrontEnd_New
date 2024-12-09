@@ -1,5 +1,4 @@
 
-
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 .main{
   
@@ -16,17 +15,9 @@
 padding-top: 120px;
 /* padding-left: 300px; */
 }
-/* 
-:root {
-  --gray-100: #f3f4f6;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  --emerald-500: #10b981;
-  --ff-roboto: "Roboto", sans-serif;
-} */
 
 
-.staff-content{
+.lecturer-content{
   height: 100%;
   width: 100%;
   padding-left: 75px;
@@ -40,7 +31,7 @@ padding-top: 120px;
   padding-left: 600px;
   padding-top: 250px;
 }
-hr {
+#line {
   border-top: 5px solid #020b10;
 }
 .modal.show {
@@ -78,47 +69,50 @@ hr {
   align-items: center;
   padding-right: 5px;
 }
-.add-staff{
+.add-lecturer{
   width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
-.search-staff{
+.search-lecturer{
   width: 350px;
   height: 40px;
   border-radius: 1rem;
   box-shadow: 0px 0px 10px rgb(39, 123, 145);
   margin-top: 20px;
 }
-.search-staff input{
+.search-lecturer input{
   width: 100%;
   height: 100%;
   border-radius: 1rem;
   font-size: 1rem;
 }
-/* Add these styles to ensure the cards are displayed correctly */
 
   .card {
     box-shadow: var(--mat-sys-level5);
-    background-color: #eafcff;
-    border: 4px solid rgb(51, 174, 205);
+    background-color: #ffffff;
+    border: 4px solid rgb(32, 80, 92);
     border-radius: 25px;
     }
 
-.staff{
+.lecturer{
   padding-left: 55px;
 }
-.delete{
-  background-color: red;
-  width: 35px;
-  height: 35px;
-}
+
 
 .btn{
   background-color: #030404;
   box-shadow: var(--mat-sys-level5);
   color:rgb(194, 212, 219);
 }
+.mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn{
+  color: red;
 
+}
+.mat-mdc-fab{
+  background-color: #eafcff;
+  box-shadow: none;
+
+}
