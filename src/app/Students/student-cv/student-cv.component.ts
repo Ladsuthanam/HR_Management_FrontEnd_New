@@ -23,9 +23,9 @@ export class StudentCvComponent implements OnInit {
   addressForm!: FormGroup;
   olevels: any[]= [];
   olevelsForm!: FormGroup;
-  alevels: any[]= [];
+  aLevels: any[]= [];
   alevelsForm!: FormGroup;
-  higherstudy: any[] = [];
+  hStudeies: any[] = [];
   higherstudyForm!: FormGroup;
   experiance: any[] = [];
   experianceForm!: FormGroup;
@@ -191,6 +191,11 @@ export class StudentCvComponent implements OnInit {
           if (id) {
               this.getStudent(id);
               this.getParentsByStudentId(id); 
+              this. getAddressByStudentId(id);
+              this. getOlevelByStudentId(id);
+              this.getAlevelByStudentId(id);
+              this.getHigherStudyByStudentId(id);
+              this. getExperianceByStudentId(id);
           } else {
               console.error('Invalid or missing ID');
           }
@@ -222,32 +227,82 @@ export class StudentCvComponent implements OnInit {
   }
 
   getAddressByStudentId(studentId: string):void {
-
+  this.studentService.GetAddressByStudentId(studentId).subscribe(
+    (responce) => {
+      this.student.address = responce;
+      console.log('Address Data: ', this.student.address);
+    },
+    (error) =>{
+      console.error('Error fetching Address data:', error);
+    }
+  )
   }
 
   getOlevelByStudentId(studentId: string):void {
-
+   this.studentService.GetOlevelByStudentId(studentId).subscribe(
+   (responce) =>{
+    this.student.olevels = responce;
+    console.log('Olevel Data:', this.student.olevels);
+   },
+   (error) =>{
+    console.error('Error Fetching Olevel Data:', error);
+   }
+   )
   }
 
   getAlevelByStudentId(studentId: string): void{
-
+   this.studentService.GetAlevelByStudentId(studentId).subscribe(
+    (responce) =>{
+      this.student.alevels = responce;
+      console.log("Alevels Data:", this.student.alevels);
+    },
+    (error) =>{
+      console.error('Error Fetching Alevels:', error);
+    }
+   )
   }
 
   getHigherStudyByStudentId(studentId: string): void {
-
+  this.studentService.GetHigherStudyByStudentId(studentId).subscribe(
+    (responce) =>{
+      this.student.higherstudy = responce;
+      console.log('HigherStudy Data:', this.student.higherstudy);
+    },
+    (error)=>{
+      console.error('Error Fetching Higher Study Data:', error);
+    }
+  )
   }
 
   getExperianceByStudentId(studentId: string): void {
-    
+    this.studentService.GetExperienceByStudentId(studentId).subscribe(
+      (responce) =>{
+        this.student.experiance = responce;
+        console.log('Experiance Dta:', this.student.experiance);
+
+      },
+      (error) =>{
+        console.error('Error Fetching Experiance:',error)
+      }
+    )
   }
-   openModal(): void {
+  openModal(modalType: string) {
+    if (modalType === 'parent') {
       this.isParentAdded = true;
+    } else if (modalType === 'address') {
       this.isAddressAdded = true;
+    }else if(modalType === 'olevel'){
       this.isOlevelAdded = true;
+    }
+    else if(modalType === 'alevel'){
       this.isAlevelAdded = true;
+    }else if(modalType === 'higherStudy'){
       this.isHigherStudyAdded = true;
+    }
+    else if(modalType === 'experiance'){
       this.isExperianceAdded = true;
     }
+  }
     cancel(): void {
       this.parentsForm.reset();
       this.closeModal();
@@ -264,21 +319,140 @@ export class StudentCvComponent implements OnInit {
     onSubmitParent(): void {
       if (this.parentsForm.valid) {
         const parentData = this.parentsForm.value;
-        this.studentService.  AddStudentParents(this.studentId, parentData).subscribe(
+        const studentId = this.student.id; 
+        console.log('Payload:', { studentId, parentData });
+    
+        this.studentService.AddStudentParents(studentId, parentData).subscribe(
           (response) => {
             console.log('Parent added successfully:', response);
-            this.getParentsByStudentId(this.studentId.toString()); // Reload parent details after adding
+            this.getParentsByStudentId(studentId);
             this.closeModal();
           },
           (error) => {
             console.error('Error adding parent:', error);
-            alert('An error occurred while adding parent details.');
+            alert(`An error occurred: ${error.message}`);
           }
         );
       } else {
         this.parentsForm.markAllAsTouched();
       }
     }
+
+    onSubmitAddress():void{
+      if(this.addressForm.valid){
+        const addressData = this.addressForm.value;
+        const studentId = this.student.id;
+        console.log('playload:',{ studentId, addressData});
+
+        this.studentService. AddStudentAddress(studentId, addressData).subscribe(
+          (responce)=>{
+            console.log('Address added Successfully:', responce);
+            this.getAddressByStudentId(studentId); 
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error adding Address:', error);
+            alert(`An error occurred: ${error.message}`)
+          }
+        );
+      }
+      else{
+        this.addressForm.markAllAsTouched();
+      }
+    }
+    
+    onSubmitOLevels():void{
+      if(this.olevelsForm.valid){
+        const olevelData = this.olevelsForm.value;
+        const studentId = this.student.id;
+        console.log('playload:',{studentId, olevelData});
+
+        this.studentService.AddStudentOlevel(studentId, olevelData).subscribe(
+          (responce) => {
+            console.log('Olevel added Successfully:', responce);
+            this. getOlevelByStudentId(studentId);
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error adding Olevel:', error);
+            alert(`An error occured:${error.message}`)
+          }
+        );
+      }
+      else{
+        this.olevelsForm.markAllAsTouched();
+      }
+    }
+
+    onSubmitAlevels():void{
+      if(this.alevelsForm.valid){
+        const alevelData = this.alevelsForm.value;
+        const studentId = this.student.id;
+        console.log('playload:', studentId, alevelData);
+
+        this.studentService. AddStudentAlevel(studentId, alevelData).subscribe(
+          (responce) =>{
+            console.log('Alevel added successfully:', responce);
+            this. getAlevelByStudentId(studentId);
+            this.closeModal();
+          },
+          (error) =>{
+            console.error('Error adding Alevel:', error);
+            alert(`An error occured:${error.message}`)
+          }
+        );
+      }
+      else{
+        this.alevelsForm.markAllAsTouched();
+      }
+    }
+
+    onSubmitHigherStudy():void {
+      if(this. higherstudyForm.valid){
+        const hStudyData = this. higherstudyForm.value;
+        const studentId = this.student.id;
+        console.log('playload:',studentId, hStudyData);
+
+        this.studentService. AddStudentHigherStudy(studentId, hStudyData).subscribe(
+          (responce)=>{
+            console.log('Higher Study added succesfully:', responce);
+            this.getHigherStudyByStudentId(studentId);
+            this.closeModal();
+          },
+          (error) =>{
+            console.error('Error adding Higher Study:', error);
+            alert(`An error occured:${error.message}`);
+          }
+        );
+      }
+      else{
+        this.higherstudyForm.markAllAsTouched();
+      }
+    }
+
+    onSubmitExperiance():void{
+      if(this.experianceForm.valid){
+        const experianceData = this.experianceForm.value;
+        const studentId = this.student.id;
+        console.log('playload:',studentId, experianceData);
+
+        this.studentService. AddStudentExperience(studentId, experianceData).subscribe(
+          (responce) =>{
+            console.log('Experiance added Successfully:', responce);
+            this. getExperianceByStudentId(studentId);
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error adding Experiance:', error);
+            alert(`An error occured: ${error.message}`);
+          }
+        );
+      }
+      else{
+        this.experianceForm.markAllAsTouched();
+      }
+    }
+   
 
     isInvalid(controlName: string): any {
       const control = this.parentsForm.get(controlName);
