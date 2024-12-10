@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { StudentService } from '../../services/student.service';
+import { flush } from '@angular/core/testing';
 
 @Component({
   selector: 'app-student-cv',
@@ -16,29 +17,38 @@ export class StudentCvComponent implements OnInit {
 
   student: any;
   studentId: number = 0;
+  parents: any[] = [];
   parentsForm!: FormGroup; 
-  studentParent :any[] = [];
-  filteredParents: any[] = [];
+  address : any[] = [];
   addressForm!: FormGroup;
-  olQualificationForm!: FormGroup;
-  alQualificationForm!: FormGroup;
-  higherStudyForm!: FormGroup;
-  experienceForm!: FormGroup;
+  olevels: any[]= [];
+  olevelsForm!: FormGroup;
+  alevels: any[]= [];
+  alevelsForm!: FormGroup;
+  higherstudy: any[] = [];
+  higherstudyForm!: FormGroup;
+  experiance: any[] = [];
+  experianceForm!: FormGroup;
+  
 
+ 
   studentData: any = {};
-  isAddressAdded: boolean = false;
-  isParentAdded: boolean = false;
-  isModalOpen: boolean = false;
+  parentsData: any = {};
+  addressData: any = {};
+  olevelData: any = {};
+  alevelData: any = {};
+  higherStudyData: any = {};
+  experianceData: any = {};
 
-  constructor(private fb: FormBuilder, private studentService: StudentService, private route: ActivatedRoute) {
-    this.parentsForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      job: ['', Validators.required],
-      contactNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      address: ['', Validators.required],
-    });
-  }
+  isParentAdded: boolean = false;
+  isAddressAdded: boolean = false;
+  isOlevelAdded: boolean = false;
+  isAlevelAdded: boolean = false;
+  isHigherStudyAdded: boolean = false;
+  isExperianceAdded: boolean = false;
+
+
+ 
 
   parentsFields = [
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
@@ -48,96 +58,226 @@ export class StudentCvComponent implements OnInit {
     { controlName: 'address', label: 'Address', placeholder: 'Enter Address' }
     ];
 
-  // addressFields = [
-  //   { id: 'houseNumber', label: 'House Number', placeholder: 'Enter house number', error: 'House number is required' },
-  //   { id: 'street', label: 'Street', placeholder: 'Enter street name', error: 'Street is required' },
-  //   { id: 'lane', label: 'Lane', placeholder: 'Enter lane', error: 'Lane is required' },
-  //   { id: 'city', label: 'City', placeholder: 'Enter city name', error: 'City is required' },
-  //   { id: 'state', label: 'State', placeholder: 'Enter state', error: 'State is required' },
-  //   { id: 'postalCode', label: 'Postal Code', placeholder: 'Enter postal code', error: 'Postal code is required' },
-  //   { id: 'country', label: 'Country', placeholder: 'Enter country', error: 'Country is required' }
-  // ];
-  // higherStudyFields = [
-  //   { id: 'stream', label: 'Stream', placeholder: 'Enter Stream', error: 'Stream is required.' },
-  //   { id: 'year', label: 'Year', placeholder: 'Enter Year', error: 'Year is required.' },
-  //   { id: 'duration', label: 'Duration', placeholder: 'Enter Duration', error: 'Duration is required.' },
-  //   { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
-  //   { id: 'institute', label: 'Institute', placeholder: 'Enter Institute', error: 'Institute is required.' },
-  //   { id: 'grade', label: 'Grade', placeholder: 'Enter Grade', error: 'Grade is required.' },
-  // ];
+  addressFields = [
+    { controlName: 'houseNumber', label: 'House Number', placeholder: 'Enter House Number' },
+    { controlName: 'street', label: 'Street', placeholder: 'Enter Street' },
+    { controlName: 'lane', label: 'Lane', placeholder: 'Enter Lane' },
+    { controlName: 'city', label: 'City', placeholder: 'Enter City'},
+    { controlName: 'state', label: 'State', placeholder: 'Enter State' },
+    { controlName: 'postalCode', label: 'Postal Code', placeholder: 'Enter Postal Code' },
+    { controlName: 'country', label: 'Country', placeholder: 'Enter Country' }
 
-  // experienceFields = [
-  //   { id: 'position', label: 'Position', placeholder: 'Enter Position', error: 'Position is required.' },
-  //   { id: 'company', label: 'Company', placeholder: 'Enter Company', error: 'Company is required.' },
-  //   { id: 'startDate', label: 'Start Date', placeholder: 'Enter Start Date', error: 'Start date is required.' },
-  //   { id: 'endDate', label: 'End Date', placeholder: 'Enter End Date', error: 'End date is required.' },
-  //   { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
-  // ];
+    ];
+    
+    olevelsFields =[
+      { controlName: 'indexNo', label: 'Index No', placeholder: 'Enter Index No' },
+      { controlName: 'year', label: 'Year', placeholder: 'Enter Year' },
+      { controlName: 'school', label: 'School', placeholder: 'Enter School' },
+      { controlName: 'tamil', label: 'Tamil', placeholder: 'Enter Tamil'},
+      { controlName: 'science', label: 'Science', placeholder: 'Enter Science' },
+      { controlName: 'maths', label: 'Maths', placeholder: 'Enter Maths' },
+      { controlName: 'religion', label: 'Religion', placeholder: 'Enter Religion' },
+      { controlName: 'english', label: 'English', placeholder: 'Enter English' },
+      { controlName: 'history', label: 'History', placeholder: 'Enter History'},
+      { controlName: 'basket1', label: 'Basket1', placeholder: 'Enter Basket1' },
+      { controlName: 'basket2', label: 'Basket2', placeholder: 'Enter Basket2' },
+      { controlName: 'basket3', label: 'Basket3', placeholder: 'Enter Basket3' }
+  
+    ];
+    alevelFields =[
+      { controlName: 'indexNo', label: 'Index No', placeholder: 'Enter Index No' },
+      { controlName: 'year', label: 'Year', placeholder: 'Enter Year' },
+      { controlName: 'school', label: 'School', placeholder: 'Enter School' },
+      { controlName: 'stream', label: 'Stream', placeholder: 'Enter Stream'},
+      { controlName: 'subject1', label: 'Subject1', placeholder: 'Enter Subject1' },
+      { controlName: 'subject2', label: 'Subject2', placeholder: 'Enter Subject2' },
+      { controlName: 'subject3', label: 'Subject3', placeholder: 'Enter Subject3' },
+      { controlName: 'generalEnglish', label: 'General English', placeholder: 'Enter General English' },
+      { controlName: 'generalKnowledge', label: 'General Knowledge', placeholder: 'Enter General Knowledge'},
+      { controlName: 'git', label: 'GIT', placeholder: 'Enter GIT' }
+    
+    ];
+    higherStudiesFields =[
+      { controlName: 'type', label: 'Type', placeholder: 'Enter Type' },    
+      { controlName: 'stream', label: 'Stream', placeholder: 'Enter Stream'},
+      { controlName: 'year', label: 'Year', placeholder: 'Enter Year' },
+      { controlName: 'duration', label: 'Duration', placeholder: 'Enter Duration' },
+      { controlName: 'description', label: 'Description', placeholder: 'Enter Description' },
+      { controlName: 'institute', label: 'Institude', placeholder: 'Enter Institute' },
+      { controlName: 'grade', label: 'Grade', placeholder: 'Enter Grade' }
+     
+    ];
+    experianceFields =[
+      { controlName: 'companyName', label: 'Company Name', placeholder: 'Enter Company Name' },    
+      { controlName: 'position', label: 'Position', placeholder: 'Enter Position'},
+      { controlName: 'startDate', label: 'StartDate', placeholder: 'Enter Start Date' },
+      { controlName: 'endDate', label: 'End Date', placeholder: 'Enter End Date' },
+      { controlName: 'description', label: 'Description', placeholder: 'Enter Description' }
+     
+     
+    ];
+    constructor(private fb: FormBuilder, private studentService: StudentService, private route: ActivatedRoute,private http: HttpClient) {
+      this.parentsForm = this.fb.group({
+        firstName:[''],
+        lastName:[''],
+        job:[''],
+        contactNo:[''],
+        address:['']
+      });
 
+      this.addressForm = this.fb.group({
+        houseNumber:[''],
+        street:[''],
+        lane:[''],
+        state:[''],
+        postalCode:[''],
+        country:['']
+      });
 
-  ngOnInit(): void {
-   this.route.paramMap.subscribe((params)=>{
-    const id = (params.get('id'));
-    console.log('fetched Id:', id);
-    if(id){
-      this.getStudent(id);
+      this.olevelsForm = this.fb.group({
+        indexNo:[''],
+        year:[''],
+        school:[''],
+        tamil:[''],
+        science:[''],
+        maths:[''],
+        religion:[''],
+        english:[''],
+        history:[''],
+        basket1:[''],
+        basket2:[''],
+        basket3:['']
+      });
 
+      this.alevelsForm = this.fb.group({
+        indexNo:[''],
+        year:[''],
+        school:[''],
+        stream:[''],
+        subject1:[''],
+        subject2:[''],
+        subject3:[''],
+        generalEnglish:[''],
+        generalKnowledge:[''],
+        git:['']
+      });
+
+      this.higherstudyForm = this.fb.group({
+        type:[''],
+        stream:[''],
+        year:[''],
+        duration:[''],
+        institute:[''],
+        grade:[''],
+      });
+
+      this.experianceForm = this.fb.group({
+        companyName:[''],
+        position:[''],
+        startDate:[''],
+        endDate:[''],
+        description:['']
+      })
     }
-    else{
-      console.error('invalid or missing up');
-    }
-   })
-    this.getStudentParent();
 
+
+
+    ngOnInit(): void {
+      
+      this.route.paramMap.subscribe((params) => {
+          const id = params.get('id');
+          console.log('Fetched ID:', id);
+  
+          if (id) {
+              this.getStudent(id);
+              this.getParentsByStudentId(id); 
+          } else {
+              console.error('Invalid or missing ID');
+          }
+      });
   }
+    
   getStudent(id: string): void {
     this.studentService.GetStudentById(id).subscribe(
       (response) => {
-        this.student = response; // Assign the response to the student object
-        console.log('Student Data:', this.student); // Log for debugging
+        this.student = response; 
+        console.log('Student Data:', this.student); 
       },
       (error) => {
-        console.error('Error fetching student data:', error); // Handle errors
+        console.error('Error fetching student data:', error); 
       }
     );
   }
 
+  getParentsByStudentId(studentId: string): void {
+    this.studentService.GetParentsByStudentId(studentId).subscribe(
+        (response) => {
+            this.student.parents = response; 
+            console.log('Parent Data:', this.student.parents);
+        },
+        (error) => {
+            console.error('Error fetching parent data:', error);
+        }
+    );
+  }
+
+  getAddressByStudentId(studentId: string):void {
+
+  }
+
+  getOlevelByStudentId(studentId: string):void {
+
+  }
+
+  getAlevelByStudentId(studentId: string): void{
+
+  }
+
+  getHigherStudyByStudentId(studentId: string): void {
+
+  }
+
+  getExperianceByStudentId(studentId: string): void {
+    
+  }
    openModal(): void {
-      this.isModalOpen = true;
+      this.isParentAdded = true;
+      this.isAddressAdded = true;
+      this.isOlevelAdded = true;
+      this.isAlevelAdded = true;
+      this.isHigherStudyAdded = true;
+      this.isExperianceAdded = true;
     }
     cancel(): void {
       this.parentsForm.reset();
       this.closeModal();
     }
     closeModal(): void {
-      this.isModalOpen = false;
+      this.isParentAdded = false;
+      this.isAddressAdded = false;
+      this.isOlevelAdded = false;
+      this.isAlevelAdded = false;
+      this.isHigherStudyAdded = false;
+      this.isExperianceAdded = false;
     }
 
-    onSubmitParent() :void{
+    onSubmitParent(): void {
       if (this.parentsForm.valid) {
-        const formData = { ...this.parentsForm.value };
-        formData.isDeleted = false; 
-        console.log('Sending studentParant data:', formData);
-  
-        this.studentService.AddStudentParent(this.studentId,formData).subscribe(
+        const parentData = this.parentsForm.value;
+        this.studentService.  AddStudentParents(this.studentId, parentData).subscribe(
           (response) => {
-            console.log('StudentParent added successfully', response);
-            this.getStudentParent();
+            console.log('Parent added successfully:', response);
+            this.getParentsByStudentId(this.studentId.toString()); // Reload parent details after adding
             this.closeModal();
           },
           (error) => {
-            console.error('Error adding studentparent:', error);
-            if (error.status === 400) {
-              alert('Validation error: ' + JSON.stringify(error.error));
-            } else {
-              alert('An unexpected error occurred');
-            }
+            console.error('Error adding parent:', error);
+            alert('An error occurred while adding parent details.');
           }
         );
       } else {
-        console.log('Form is invalid:', this.parentsForm.errors);
         this.parentsForm.markAllAsTouched();
-      }    
+      }
     }
 
     isInvalid(controlName: string): any {
@@ -145,82 +285,12 @@ export class StudentCvComponent implements OnInit {
       return control?.invalid && control?.touched;
     }
 
-    getStudentParent(){
-      this.studentService.GetParentsByStudentId(this.studentId).subscribe(
-        (response: any) => {
-          if (Array.isArray(response) && response.length > 0) {
-            this.studentParent = response;
-            this. filteredParents = [...this.studentParent];
-          } else {
-            console.error('No studentparent found or unexpected response:', response);
-            this.studentParent = [];
-            this. filteredParents = [];
-          }
-        },
-        (error) => {
-          console.error('Error fetching students:', error);
-          alert('An error occurred while fetching studentparent.');
-        }
-      );
-    }
+   
 
   // Initialize all the forms
   initializeForms(): void {
 
-    this.addressForm = this.fb.group({
-      houseNumber: ['', Validators.required],
-      street: ['', Validators.required],
-      lane: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-      postalCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
-      country: ['', Validators.required],
-    });
-
-    this.olQualificationForm = this.fb.group({
-      indexNo: ['', Validators.required],
-      year: ['', Validators.required],
-      school: ['', Validators.required],
-      tamil: ['', Validators.required],
-      science: ['', Validators.required],
-      maths: ['', Validators.required],
-      religion: ['', Validators.required],
-      english: ['', Validators.required],
-      history: ['', Validators.required],
-      basket1: ['', Validators.required],
-      basket2: ['', Validators.required],
-      basket3: ['', Validators.required]
-    });
-
-    this.alQualificationForm = this.fb.group({
-      indexNo: ['', Validators.required],
-      year: ['', Validators.required],
-      school: ['', Validators.required],
-      stream: ['', Validators.required],
-      subject1: ['', Validators.required],
-      subject2: ['', Validators.required],
-      subject3: ['', Validators.required],
-      generalEnglish: ['', Validators.required],
-      generalKnowledge: ['', Validators.required],
-      git: ['', Validators.required]
-    });
-
-    this.higherStudyForm = this.fb.group({
-      stream: ['', Validators.required],
-      year: ['', Validators.required],
-      duration: ['', Validators.required],
-      description: ['', Validators.required],
-      institute: ['', Validators.required],
-      grade: ['', Validators.required]
-    });
-
-    this.experienceForm = this.fb.group({
-      companyName: ['', Validators.required],
-      position: ['', Validators.required],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      description: ['', Validators.required]
-    });
+  
   }
 
   // Save parent data
@@ -234,38 +304,13 @@ export class StudentCvComponent implements OnInit {
     }
   }
 
-  saveAlQualification() : void{
-    if(this.addressForm.valid){
-      const addressData = this.addressForm.value;
-      this.student.address = addressData;
-      this. isAddressAdded = true
-    }else{
-       alert('Please Add All requied fiels!');
-    }
-
-  }
+  
   editParentDetails(): void {
     this.isParentAdded = false; 
     this.parentsForm.patchValue(this.student.parents);
   }
 
-  saveData(form: FormGroup, key: string) {
-    if (form.valid) {
-      const data = form.value;
-    } else {
-      alert('Please fill all required fields correctly.');
-    }
+  
   }
+  
 
-  saveAddress() {
-    if (this.addressForm.valid) {
-      const addressData = this.addressForm.value;  
-  }
- }
-
-//  saveQualification(){
-//   if(this.olQualificationForm.valid){
-//     var Oldata = this.olQualificationForm.valid;
-//   }
-//  }
-}

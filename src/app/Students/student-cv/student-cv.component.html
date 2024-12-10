@@ -1,4 +1,3 @@
-
 <div class="container-fluid mt-5">
   <div class="row">
     <!-- Left Column: Personal Details -->
@@ -18,309 +17,71 @@
         <p><i class="bi bi-calendar-fill"></i> {{ student.dateOfBirth }}</p>
         <p><i class="bi bi-gender-ambiguous"></i> {{ student.gender }}</p>
         <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
-      </div> 
-      <div class="card p-4 shadow-sm border-5 ">  
-        <div *ngIf=".olQualification; else noOl">
-        <h1>Parent Details</h1>
-        <p>{{studentParent.firstName}}</p>
-        <p>{{studentParent.lastName}}</p>
-        <p>{{studentParent.job}}</p>
-        <p>{{studentParent.contactNo}}</p>
-        <p>{{studentParent.address}}</p>
+      </div>
 
-        <ng-template #noOl>
-          <p class="text-muted">No O-Level qualification data.</p>
-        </ng-template>
+      <div class="mt-4">
         <!-- Parent Details -->
-        <button class="btn btn-outline-primary btn-sm w-100 mt-2 text-center" (click)="openModal()">
-             <i class="bi bi-people-fill me-1"></i> + Add Parent Details
+        <div *ngIf="student.parents?.length">
+          <h2>Parents Details</h2>
+          <div *ngFor="let parent of student.parents">
+            <p><strong>Name:</strong> {{ student.parent.firstName }} {{ parent.lastName }}</p>
+            <p><strong>Job:</strong> {{ parent.job }}</p>
+            <p><strong>Contact No:</strong> {{ parent.contactNo }}</p>
+            <p><strong>Address:</strong> {{ parent.address }}</p>
+          </div>
+        </div>
+        
+        <!-- Add Parent Button (opens modal) -->
+        <button
+          class="btn btn-outline-primary btn-sm w-100 mt-3"
+          (click)="openModal()"
+        >
+          <i class="bi bi-people-fill me-1"></i> + Add Parent Details
         </button>
-      </div>  
-        <!-- Show when no address data exists -->
-          <button class="btn btn-outline-primary btn-sm w-100 mt-2 text-center" data-bs-toggle="modal" data-bs-target="#Address" data-bs-dismiss="modal"> 
-            <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
-          </button>  
       </div>
     </div>
-
 
     <!-- Right Column: Qualifications and Other Details -->
-   <div class="col-lg-8">
-     <div class="card p-4 shadow-sm border-0">
+    <div class="col-lg-8">
+      <div class="card p-4 shadow-sm border-0">
         <h4 class="text-danger">Educational Qualifications</h4>
         <hr>
-        <div *ngIf="studentData.olQualification; else noOl">
-          <h5>O-Level</h5>
-          <p><strong>Year:</strong> {{ studentData.olQualification.year }}</p>
-          <p><strong>School:</strong> {{ studentData.olQualification.school }}</p>
-          <p><strong>Tamil:</strong> {{ studentData.olQualification.tamil }}</p>
-          <p><strong>Science:</strong> {{ studentData.olQualification.science }}</p>
-          <p><strong>Mathematics:</strong> {{ studentData.olQualification.maths }}</p>
-          <p><strong>Religion:</strong> {{ studentData.olQualification.religion }}</p>
-          <p><strong>English:</strong> {{ studentData.olQualification.english }}</p>
-          <p><strong>History:</strong> {{ studentData.olQualification.history }}</p>
-          <p><strong>Basket 1:</strong> {{ studentData.olQualification.basket1 }}</p>
-          <p><strong>Basket 2:</strong> {{ studentData.olQualification.basket2 }}</p>
-          <p><strong>Basket 3:</strong> {{ studentData.olQualification.basket3 }}</p>
-        </div>
-        
-        <ng-template #noOl>
-          <p class="text-muted">No O-Level qualification data.</p>
-        </ng-template>
-        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
-              data-bs-target="#olQualification">
-              <i class="bi bi-book-half me-1"></i>
-              {{ studentData.olQualification ? 'Edit O-Level Qualification' : '+ Add O-Level Qualification' }}
-        </button>
+        <!-- Educational details here (same as before) -->
       </div>
-      
-      <div class="card p-4 shadow-sm border-0">
-        <div *ngIf="studentData.alQualification else noal">
-          <h4><u class="text-danger">A-Level Qualification</u></h4>
-          <hr>
-          <p><strong>Index No: </strong>{{ studentData.alQualification.indexNo }}</p>
-          <p><strong>Year: </strong>{{ studentData.alQualification.year }}</p>
-          <p><strong>School: </strong>{{ studentData.alQualification.school }}</p>
-          <p><strong>Stream: </strong>{{ studentData.alQualification.stream }}</p>
-          <p><strong>Subject 1: </strong>{{ studentData.alQualification.subject1 }}</p>
-          <p><strong>Subject 2: </strong>{{ studentData.alQualification.subject2 }}</p>
-          <p><strong>Subject 3: </strong>{{ studentData.alQualification.subject3 }}</p>
-          <p><strong>General English: </strong>{{ studentData.alQualification.generalEnglish }}</p>
-          <p><strong>General Knowledge: </strong>{{ studentData.alQualification.generalKnowledge }}</p>
-          <p><strong>Git: </strong>{{ studentData.alQualification.git }}</p>
-        </div>
-        
-        <ng-template #noal>
-          <p class="text-muted">No A-Level qualification data.</p>
-        </ng-template>
-
-        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal"
-          data-bs-target="#AlQualification">
-          <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
-        </button>
-      </div>
-
-      <div class="card p-4 shadow-sm border-0">
-        <ng-template>
-          <p class="text-muted">No Higher Study qualification data.</p>
-        </ng-template>
-        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#HigherStudy">
-          <i class="bi bi-mortarboard-fill me-1"></i> + Add Higher Study
-        </button>
-      </div>
-
-      <div class="card p-4 shadow-sm border-0">
-        <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Experience">
-          <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
-        </button>
-      </div>    
     </div>
   </div>
-</div>
-<!--***********************************************************************************************************************************************-->
-<!-- Parents Modal -->
-<div class="modal fade" id="parentDetailsModal" tabindex="-1" aria-labelledby="parentDetailsModalLabel" 
-     aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="parentDetailsModalLabel">Add Parent Details</h5>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="parentsForm" (ngSubmit)=" onSubmitParent()">
-          <div class="row">
-            <div class="col-12">
-              <div *ngFor="let field of parentsFields" class="mb-3">
-                <label for="field.controlName" class="form-label">{{ field.label }}</label>
+
+  <!-- Parents Modal -->
+  <div class="modal fade" id="ParentsModal" tabindex="-1" aria-labelledby="ParentsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ParentsModalLabel">Add Parent Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="parentsForm" (ngSubmit)="onSubmitParent()">
+            <div *ngFor="let field of parentsFields">
+              <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [placeholder]="field.placeholder"
+                  [formControlName]="field.controlName"
+                />
                 <div *ngIf="isInvalid(field.controlName)" class="text-danger">
-                  <small>{{ field.controlName | uppercase }} is required!</small>
+                  This field is required.
                 </div>
               </div>
             </div>
-          </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="parentsForm.invalid">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
-
-<!-- <div class="modal fade" id="addressDetailsModal" tabindex="-1" aria-labelledby="addressDetailsModalLabel" 
-     aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addressDetailsModalLabel">Add Address Details</h5>
-        <button type="button" class="btn-close" (click)="closeModal()"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-          <div class="row">
-            <div class="col-12">
-              <div *ngFor="let field of addressFields" class="mb-3">
-                <label for="field.controlName" class="form-label">{{ field.label }}</label>
-                <input *ngIf="field.type !== 'select'" type="{{ field.type || 'text' }}" class="form-control"
-                       formControlName="{{ field.controlName }}" placeholder="{{ field.placeholder }}" />
-
-                <select *ngIf="field.type === 'select'" formControlName="{{ field.controlName }}" class="form-control">
-                  <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
-                </select>
-
-                <div *ngIf="isInvalid(field.controlName)" class="text-danger">
-                  <small>{{ field.controlName | uppercase }} is required!</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-<!-- AL Qualification Modal
-<div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <form [formGroup]="alQualificationForm" (ngSubmit)="saveAlQualification()">
-          <div class="mb-3">
-            <label for="indexNo" class="form-label">Index No</label>
-            <input type="text" id="indexNo" class="form-control" formControlName="indexNo" />
-          </div>
-          <div class="mb-3">
-            <label for="year" class="form-label">Year</label>
-            <input type="text" id="year" class="form-control" formControlName="year" />
-          </div>
-          <div class="mb-3">
-            <label for="school" class="form-label">School</label>
-            <input type="text" id="school" class="form-control" formControlName="school" />
-          </div>
-          <div class="mb-3">
-            <label for="stream" class="form-label">Stream</label>
-            <input type="text" id="stream" class="form-control" formControlName="stream" />
-          </div>
-          <div class="mb-3">
-            <label for="subject1" class="form-label">Subject 1</label>
-            <input type="text" id="subject1" class="form-control" formControlName="subject1" />
-          </div>
-          <div class="mb-3">
-            <label for="subject2" class="form-label">Subject 2</label>
-            <input type="text" id="subject2" class="form-control" formControlName="subject2" />
-          </div>
-          <div class="mb-3">
-            <label for="subject3" class="form-label">Subject 3</label>
-            <input type="text" id="subject3" class="form-control" formControlName="subject3" />
-          </div>
-          <div class="mb-3">
-            <label for="generalEnglish" class="form-label">General English</label>
-            <input type="text" id="generalEnglish" class="form-control" formControlName="generalEnglish" />
-          </div>
-          <div class="mb-3">
-            <label for="generalKnowledge" class="form-label">General Knowledge</label>
-            <input type="text" id="generalKnowledge" class="form-control" formControlName="generalKnowledge" />
-          </div>
-          <div class="mb-3">
-            <label for="git" class="form-label">Git</label>
-            <input type="text" id="git" class="form-control" formControlName="git" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="saveAlQualification()" data-bs-dismiss="modal">Save
-          Changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- O-Level Qualification Modal -->
-<!-- <div class="modal fade" id="olQualification" tabindex="-1" aria-labelledby="olQualificationLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="olQualificationLabel">O-Level Qualification</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="olQualificationForm">
-          <div class="mb-3" *ngFor="let field of olQualificationForm.controls | keyvalue">
-            <label class="form-label">{{ field.key | titlecase }}</label>
-            <input type="text" [formControlName]="field.key" class="form-control" placeholder="Enter {{ field.key }}" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="olQualificationForm.invalid"
-          (click)="saveQualification()" data-bs-dismiss="modal">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-<!-- Higher Study Modal -->
-<!-- <div class="modal fade" id="HigherStudy" tabindex="-1" aria-labelledby="higherStudyLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="higherStudyLabel">Higher Study</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="higherStudyForm">
-          <div class="mb-3" *ngFor="let field of higherStudyFields">
-            <label class="form-label">{{ field.label }}</label>
-            <input type="text" [formControlName]="field.id" class="form-control"
-              [placeholder]="'Enter ' + field.label" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="higherStudyForm.invalid" (click)="saveHigherStudy()"
-          data-bs-dismiss="modal">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<!-- Experience Modal -->
-<!-- <div class="modal fade" id="Experience" tabindex="-1" aria-labelledby="experienceLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="experienceLabel">Experience</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="experienceForm">
-          <div class="mb-3" *ngFor="let field of experienceFields">
-            <label class="form-label">{{ field.label }}</label>
-            <input type="text" [formControlName]="field.id" class="form-control"
-              [placeholder]="'Enter ' + field.label" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" [disabled]="experienceForm.invalid" (click)="saveExperience()"
-          data-bs-dismiss="modal">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div> -->
