@@ -16,7 +16,7 @@ export class StudentCvComponent implements OnInit {
 
   student: any;
   studentId: number = 0;
-  parentsForm!: FormGroup;
+  parentsForm!: FormGroup; 
   addressForm!: FormGroup;
   olQualificationForm!: FormGroup;
   alQualificationForm!: FormGroup;
@@ -25,6 +25,7 @@ export class StudentCvComponent implements OnInit {
 
   studentData: any = {};
   isEditingAddress: boolean = false;
+  isParentAdded: boolean = false;
 
   constructor(private route: ActivatedRoute, private studentService: StudentService, private fb: FormBuilder, private http: HttpClient) { }
 
@@ -86,7 +87,7 @@ export class StudentCvComponent implements OnInit {
   ];
 
   // Initialize all the forms
-  initializeForms() {
+  initializeForms(): void {
     this.parentsForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -149,6 +150,23 @@ export class StudentCvComponent implements OnInit {
       endDate: ['', Validators.required],
       description: ['', Validators.required]
     });
+  }
+
+  // Save parent data
+  saveParentDetails(): void {
+    if (this.parentsForm.valid) {
+      const parentData = this.parentsForm.value;
+      this.student.parents = parentData; // Update the student object
+      this.isParentAdded = true; // Toggle to "Edit" mode
+    } else {
+      alert('Please fill all required fields correctly.');
+    }
+  }
+
+  // Toggle editing mode
+  editParentDetails(): void {
+    this.isParentAdded = false; 
+    this.parentsForm.patchValue(this.student.parents); // Populate the form with existing data
   }
 
   // Save all data to the database

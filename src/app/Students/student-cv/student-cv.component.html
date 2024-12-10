@@ -1,8 +1,9 @@
+
 <div class="container-fluid mt-5">
   <div class="row">
     <!-- Left Column: Personal Details -->
     <div class="col-lg-4 mb-4">
-      <div class="card p-4 shadow-sm border-0 text-center">
+      <div class="card p-4 shadow-sm border-5 text-center">
         <img
           [src]="student.image || 'https://via.placeholder.com/150'"
           alt="Profile Image"
@@ -20,18 +21,31 @@
       </div>
 
       <div class="mt-4">
-        <div *ngIf="studentData.parents">
+        <!-- Parent Details -->
+        <div *ngIf="!parentsForm; else addParentButton">
           <h4><u class="text-danger">Parent Details</u></h4>
-          <p><strong>Name: </strong>{{ studentData.parents.firstName }} {{ studentData.parents.lastName }}</p>
-          <p><strong>Job: </strong>{{ studentData.parents.job }}</p>
-          <p><strong>Contact: </strong>{{ studentData.parents.contactNo }}</p>
-          <p><strong>Address: </strong>{{ studentData.parents.address }}</p>
+          <p><strong>Name: </strong>{{ student.parents.firstName }} {{ student.parents.lastName }}</p>
+          <p><strong>Job: </strong>{{ student.parents.job }}</p>
+          <p><strong>Contact: </strong>{{ student.parents.contactNo }}</p>
+          <p><strong>Address: </strong>{{ student.parents.address }}</p>
+          <button
+            class="btn btn-outline-primary btn-sm w-100 mt-3"
+            (click)="editParentDetails()"
+          >
+            <i class="bi bi-pencil-fill me-1"></i> Edit Parent Details
+          </button>
         </div>
+        <!-- Add Parent Button -->
+        <ng-template #addParentButton>
+          <button
+            class="btn btn-outline-primary btn-sm w-100 mt-3"
+            data-bs-toggle="modal"
+            data-bs-target="#ParentsModal"
+          >
+            <i class="bi bi-people-fill me-1"></i> + Add Parent Details
+          </button>
+        </ng-template>
 
-        <button class="btn btn-outline-primary btn-sm w-100 mb-2" data-bs-toggle="modal"
-          data-bs-target="#ParentsModal">
-          <i class="bi bi-people-fill me-1"></i> + Add Parents
-        </button>
       
         <div *ngIf="studentData.address; else noAddress">
           <h4><u class="text-danger">Address</u></h4>
@@ -130,17 +144,13 @@
         <button class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" data-bs-target="#Experience">
           <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
         </button>
-      </div>
-      
-
+      </div>    
     </div>
   </div>
 </div>
 
-
-<!--***********************************************************************************************************-->
 <!-- Parents Modal -->
-<!-- <div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form [formGroup]="parentsForm" (ngSubmit)="saveData(parentsForm, 'parents')">
@@ -177,7 +187,7 @@
       </form>
     </div>
   </div>
-</div> -->
+</div>
 
 <!-- Address Modal -->
 <!-- <div class="modal fade" id="Address" tabindex="-1" aria-hidden="true">
