@@ -36,5 +36,16 @@ export class StudentService {
     const deleteUrl = `${this.url}Student/${studentId}`;
     return this.http.delete<void>(deleteUrl);
   }
+
+  AddStudentParent(studetId: number, parentData : any): Observable<any>{
+    return this.http.post(`S{this.url}Student/Add_Student_Parents?studentId=${studetId}`, parentData);
+
+  }
+
+  GetParentsByStudentId(studentId: number): Observable<any>{
+    return this.http.get(`${this.url}Student/Get_Parents_by_StudentId?studentId=${studentId}`);
+  }
+
+  
   
 }

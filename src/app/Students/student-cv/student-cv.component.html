@@ -18,59 +18,28 @@
         <p><i class="bi bi-calendar-fill"></i> {{ student.dateOfBirth }}</p>
         <p><i class="bi bi-gender-ambiguous"></i> {{ student.gender }}</p>
         <p><strong>Marital Status:</strong> {{ student.maritalStatus }}</p>
-      </div>
+      </div> 
+      <div class="card p-4 shadow-sm border-5 ">  
+        <div *ngIf=".olQualification; else noOl">
+        <h1>Parent Details</h1>
+        <p>{{studentParent.firstName}}</p>
+        <p>{{studentParent.lastName}}</p>
+        <p>{{studentParent.job}}</p>
+        <p>{{studentParent.contactNo}}</p>
+        <p>{{studentParent.address}}</p>
 
-      <div class="mt-4">
+        <ng-template #noOl>
+          <p class="text-muted">No O-Level qualification data.</p>
+        </ng-template>
         <!-- Parent Details -->
-        <div *ngIf="!parentsForm; else addParentButton">
-          <h4><u class="text-danger">Parent Details</u></h4>
-          <p><strong>Name: </strong>{{ student.parents.firstName }} {{ student.parents.lastName }}</p>
-          <p><strong>Job: </strong>{{ student.parents.job }}</p>
-          <p><strong>Contact: </strong>{{ student.parents.contactNo }}</p>
-          <p><strong>Address: </strong>{{ student.parents.address }}</p>
-          <button
-            class="btn btn-outline-primary btn-sm w-100 mt-3"
-            (click)="editParentDetails()"
-          >
-            <i class="bi bi-pencil-fill me-1"></i> Edit Parent Details
-          </button>
-        </div>
-        <!-- Add Parent Button -->
-        <ng-template #addParentButton>
-          <button
-            class="btn btn-outline-primary btn-sm w-100 mt-3"
-            data-bs-toggle="modal"
-            data-bs-target="#ParentsModal"
-          >
-            <i class="bi bi-people-fill me-1"></i> + Add Parent Details
-          </button>
-        </ng-template>
-
-      
-        <div *ngIf="studentData.address; else noAddress">
-          <h4><u class="text-danger">Address</u></h4>
-
-          <p><strong>House Number:</strong> {{ studentData.address.houseNumber }}</p>
-          <p><strong>Street:</strong> {{ studentData.address.street }}</p>
-          <p><strong>Lane:</strong> {{ studentData.address.lane }}</p>
-          <p><strong>City:</strong> {{ studentData.address.city }}</p>
-          <p><strong>State:</strong> {{ studentData.address.state }}</p>
-          <p><strong>Postal Code:</strong> {{ studentData.address.postalCode }}</p>
-          <p><strong>Country:</strong> {{ studentData.address.country }}</p>
-          <!-- Edit Address Button -->
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
-            data-bs-target="#Address">
-            <i class="bi bi-geo-alt-fill me-1"></i> Edit Address
-          </button>
-        </div>
-
+        <button class="btn btn-outline-primary btn-sm w-100 mt-2 text-center" (click)="openModal()">
+             <i class="bi bi-people-fill me-1"></i> + Add Parent Details
+        </button>
+      </div>  
         <!-- Show when no address data exists -->
-        <ng-template #noAddress>
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" data-bs-toggle="modal"
-            data-bs-target="#Address" data-bs-dismiss="modal">
+          <button class="btn btn-outline-primary btn-sm w-100 mt-2 text-center" data-bs-toggle="modal" data-bs-target="#Address" data-bs-dismiss="modal"> 
             <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
-          </button>
-        </ng-template>
+          </button>  
       </div>
     </div>
 
@@ -148,79 +117,81 @@
     </div>
   </div>
 </div>
-
+<!--***********************************************************************************************************************************************-->
 <!-- Parents Modal -->
-<div class="modal fade" id="ParentsModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="parentDetailsModal" tabindex="-1" aria-labelledby="parentDetailsModalLabel" 
+     aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form [formGroup]="parentsForm" (ngSubmit)="saveData(parentsForm, 'parents')">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Parents</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" id="firstName" class="form-control" formControlName="firstName" />
+      <div class="modal-header">
+        <h5 class="modal-title" id="parentDetailsModalLabel">Add Parent Details</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="parentsForm" (ngSubmit)=" onSubmitParent()">
+          <div class="row">
+            <div class="col-12">
+              <div *ngFor="let field of parentsFields" class="mb-3">
+                <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                  <small>{{ field.controlName | uppercase }} is required!</small>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" id="lastName" class="form-control" formControlName="lastName" />
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
-          <div class="mb-3">
-            <label for="job" class="form-label">Job</label>
-            <input type="text" id="job" class="form-control" formControlName="job" />
-          </div>
-          <div class="mb-3">
-            <label for="contactNo" class="form-label">Contact Number</label>
-            <input type="text" id="contactNo" class="form-control" formControlName="contactNo" />
-          </div>
-          <div class="mb-3">
-            <label for="address" class="form-label">Address</label>
-            <input type="text" id="address" class="form-control" formControlName="address" />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Address Modal -->
-<!-- <div class="modal fade" id="Address" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
+<!-- <div class="modal fade" id="addressDetailsModal" tabindex="-1" aria-labelledby="addressDetailsModalLabel" 
+     aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form [formGroup]="addressForm" (ngSubmit)="saveAddress()">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Address</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3" *ngFor="let field of addressFields">
-            <label [for]="field.id" class="form-label">{{ field.label }}</label>
-            <input type="text" [id]="field.id" class="form-control" [placeholder]="field.placeholder"
-              [formControlName]="field.id" />
-            <div *ngIf="addressForm.get(field.id)?.invalid && addressForm.get(field.id)?.touched" class="text-danger">
-              {{ field.error }}
+      <div class="modal-header">
+        <h5 class="modal-title" id="addressDetailsModalLabel">Add Address Details</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-12">
+              <div *ngFor="let field of addressFields" class="mb-3">
+                <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                <input *ngIf="field.type !== 'select'" type="{{ field.type || 'text' }}" class="form-control"
+                       formControlName="{{ field.controlName }}" placeholder="{{ field.placeholder }}" />
+
+                <select *ngIf="field.type === 'select'" formControlName="{{ field.controlName }}" class="form-control">
+                  <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+                </select>
+
+                <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                  <small>{{ field.controlName | uppercase }} is required!</small>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid"
-            data-bs-dismiss="modal">Save</button>
-        </div>
-      </form>
+          
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div> -->
 
 
-<!-- AL Qualification Modal -->
-<!-- <div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!-- AL Qualification Modal
+<div class="modal fade" id="AlQualification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">

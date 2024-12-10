@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -34,13 +34,13 @@ export class StudentsComponent implements OnInit {
   filteredStudents: any[] = [];
   isModalOpen: boolean = false;
   studentDetails: any = {};
-  pageSize=12;
-  pageNumber=1;
+  pageSize = 12;
+  pageNumber = 1;
   totalItems = 120;
 
   studentFields = [
 
-    { controlName: 'studentId',label:'Student Id', placeholder:'Enter Student Id'},
+    { controlName: 'studentId', label: 'Student Id', placeholder: 'Enter Student Id' },
     { controlName: 'image', label: 'Profile Image URL', placeholder: 'Enter Image URL' },
     { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
     { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
@@ -70,11 +70,11 @@ export class StudentsComponent implements OnInit {
       ],
     },
   ];
-  
+
   constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router) {
     this.studentForm = this.fb.group({
 
-      studentId:['', Validators.required],
+      studentId: ['', Validators.required],
       image: ['', Validators.required],
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -90,8 +90,8 @@ export class StudentsComponent implements OnInit {
     this.router.navigate([`/student-cv/${id}`]);
   }
   ngOnInit(): void {
- 
-    this.getAllStudents(); 
+
+    this.getAllStudents();
   }
 
   openModal(): void {
@@ -110,44 +110,44 @@ export class StudentsComponent implements OnInit {
   onSubmit(): void {
     if (this.studentForm.valid) {
       const formData = { ...this.studentForm.value };
-  
-      
-      const maritalStatusMapping: { [key: number]: number } = { 
-        1: 1, 
-        2: 2, 
-        3: 3, 
-        4: 4  
-      };
-      const genderMapping: { [key: number]: number } = { 
+
+
+      const maritalStatusMapping: { [key: number]: number } = {
         1: 1,
-        2: 2, 
-        3: 3 
+        2: 2,
+        3: 3,
+        4: 4
       };
-  
+      const genderMapping: { [key: number]: number } = {
+        1: 1,
+        2: 2,
+        3: 3
+      };
+
       console.log('Marital Status:', formData.maritalStatus);
-console.log('Gender:', formData.gender);
+      console.log('Gender:', formData.gender);
 
       formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
       formData.gender = genderMapping[formData.gender];
 
       console.log('Mapped Marital Status:', formData.maritalStatus);
-console.log('Mapped Gender:', formData.gender);
+      console.log('Mapped Gender:', formData.gender);
 
       if (!formData.maritalStatus) {
         console.error('Invalid marital status');
-        formData.maritalStatus = 0; 
+        formData.maritalStatus = 0;
       }
       if (!formData.gender) {
         console.error('Invalid gender');
-        formData.gender = 0; 
+        formData.gender = 0;
       }
-  
-   
+
+
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
       formData.isDeleted = false;
-  
+
       console.log('Sending student data:', formData);
-  
+
       this.studentService.AddStudent(formData).subscribe(
         (response) => {
           console.log('Student added successfully', response);
@@ -165,87 +165,87 @@ console.log('Mapped Gender:', formData.gender);
       );
     } else {
       console.log('Form is invalid:', this.studentForm.errors);
-      this.studentForm.markAllAsTouched(); 
+      this.studentForm.markAllAsTouched();
     }
   }
-  
-  
-
-  
-onPageChange(event: any): void {
-  const { pageIndex, pageSize } = event;
-  this.pageNumber = pageIndex + 1; 
-  this.pageSize = pageSize;
-  this.getAllStudents(); 
-}
 
 
-getAllStudents(): void {
-  this.studentService.GetAllStudents(this.pageNumber, this.pageSize).subscribe(
-    (response: any) => {
-      if (Array.isArray(response) && response.length > 0) {
-        this.student = response;
+
+
+  onPageChange(event: any): void {
+    const { pageIndex, pageSize } = event;
+    this.pageNumber = pageIndex + 1;
+    this.pageSize = pageSize;
+    this.getAllStudents();
+  }
+
+
+  getAllStudents(): void {
+    this.studentService.GetAllStudents(this.pageNumber, this.pageSize).subscribe(
+      (response: any) => {
+        if (Array.isArray(response) && response.length > 0) {
+          this.student = response;
+          this.filteredStudents = [...this.student];
+        } else {
+          console.error('No students found or unexpected response:', response);
+          this.student = [];
+          this.filteredStudents = [];
+        }
+      },
+      (error) => {
+        console.error('Error fetching students:', error);
+        alert('An error occurred while fetching students.');
+      }
+    );
+  }
+
+
+  searchStudents(searchTerm: string): void {
+    this.filteredStudents = this.student.filter(
+      (stu) =>
+        stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    this.pageNumber = 1;
+  }
+
+
+  deleteStudent(studentId: number): void {
+
+    this.studentService.DeleteStudent(studentId).subscribe(
+      () => {
+
+        this.student = this.student.filter((student) => student.id !== studentId);
         this.filteredStudents = [...this.student];
-      } else {
-        console.error('No students found or unexpected response:', response);
-        this.student = []; 
-        this.filteredStudents = [];
-      } 
-    },
-    (error) => {
-      console.error('Error fetching students:', error);
-      alert('An error occurred while fetching students.');
-    }
-  );
-}
+        alert('Student deleted successfully!');
+      },
+      (error) => {
+        console.error('Error deleting student:', error);
+        alert('An error occurred while deleting the student.');
+      }
+    );
+  }
 
+  updateStudent(studentId: number): void {
 
-searchStudents(searchTerm: string): void {
-  this.filteredStudents = this.student.filter(
-    (stu) =>
-      stu.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      stu.lastName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  this.pageNumber = 1; 
-}
+    const updatedStudentData = { ...this.studentForm.value };
 
+    this.studentService.UpdateStudent(studentId, updatedStudentData).subscribe(
+      (response) => {
 
-deleteStudent(studentId: number): void { 
-  
-  this.studentService.DeleteStudent(studentId).subscribe(
-    () => {
-     
-      this.student = this.student.filter((student) => student.id !== studentId);
-      this.filteredStudents = [...this.student]; 
-      alert('Student deleted successfully!');
-    },
-    (error) => {
-      console.error('Error deleting student:', error);
-      alert('An error occurred while deleting the student.');
-    }
-  );
-}
+        this.student = this.student.map((student) =>
+          student.id === studentId ? { ...student, ...updatedStudentData } : student
+        );
 
-updateStudent(studentId: number): void {
- 
-  const updatedStudentData = { ...this.studentForm.value }; 
-
-  this.studentService.UpdateStudent(studentId, updatedStudentData).subscribe(
-    (response) => {
-    
-      this.student = this.student.map((student) =>
-        student.id === studentId ? { ...student, ...updatedStudentData } : student
-      );
-
-      console.log(`Student with ID ${studentId} updated successfully.`);
-      alert('Student updated successfully.');
-    },
-    (error) => {
-      console.error(`Failed to update student with ID ${studentId}.`, error);
-      alert('An error occurred while updating the student.');
-    }
-  );
-}
+        console.log(`Student with ID ${studentId} updated successfully.`);
+        alert('Student updated successfully.');
+      },
+      (error) => {
+        console.error(`Failed to update student with ID ${studentId}.`, error);
+        alert('An error occurred while updating the student.');
+      }
+    );
+  }
 
 
   isInvalid(controlName: string): any {
@@ -261,5 +261,5 @@ updateStudent(studentId: number): void {
 
     return `${year}-${month}-${day}`;
   }
-  
+
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { StudentService } from '../../services/student.service';
@@ -17,6 +17,8 @@ export class StudentCvComponent implements OnInit {
   student: any;
   studentId: number = 0;
   parentsForm!: FormGroup; 
+  studentParent :any[] = [];
+  filteredParents: any[] = [];
   addressForm!: FormGroup;
   olQualificationForm!: FormGroup;
   alQualificationForm!: FormGroup;
@@ -24,26 +26,70 @@ export class StudentCvComponent implements OnInit {
   experienceForm!: FormGroup;
 
   studentData: any = {};
-  isEditingAddress: boolean = false;
+  isAddressAdded: boolean = false;
   isParentAdded: boolean = false;
+  isModalOpen: boolean = false;
 
-  constructor(private route: ActivatedRoute, private studentService: StudentService, private fb: FormBuilder, private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      const id = (params.get('id'));
-      console.log('Fetched ID:', id);
-  
-      if (id) {
-        this.getStudent(id);
-      } else {
-        console.error('Invalid or missing ID');
-      }
+  constructor(private fb: FormBuilder, private studentService: StudentService, private route: ActivatedRoute) {
+    this.parentsForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      job: ['', Validators.required],
+      contactNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      address: ['', Validators.required],
     });
   }
-  
-  
 
+  parentsFields = [
+    { controlName: 'firstName', label: 'First Name', placeholder: 'Enter First Name' },
+    { controlName: 'lastName', label: 'Last Name', placeholder: 'Enter Last Name' },
+    { controlName: 'job', label: 'Job', placeholder: 'Enter Job' },
+    { controlName: 'contactNo', label: 'Contact Number', placeholder: 'Enter Contact Number'},
+    { controlName: 'address', label: 'Address', placeholder: 'Enter Address' }
+    ];
+
+  // addressFields = [
+  //   { id: 'houseNumber', label: 'House Number', placeholder: 'Enter house number', error: 'House number is required' },
+  //   { id: 'street', label: 'Street', placeholder: 'Enter street name', error: 'Street is required' },
+  //   { id: 'lane', label: 'Lane', placeholder: 'Enter lane', error: 'Lane is required' },
+  //   { id: 'city', label: 'City', placeholder: 'Enter city name', error: 'City is required' },
+  //   { id: 'state', label: 'State', placeholder: 'Enter state', error: 'State is required' },
+  //   { id: 'postalCode', label: 'Postal Code', placeholder: 'Enter postal code', error: 'Postal code is required' },
+  //   { id: 'country', label: 'Country', placeholder: 'Enter country', error: 'Country is required' }
+  // ];
+  // higherStudyFields = [
+  //   { id: 'stream', label: 'Stream', placeholder: 'Enter Stream', error: 'Stream is required.' },
+  //   { id: 'year', label: 'Year', placeholder: 'Enter Year', error: 'Year is required.' },
+  //   { id: 'duration', label: 'Duration', placeholder: 'Enter Duration', error: 'Duration is required.' },
+  //   { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
+  //   { id: 'institute', label: 'Institute', placeholder: 'Enter Institute', error: 'Institute is required.' },
+  //   { id: 'grade', label: 'Grade', placeholder: 'Enter Grade', error: 'Grade is required.' },
+  // ];
+
+  // experienceFields = [
+  //   { id: 'position', label: 'Position', placeholder: 'Enter Position', error: 'Position is required.' },
+  //   { id: 'company', label: 'Company', placeholder: 'Enter Company', error: 'Company is required.' },
+  //   { id: 'startDate', label: 'Start Date', placeholder: 'Enter Start Date', error: 'Start date is required.' },
+  //   { id: 'endDate', label: 'End Date', placeholder: 'Enter End Date', error: 'End date is required.' },
+  //   { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
+  // ];
+
+
+  ngOnInit(): void {
+   this.route.paramMap.subscribe((params)=>{
+    const id = (params.get('id'));
+    console.log('fetched Id:', id);
+    if(id){
+      this.getStudent(id);
+
+    }
+    else{
+      console.error('invalid or missing up');
+    }
+   })
+    this.getStudentParent();
+
+  }
   getStudent(id: string): void {
     this.studentService.GetStudentById(id).subscribe(
       (response) => {
@@ -56,45 +102,70 @@ export class StudentCvComponent implements OnInit {
     );
   }
 
- 
+   openModal(): void {
+      this.isModalOpen = true;
+    }
+    cancel(): void {
+      this.parentsForm.reset();
+      this.closeModal();
+    }
+    closeModal(): void {
+      this.isModalOpen = false;
+    }
 
-  // Define field data for forms (unchanged)
-  addressFields = [
-    { id: 'houseNumber', label: 'House Number', placeholder: 'Enter House Number', error: 'House number is required.' },
-    { id: 'street', label: 'Street', placeholder: 'Enter Street', error: 'Street is required.' },
-    { id: 'lane', label: 'Lane', placeholder: 'Enter Lane', error: 'Lane is required.' },
-    { id: 'city', label: 'City', placeholder: 'Enter City', error: 'City is required.' },
-    { id: 'state', label: 'State', placeholder: 'Enter State', error: 'State is required.' },
-    { id: 'postalCode', label: 'Postal Code', placeholder: 'Enter Postal Code (5 digits)', error: 'Postal code is required and must be 5 digits.' },
-    { id: 'country', label: 'Country', placeholder: 'Enter Country', error: 'Country is required.' },
-  ];
+    onSubmitParent() :void{
+      if (this.parentsForm.valid) {
+        const formData = { ...this.parentsForm.value };
+        formData.isDeleted = false; 
+        console.log('Sending studentParant data:', formData);
+  
+        this.studentService.AddStudentParent(this.studentId,formData).subscribe(
+          (response) => {
+            console.log('StudentParent added successfully', response);
+            this.getStudentParent();
+            this.closeModal();
+          },
+          (error) => {
+            console.error('Error adding studentparent:', error);
+            if (error.status === 400) {
+              alert('Validation error: ' + JSON.stringify(error.error));
+            } else {
+              alert('An unexpected error occurred');
+            }
+          }
+        );
+      } else {
+        console.log('Form is invalid:', this.parentsForm.errors);
+        this.parentsForm.markAllAsTouched();
+      }    
+    }
 
-  higherStudyFields = [
-    { id: 'stream', label: 'Stream', placeholder: 'Enter Stream', error: 'Stream is required.' },
-    { id: 'year', label: 'Year', placeholder: 'Enter Year', error: 'Year is required.' },
-    { id: 'duration', label: 'Duration', placeholder: 'Enter Duration', error: 'Duration is required.' },
-    { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
-    { id: 'institute', label: 'Institute', placeholder: 'Enter Institute', error: 'Institute is required.' },
-    { id: 'grade', label: 'Grade', placeholder: 'Enter Grade', error: 'Grade is required.' },
-  ];
+    isInvalid(controlName: string): any {
+      const control = this.parentsForm.get(controlName);
+      return control?.invalid && control?.touched;
+    }
 
-  experienceFields = [
-    { id: 'position', label: 'Position', placeholder: 'Enter Position', error: 'Position is required.' },
-    { id: 'company', label: 'Company', placeholder: 'Enter Company', error: 'Company is required.' },
-    { id: 'startDate', label: 'Start Date', placeholder: 'Enter Start Date', error: 'Start date is required.' },
-    { id: 'endDate', label: 'End Date', placeholder: 'Enter End Date', error: 'End date is required.' },
-    { id: 'description', label: 'Description', placeholder: 'Enter Description', error: 'Description is required.' },
-  ];
+    getStudentParent(){
+      this.studentService.GetParentsByStudentId(this.studentId).subscribe(
+        (response: any) => {
+          if (Array.isArray(response) && response.length > 0) {
+            this.studentParent = response;
+            this. filteredParents = [...this.studentParent];
+          } else {
+            console.error('No studentparent found or unexpected response:', response);
+            this.studentParent = [];
+            this. filteredParents = [];
+          }
+        },
+        (error) => {
+          console.error('Error fetching students:', error);
+          alert('An error occurred while fetching studentparent.');
+        }
+      );
+    }
 
   // Initialize all the forms
   initializeForms(): void {
-    this.parentsForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      job: ['', Validators.required],
-      contactNo: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      address: ['', Validators.required],
-    });
 
     this.addressForm = this.fb.group({
       houseNumber: ['', Validators.required],
@@ -156,131 +227,45 @@ export class StudentCvComponent implements OnInit {
   saveParentDetails(): void {
     if (this.parentsForm.valid) {
       const parentData = this.parentsForm.value;
-      this.student.parents = parentData; // Update the student object
-      this.isParentAdded = true; // Toggle to "Edit" mode
+      this.student.parents = parentData; 
+      this.isParentAdded = true; 
     } else {
       alert('Please fill all required fields correctly.');
     }
   }
 
-  // Toggle editing mode
+  saveAlQualification() : void{
+    if(this.addressForm.valid){
+      const addressData = this.addressForm.value;
+      this.student.address = addressData;
+      this. isAddressAdded = true
+    }else{
+       alert('Please Add All requied fiels!');
+    }
+
+  }
   editParentDetails(): void {
     this.isParentAdded = false; 
-    this.parentsForm.patchValue(this.student.parents); // Populate the form with existing data
+    this.parentsForm.patchValue(this.student.parents);
   }
 
-  // Save all data to the database
   saveData(form: FormGroup, key: string) {
     if (form.valid) {
       const data = form.value;
-      // this.studentService.saveStudentData(key, data).subscribe(
-      //   (response) => {
-      //     alert('Data saved successfully!');
-      //   },
-      //   (error) => {
-      //     alert('There was an error saving the data.');
-      //     console.error(error);
-      //   }
-      // );
     } else {
       alert('Please fill all required fields correctly.');
     }
   }
 
-  // Save Address to the database
   saveAddress() {
     if (this.addressForm.valid) {
-      const addressData = this.addressForm.value;
-    //   this.studentService.saveStudentData('address', addressData).subscribe(
-    //     (response) => {
-    //       alert('Address saved successfully!');
-    //       this.isEditingAddress = false;
-    //       this.addressForm.reset();
-    //     },
-    //     (error) => {
-    //       alert('There was an error saving the address.');
-    //       console.error(error);
-    //     }
-    //   );
-    // } else {
-    //   alert('Please fill all required fields correctly.');
-    // }
+      const addressData = this.addressForm.value;  
   }
+ }
 
-  // Save O-Level qualification to the database
-  // saveQualification() {
-  //   if (this.olQualificationForm.valid) {
-  //   //   const qualificationData = this.olQualificationForm.value;
-  //   //   this.studentService.saveStudentData('olQualification', qualificationData).subscribe(
-  //   //     (response) => {
-  //   //       alert('O-Level qualification saved successfully!');
-  //   //       this.olQualificationForm.reset();
-  //   //     },
-  //   //     (error) => {
-  //   //       alert('There was an error saving the qualification.');
-  //   //       console.error(error);
-  //   //     }
-  //   //   );
-  //   // } else {
-  //   //   alert('Please fill all required fields correctly.');
-  //   // }
-  // }
-
-  // Save A-Level qualification to the database
-  // saveAlQualification() {
-  //   if (this.alQualificationForm.valid) {
-  //     const qualificationData = this.alQualificationForm.value;
-  //     this.studentService.saveStudentData('alQualification', qualificationData).subscribe(
-  //       (response) => {
-  //         alert('A-Level qualification saved successfully!');
-  //         this.alQualificationForm.reset();
-  //       },
-  //       (error) => {
-  //         alert('There was an error saving the qualification.');
-  //         console.error(error);
-  //       }
-  //     );
-  //   } else {
-  //     alert('Please fill all required fields correctly.');
-  //   }
-  // }
-
-  // // Save Experience to the database
-  // saveExperience() {
-  //   if (this.experienceForm.valid) {
-  //     const experienceData = this.experienceForm.value;
-  //     this.studentService.saveStudentData('experience', experienceData).subscribe(
-  //       (response) => {
-  //         alert('Experience saved successfully!');
-  //         this.experienceForm.reset();
-  //       },
-  //       (error) => {
-  //         alert('There was an error saving the experience.');
-  //         console.error(error);
-  //       }
-  //     );
-  //   } else {
-  //     alert('Please fill all required fields correctly.');
-  //   }
-  // }
-
-  // // Save Higher Study details to the database
-  // saveHigherStudy() {
-  //   if (this.higherStudyForm.valid) {
-  //     const studyData = this.higherStudyForm.value;
-  //     this.studentService.saveStudentData('higherStudy', studyData).subscribe(
-  //       (response) => {
-  //         alert('Higher study details saved successfully!');
-  //         this.higherStudyForm.reset();
-  //       },
-  //       (error) => {
-  //         alert('There was an error saving the study details.');
-  //         console.error(error);
-  //       }
-  //     );
-  //   } else {
-  //     alert('Please fill all required fields correctly.');
-  //   }
-  // }
-}
+//  saveQualification(){
+//   if(this.olQualificationForm.valid){
+//     var Oldata = this.olQualificationForm.valid;
+//   }
+//  }
 }
