@@ -63,4 +63,8 @@ export class UserService {
       }),
     };
   }
+
+  getLoggedInUser(){
+    
+  }
 }

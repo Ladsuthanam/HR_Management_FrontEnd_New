@@ -22,6 +22,9 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AttendancePageComponent } from './attendence/attendance-page/attendance-page.component';
 import { EventShowComponent } from './Event/event-show/event-show.component';
 import { HollyDayPageComponent } from './LeavePage/holly-day-page/holly-day-page.component';
+import { StaffCvComponent } from './staff/staff-cv/staff-cv.component';
+import { AdminCvComponent } from './admin-page/admin-cv/admin-cv.component';
+import { LecturerCvComponent } from './lectures/lecturer-cv/lecturer-cv.component';
 
 export const routes: Routes = [
     {
@@ -49,12 +52,18 @@ export const routes: Routes = [
 
             },
             {
+                path:'admin-cv/:id',
+                component:AdminCvComponent,
+                title:'Admin-Cv Page'
+
+            },
+            {
                 path: 'employees',
                 component: EmployeesComponent,
                 title: 'Employees',
             },
             {
-                path:'employee-cv/:userId',
+                path:'employee-cv/:id',
                 component:EmployeeCvComponent,
                 title:'EmployeeCv'
 
@@ -82,9 +91,22 @@ export const routes: Routes = [
 
             },
             {
+                path:'staff-cv/:id',
+                component: StaffCvComponent,
+                title:'Staff-cv Page'
+
+            },
+            {
                 path:'lectures',
                 component:LecturesComponent,
                 title:"Lectures"
+            },
+
+            {
+                path:'lecture-cv/:id',
+                component:LecturerCvComponent,
+                title:"Lectures-Cv Page"
+
             },
 
             {
