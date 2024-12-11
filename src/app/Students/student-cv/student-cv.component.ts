@@ -30,6 +30,7 @@ export class StudentCvComponent implements OnInit {
   experiance: any[] = [];
   experianceForm!: FormGroup;
   
+  
 
  
   studentData: any = {};
@@ -454,6 +455,79 @@ export class StudentCvComponent implements OnInit {
     }
    
 
+    
+    deleteParent(parentId: string): void {
+      this.studentService. DeleteStudentParent(parentId).subscribe(
+        () => {
+          this.student.parents = this.student.parents.filter((parent: any) => parent.id !== parentId);
+          console.log('Parent deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting parent:', error);
+        }
+      );
+    }
+    
+    deleteAddress(addressId: string): void {
+      this.studentService.DeleteStudentAddress(addressId).subscribe(
+        () => {
+          this.student.address = this.student.address.filter((address: any) => address.id !== addressId);
+          console.log('Address deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting address:', error);
+        }
+      );
+    }
+    
+    deleteOlevel(olevelId: string): void {
+      this.studentService. DeleteStudentOlevel(olevelId).subscribe(
+        () => {
+          this.student.olevels = this.student.olevels.filter((olevel: any) => olevel.id !== olevelId);
+          console.log('O-level deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting O-level:', error);
+        }
+      );
+    }
+    
+    deleteAlevel(alevelId: string): void {
+      this.studentService. DeleteStudentAlevel(alevelId).subscribe(
+        () => {
+          this.student.alevels = this.student.alevels.filter((alevel: any) => alevel.id !== alevelId);
+          console.log('A-level deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting A-level:', error);
+        }
+      );
+    }
+    
+    deleteHigherStudy(higherStudyId: string): void {
+      this.studentService. DeleteStudentHigherStudy(higherStudyId).subscribe(
+        () => {
+          this.student.higherstudy = this.student.higherstudy.filter((study: any) => study.id !== higherStudyId);
+          console.log('Higher Study deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting Higher Study:', error);
+        }
+      );
+    }
+    
+    deleteExperience(experienceId: string): void {
+      this.studentService.  DeleteStudentExperience(experienceId).subscribe(
+        () => {
+          this.student.experiance = this.student.experiance.filter((exp: any) => exp.id !== experienceId);
+          console.log('Experience deleted successfully');
+        },
+        (error) => {
+          console.error('Error deleting experience:', error);
+        }
+      );
+    }
+    
     isInvalid(controlName: string): any {
       const control = this.parentsForm.get(controlName);
       return control?.invalid && control?.touched;

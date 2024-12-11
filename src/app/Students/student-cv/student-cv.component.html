@@ -27,7 +27,7 @@
             <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
               <i class="bi bi-pen"></i>Edit Parents
             </button>
-            <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+            <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)=" deleteParent(parent.id)" >
               <i class="bi bi-calendar-x"></i>Delete Parents
             </button>
           </div>
@@ -47,7 +47,7 @@
             <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
               <i class="bi bi-pen"></i>Edit Address
             </button>
-            <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+            <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteAddress(address.id)">
               <i class="bi bi-calendar-x"></i>Delete Address
             </button>
           
@@ -81,7 +81,7 @@
           <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit OL Result
           </button>
-          <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)=" deleteOlevel(olevel.id)">
             <i class="bi bi-calendar-x"></i>Delete OL Result
           </button>
         </div>
@@ -107,7 +107,7 @@
           <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit AL Result
           </button>
-          <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteAlevel(alevel.id)">
             <i class="bi bi-calendar-x"></i>Delete AL Result
           </button>
           
@@ -130,7 +130,7 @@
           <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit Higher Study
           </button>
-          <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)=" deleteHigherStudy(hstudy.id)" >
             <i class="bi bi-calendar-x"></i>Delete Higher Study
           </button>
          
@@ -151,7 +151,7 @@
           <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit Work Experiance
           </button>
-          <button class="btn btn-outline-danger btn-sm w-100 mt-3" >
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteExperience(exp.id)">
             <i class="bi bi-calendar-x"></i>Delete Work Experiance
           </button>
         </div>
