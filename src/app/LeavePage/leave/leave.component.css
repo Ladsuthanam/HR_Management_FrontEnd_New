@@ -1,10 +1,14 @@
 .main {
-    margin-top: 100px;
+    margin-top: 90px;
+    background-color: rgb(149, 169, 174);   
 }
 
 .search {
+   
     background-color: antiquewhite;
+    margin-top: 25px;
 }
+
 .tabs-container {
     background: #eee;
     list-style-type: none;
@@ -22,16 +26,34 @@
     padding: 10px;
     float: left;
     text-align: center;
-    cursor: pointer; /* Add pointer cursor */
-    transition: background-color 0.3s ease-in-out; /* Smooth transition for background */
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
 }
 
 .tabs-container .tab-link:hover {
-    background-color: black; /* Change background to black */
+    background-color: black;
     color: white;
 }
-  
+
 .active {
     border-bottom: 2px solid #28a745;
     transition: ease-in-out .3s;
 }
+.L{
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+.L {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+
+.badge {
+    font-size: 1.1rem;
+    padding: 5px 15px;
+    border-radius: 20px;
+  }
+
+  
