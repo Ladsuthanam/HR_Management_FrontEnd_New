@@ -1,21 +1,13 @@
 import {
   SharedResizeObserver
-<<<<<<< HEAD
 } from "./chunk-BLGTXTVF.js";
-=======
-} from "./chunk-HVSZKQ5A.js";
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
 import {
   animate,
   state,
   style,
   transition,
   trigger
-<<<<<<< HEAD
 } from "./chunk-4FV4QTPG.js";
-=======
-} from "./chunk-K2JEYK4A.js";
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
 import {
   Directionality,
   MatCommonModule,
@@ -23,26 +15,10 @@ import {
   Platform,
   _IdGenerator,
   coerceBooleanProperty
-<<<<<<<< HEAD:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-GNIEP2FS.js
 } from "./chunk-7XPFOFYJ.js";
-========
-<<<<<<< HEAD
-<<<<<<<< HEAD:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-GNIEP2FS.js
-} from "./chunk-7XPFOFYJ.js";
-========
-} from "./chunk-G7IX7RCV.js";
->>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
->>>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
 import {
   NgTemplateOutlet
 } from "./chunk-EPNFJBJQ.js";
-=======
-} from "./chunk-G7IX7RCV.js";
->>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
-import {
-  NgTemplateOutlet
-} from "./chunk-FWCYFSPW.js";
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -105,11 +81,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-<<<<<<< HEAD
 } from "./chunk-WP6J3BCS.js";
-=======
-} from "./chunk-5U3SKUGM.js";
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
 
 // node_modules/@angular/material/fesm2022/form-field.mjs
 var _c0 = ["notch"];
@@ -797,6 +769,9 @@ var MatFormFieldControl = class _MatFormFieldControl {
     type: Directive
   }], null, null);
 })();
+function getMatFormFieldPlaceholderConflictError() {
+  return Error("Placeholder attribute and child element were both specified.");
+}
 function getMatFormFieldDuplicatedHintError(align) {
   return Error(`A hint was already declared for 'align="${align}"'.`);
 }
@@ -1514,26 +1489,21 @@ var MatFormFieldModule = class _MatFormFieldModule {
 
 export {
   MatLabel,
+  MAT_ERROR,
   MatError,
   MatHint,
+  MAT_PREFIX,
   MatPrefix,
+  MAT_SUFFIX,
   MatSuffix,
+  matFormFieldAnimations,
   MatFormFieldControl,
+  getMatFormFieldPlaceholderConflictError,
+  getMatFormFieldDuplicatedHintError,
+  getMatFormFieldMissingControlError,
   MAT_FORM_FIELD,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormField,
   MatFormFieldModule
 };
-<<<<<<<< HEAD:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-GNIEP2FS.js
-//# sourceMappingURL=chunk-GNIEP2FS.js.map
-========
-<<<<<<< HEAD
-<<<<<<<< HEAD:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-GNIEP2FS.js
-//# sourceMappingURL=chunk-GNIEP2FS.js.map
-========
-//# sourceMappingURL=chunk-SJFUIXU5.js.map
->>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
->>>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
-=======
-//# sourceMappingURL=chunk-SJFUIXU5.js.map
->>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a:.angular/cache/19.0.1/HRM_System_FrodEnd/vite/deps/chunk-SJFUIXU5.js
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
+//# sourceMappingURL=chunk-67GPDEGM.js.map

@@ -1,6 +1,16 @@
-.main{
+main{
     margin-top: 100px;
+    width: 100%;
 }
-.search{
-    background-color: antiquewhite;
-}
+.status-get {
+    color: green;
+  }
+  
+  .status-pending {
+    color: orange;
+  }
+  
+  .status-sent {
+    color: blue;
+  }
+  

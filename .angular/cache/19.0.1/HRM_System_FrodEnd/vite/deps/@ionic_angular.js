@@ -1,31 +1,10 @@
 import {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
   iosTransitionAnimation
-} from "./chunk-T2W7O2O3.js";
+} from "./chunk-UWMSXM6I.js";
 import {
->>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
   mdTransitionAnimation
 } from "./chunk-3LV54IGZ.js";
 import {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
-  ActivatedRoute,
-  ChildrenOutletContexts,
-  NavigationStart,
-  PRIMARY_OUTLET,
-  Router,
-  RouterLink,
-  UrlSerializer
-} from "./chunk-ZMFXFHYO.js";
-<<<<<<< HEAD
-=======
-=======
   bootstrapLazy,
   componentOnReady as componentOnReady2,
   createAnimation as createAnimation2,
@@ -36,9 +15,7 @@ import {
   initialize,
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
-} from "./chunk-LLFROMXI.js";
->>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
+} from "./chunk-2TYK2BCW.js";
 import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
 import {
@@ -56,29 +33,6 @@ import {
   printIonWarning
 } from "./chunk-5CLJQ7IX.js";
 import {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
-  iosTransitionAnimation
-} from "./chunk-UWMSXM6I.js";
-import {
-  bootstrapLazy,
-  componentOnReady as componentOnReady2,
-  createAnimation as createAnimation2,
-  doc as doc2,
-  getIonMode as getIonMode2,
-  getIonPageElement,
-  getPlatforms as getPlatforms2,
-  initialize,
-  isPlatform as isPlatform2,
-  printIonWarning as printIonWarning2
-} from "./chunk-2TYK2BCW.js";
-<<<<<<< HEAD
-=======
-import "./chunk-BANTIVOZ.js";
-import "./chunk-LML5PMF5.js";
-=======
   ActivatedRoute,
   ChildrenOutletContexts,
   NavigationStart,
@@ -86,11 +40,9 @@ import "./chunk-LML5PMF5.js";
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-QUWCP6IF.js";
-import "./chunk-42Y4JSBW.js";
-import "./chunk-YBKA5YK6.js";
->>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a
->>>>>>> cd7f16b79d760d432e4645a46a88860688a62ece
+} from "./chunk-ZMFXFHYO.js";
+import "./chunk-BANTIVOZ.js";
+import "./chunk-LML5PMF5.js";
 import {
   MaxValidator,
   MinValidator,
@@ -98,8 +50,6 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl
 } from "./chunk-FERJMQPB.js";
-import "./chunk-BANTIVOZ.js";
-import "./chunk-LML5PMF5.js";
 import {
   CommonModule,
   DOCUMENT,
