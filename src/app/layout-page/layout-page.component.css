@@ -19,6 +19,22 @@ header {
   align-items: center;
 }
 
+.logback {
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: background 0.3s;
+  margin-left: 50px;
+  margin-top: 25px;
+}
+
+.logback:hover {
+  background: #f0f0f0;
+}
+
+mat-icon {
+  font-size: 20px;
+}
 
 /* Notification Icon */
 ion-icon[name="notifications-outline"] {
