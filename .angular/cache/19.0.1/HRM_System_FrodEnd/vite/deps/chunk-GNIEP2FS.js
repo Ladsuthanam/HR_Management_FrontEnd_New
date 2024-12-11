@@ -15,7 +15,7 @@ import {
   Platform,
   _IdGenerator,
   coerceBooleanProperty
-} from "./chunk-JVNF3AAC.js";
+} from "./chunk-7XPFOFYJ.js";
 import {
   NgTemplateOutlet
 } from "./chunk-EPNFJBJQ.js";
@@ -769,9 +769,6 @@ var MatFormFieldControl = class _MatFormFieldControl {
     type: Directive
   }], null, null);
 })();
-function getMatFormFieldPlaceholderConflictError() {
-  return Error("Placeholder attribute and child element were both specified.");
-}
 function getMatFormFieldDuplicatedHintError(align) {
   return Error(`A hint was already declared for 'align="${align}"'.`);
 }
@@ -1489,21 +1486,13 @@ var MatFormFieldModule = class _MatFormFieldModule {
 
 export {
   MatLabel,
-  MAT_ERROR,
   MatError,
   MatHint,
-  MAT_PREFIX,
   MatPrefix,
-  MAT_SUFFIX,
   MatSuffix,
-  matFormFieldAnimations,
   MatFormFieldControl,
-  getMatFormFieldPlaceholderConflictError,
-  getMatFormFieldDuplicatedHintError,
-  getMatFormFieldMissingControlError,
   MAT_FORM_FIELD,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
   MatFormField,
   MatFormFieldModule
 };
-//# sourceMappingURL=chunk-BS5VOWRS.js.map
+//# sourceMappingURL=chunk-GNIEP2FS.js.map

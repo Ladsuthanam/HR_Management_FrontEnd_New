@@ -1,9 +1,25 @@
 import {
-  iosTransitionAnimation
-} from "./chunk-UWMSXM6I.js";
-import {
   mdTransitionAnimation
 } from "./chunk-3LV54IGZ.js";
+import "./chunk-H7QBR36Q.js";
+import "./chunk-UPH7H4I5.js";
+import {
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  createAnimation,
+  doc,
+  getIonMode,
+  getPlatforms,
+  isPlatform,
+  printIonWarning
+} from "./chunk-5CLJQ7IX.js";
+import {
+  iosTransitionAnimation
+} from "./chunk-UWMSXM6I.js";
 import {
   bootstrapLazy,
   componentOnReady as componentOnReady2,
@@ -25,22 +41,6 @@ import {
   RouterLink,
   UrlSerializer
 } from "./chunk-ZMFXFHYO.js";
-import "./chunk-H7QBR36Q.js";
-import "./chunk-UPH7H4I5.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  createAnimation,
-  doc,
-  getIonMode,
-  getPlatforms,
-  isPlatform,
-  printIonWarning
-} from "./chunk-5CLJQ7IX.js";
 import "./chunk-BANTIVOZ.js";
 import "./chunk-LML5PMF5.js";
 import {
