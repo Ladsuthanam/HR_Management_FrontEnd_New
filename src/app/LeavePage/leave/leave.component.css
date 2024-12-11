@@ -1,6 +1,37 @@
-.main{
+.main {
     margin-top: 100px;
 }
-.search{
+
+.search {
     background-color: antiquewhite;
+}
+.tabs-container {
+    background: #eee;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    height: 55px;
+    border-bottom: 1px solid;
+    width: 100%;
+}
+
+.tabs-container .tab-link {
+    width: 33.33%;
+    position: relative;
+    height: 100%;
+    padding: 10px;
+    float: left;
+    text-align: center;
+    cursor: pointer; /* Add pointer cursor */
+    transition: background-color 0.3s ease-in-out; /* Smooth transition for background */
+}
+
+.tabs-container .tab-link:hover {
+    background-color: black; /* Change background to black */
+    color: white;
+}
+  
+.active {
+    border-bottom: 2px solid #28a745;
+    transition: ease-in-out .3s;
 }

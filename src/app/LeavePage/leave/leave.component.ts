@@ -13,6 +13,13 @@ import { StudentService } from '../../services/student.service';
 })
 export class LeaveComponent {
 
+  title = 'Bytes';
+  activeTab: string = 'Personal Details';
+
+onTabClick(tab: string) {
+  this.activeTab = tab;
+ }
+
   leaveDetails = {
     name: '',
     role: '',

@@ -2,21 +2,21 @@ import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
-} from "./chunk-3J4AR22X.js";
+} from "./chunk-W5M5BRM3.js";
+import {
+  SharedResizeObserver
+} from "./chunk-HVSZKQ5A.js";
 import {
   CdkScrollable,
   ViewportRuler
-} from "./chunk-YDELYCME.js";
-import {
-  SharedResizeObserver
-} from "./chunk-BLGTXTVF.js";
+} from "./chunk-TCTSIQKY.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-4FV4QTPG.js";
+} from "./chunk-K2JEYK4A.js";
 import {
   CdkMonitorFocus,
   CdkObserveContent,
@@ -34,8 +34,8 @@ import {
   _StructuralStylesLoader,
   hasModifierKey,
   normalizePassiveListenerOptions
-} from "./chunk-7XPFOFYJ.js";
-import "./chunk-EPNFJBJQ.js";
+} from "./chunk-G7IX7RCV.js";
+import "./chunk-FWCYFSPW.js";
 import {
   ANIMATION_MODULE_TYPE,
   BehaviorSubject,
@@ -118,8 +118,8 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-WP6J3BCS.js";
-import "./chunk-7IZRYL2Z.js";
+} from "./chunk-5U3SKUGM.js";
+import "./chunk-HM5YLMWO.js";
 import "./chunk-QHQP2P2Z.js";
 
 // node_modules/@angular/material/fesm2022/tabs.mjs
