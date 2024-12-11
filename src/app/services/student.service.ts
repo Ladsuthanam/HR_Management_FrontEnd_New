@@ -83,4 +83,30 @@ export class StudentService {
   GetExperienceByStudentId(studentId: string): Observable<any> {
     return this.http.get(`${this.url}Student/Get_Experiance_By_StudentId?studentId=${studentId}`);
   }
+
+
+  DeleteStudentExperience(experienceId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_Experiance?Id=${experienceId}`);
+  }
+  
+  DeleteStudentHigherStudy(higherStudyId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_HigherStudy?Id=${higherStudyId}`);
+  }
+  
+  DeleteStudentAlevel(alevelId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_Alevel?Id=${alevelId}`);
+  }
+  
+  DeleteStudentOlevel(olevelId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_Olevel?Id=${olevelId}`);
+  }
+  
+  DeleteStudentParent(parentId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_Parent?Id=${parentId}`);
+  }
+  
+  DeleteStudentAddress(addressId: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}Student/Delete_Student_Addresss?Id=${addressId}`);
+  }
+  
 }
