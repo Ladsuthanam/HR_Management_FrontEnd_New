@@ -131,6 +131,7 @@ export class StudentCvComponent implements OnInit {
         street:[''],
         lane:[''],
         state:[''],
+        city:[''],
         postalCode:[''],
         country:['']
       });

@@ -54,7 +54,7 @@ export const routes: Routes = [
                 title: 'Employees',
             },
             {
-                path:'employee-cv/:userId',
+                path:'employee-cv/:id',
                 component:EmployeeCvComponent,
                 title:'EmployeeCv'
 

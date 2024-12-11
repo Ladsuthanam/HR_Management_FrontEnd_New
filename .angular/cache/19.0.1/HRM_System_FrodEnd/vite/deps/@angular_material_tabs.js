@@ -9,7 +9,14 @@ import {
 import {
   CdkScrollable,
   ViewportRuler
+<<<<<<< HEAD
+} from "./chunk-YDELYCME.js";
+import {
+  SharedResizeObserver
+} from "./chunk-BLGTXTVF.js";
+=======
 } from "./chunk-TCTSIQKY.js";
+>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a
 import {
   animate,
   state,
@@ -34,8 +41,13 @@ import {
   _StructuralStylesLoader,
   hasModifierKey,
   normalizePassiveListenerOptions
+<<<<<<< HEAD
+} from "./chunk-7XPFOFYJ.js";
+import "./chunk-EPNFJBJQ.js";
+=======
 } from "./chunk-G7IX7RCV.js";
 import "./chunk-FWCYFSPW.js";
+>>>>>>> 59183420106f4ded099201e0b5ce713c40f5117a
 import {
   ANIMATION_MODULE_TYPE,
   BehaviorSubject,
