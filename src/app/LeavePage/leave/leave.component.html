@@ -66,8 +66,8 @@
       </button>
        </div>
        <div class="col-4">
-     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#hollyModal">
-        + Add HollyDay
+     <button class="btn btn-success mb-3" (click)="goToHolly()" >
+       HollyDay Details
      </button>
      </div>
     </div>
@@ -95,34 +95,8 @@
       </tbody>
     </table>
   </div>
-
-  <div class="modal" id="hollyModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="HollyDayModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="hollyModalLabel">Apply for Leave</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form #leaveForm="ngForm">
-            <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" id="name" [(ngModel)]="leaveDetails.name" name="name" required>
-            </div>
-           
-            <div class="mb-3">
-              <label for="hollyDate" class="form-label"> Date</label>
-              <input type="date" class="form-control" id="hollyDate" [(ngModel)]="leaveDetails.applyDate" name="hollyDate" required>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" (click)="saveHollyDay()" data-bs-dismiss="modal">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
+ 
   
   
   <div>

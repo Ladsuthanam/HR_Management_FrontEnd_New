@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-leave',
@@ -22,6 +24,10 @@ export class LeaveComponent {
 
   leaveRecords: any[] = [];
 
+  constructor(private fb: FormBuilder, private studentService: StudentService, private router: Router){
+
+  }
+
   saveLeaveDetails() {
     this.leaveRecords.push({ ...this.leaveDetails });
     this.clearForm();
@@ -36,6 +42,11 @@ export class LeaveComponent {
       leaveDate: '',
       rejoinDate: ''
     };
+  }
+
+  goToHolly(){
+    this.router.navigate([`/hollydaypage`]);
+
   }
 
   saveHollyDay(){

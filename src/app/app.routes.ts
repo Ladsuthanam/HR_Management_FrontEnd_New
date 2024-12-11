@@ -21,6 +21,7 @@ import { LeaveComponent } from './LeavePage/leave/leave.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AttendancePageComponent } from './attendence/attendance-page/attendance-page.component';
 import { EventShowComponent } from './Event/event-show/event-show.component';
+import { HollyDayPageComponent } from './LeavePage/holly-day-page/holly-day-page.component';
 
 export const routes: Routes = [
     {
@@ -117,6 +118,11 @@ export const routes: Routes = [
                 path:'eventPage',
                 component:EventShowComponent,
                 title: 'EventPage'
+            },
+            {
+                path:'hollydaypage',
+                component:HollyDayPageComponent,
+                title:'HollyDayPage'
             }
 
           

@@ -1,7 +1,7 @@
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-A6V7BW5E.js";
+} from "./chunk-EPNFJBJQ.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -79,11 +79,37 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-2LSNONSW.js";
+} from "./chunk-WP6J3BCS.js";
 import {
   __spreadProps,
   __spreadValues
 } from "./chunk-QHQP2P2Z.js";
+
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
+}
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
 
 // node_modules/@angular/cdk/fesm2022/platform.mjs
 var hasV8BreakIterator;
@@ -160,6 +186,50 @@ var PlatformModule = class _PlatformModule {
     args: [{}]
   }], null, null);
 })();
+var supportedInputTypes;
+var candidateInputTypes = [
+  // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
+  // first changing it to something else:
+  // The specified value "" does not conform to the required format.
+  // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+  "color",
+  "button",
+  "checkbox",
+  "date",
+  "datetime-local",
+  "email",
+  "file",
+  "hidden",
+  "image",
+  "month",
+  "number",
+  "password",
+  "radio",
+  "range",
+  "reset",
+  "search",
+  "submit",
+  "tel",
+  "text",
+  "time",
+  "url",
+  "week"
+];
+function getSupportedInputTypes() {
+  if (supportedInputTypes) {
+    return supportedInputTypes;
+  }
+  if (typeof document !== "object" || !document) {
+    supportedInputTypes = new Set(candidateInputTypes);
+    return supportedInputTypes;
+  }
+  let featureTestInput = document.createElement("input");
+  supportedInputTypes = new Set(candidateInputTypes.filter((value) => {
+    featureTestInput.setAttribute("type", value);
+    return featureTestInput.type === value;
+  }));
+  return supportedInputTypes;
+}
 var supportsPassiveEvents;
 function supportsPassiveEventListeners() {
   if (supportsPassiveEvents == null && typeof window !== "undefined") {
@@ -351,32 +421,6 @@ var _VisuallyHiddenLoader = class __VisuallyHiddenLoader {
   }], null, null);
 })();
 
-// node_modules/@angular/cdk/fesm2022/coercion.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-function coerceNumberProperty(value, fallbackValue = 0) {
-  if (_isNumberValue(value)) {
-    return Number(value);
-  }
-  return arguments.length === 2 ? fallbackValue : 0;
-}
-function _isNumberValue(value) {
-  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
-}
-function coerceArray(value) {
-  return Array.isArray(value) ? value : [value];
-}
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-function coerceElement(elementOrRef) {
-  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
-}
-
 // node_modules/@angular/cdk/fesm2022/keycodes.mjs
 var TAB = 9;
 var ENTER = 13;
@@ -404,14 +448,6 @@ function hasModifierKey(event, ...modifiers) {
     return modifiers.some((modifier) => event[modifier]);
   }
   return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
-}
-
-// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
-function coerceObservable(data) {
-  if (!isObservable(data)) {
-    return of(data);
-  }
-  return data;
 }
 
 // node_modules/@angular/cdk/fesm2022/observers.mjs
@@ -659,6 +695,14 @@ var ObserversModule = class _ObserversModule {
     }]
   }], null, null);
 })();
+
+// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
+function coerceObservable(data) {
+  if (!isObservable(data)) {
+    return of(data);
+  }
+  return data;
+}
 
 // node_modules/@angular/cdk/fesm2022/layout.mjs
 var LayoutModule = class _LayoutModule {
@@ -1460,6 +1504,23 @@ var ActiveDescendantKeyManager = class extends ListKeyManager {
     super.setActiveItem(index);
     if (this.activeItem) {
       this.activeItem.setActiveStyles();
+    }
+  }
+};
+var FocusKeyManager = class extends ListKeyManager {
+  _origin = "program";
+  /**
+   * Sets the focus origin that will be passed in to the items for any subsequent `focus` calls.
+   * @param origin Focus origin to be used when focusing items.
+   */
+  setFocusOrigin(origin) {
+    this._origin = origin;
+    return this;
+  }
+  setActiveItem(item) {
+    super.setActiveItem(item);
+    if (this.activeItem) {
+      this.activeItem.focus(this._origin);
     }
   }
 };
@@ -5572,7 +5633,14 @@ var _MatInternalFormField = class __MatInternalFormField {
 })();
 
 export {
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  _isNumberValue,
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
   Platform,
+  getSupportedInputTypes,
   normalizePassiveListenerOptions,
   RtlScrollAxisType,
   supportsScrollBehavior,
@@ -5589,19 +5657,16 @@ export {
   DOWN_ARROW,
   A,
   hasModifierKey,
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  _isNumberValue,
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
+  CdkObserveContent,
   ObserversModule,
   addAriaReferencedId,
   removeAriaReferencedId,
   AriaDescriber,
   ActiveDescendantKeyManager,
+  FocusKeyManager,
   LiveAnnouncer,
   FocusMonitor,
+  CdkMonitorFocus,
   A11yModule,
   _IdGenerator,
   Directionality,
@@ -5610,6 +5675,7 @@ export {
   _ErrorStateTracker,
   ErrorStateMatcher,
   _StructuralStylesLoader,
+  MAT_RIPPLE_GLOBAL_OPTIONS,
   MatRipple,
   MatRippleModule,
   MAT_OPTION_PARENT_COMPONENT,
@@ -5621,4 +5687,4 @@ export {
   MatRippleLoader,
   _MatInternalFormField
 };
-//# sourceMappingURL=chunk-HDYU7DJ4.js.map
+//# sourceMappingURL=chunk-JVNF3AAC.js.map
