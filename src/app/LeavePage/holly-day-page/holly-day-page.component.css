@@ -1,0 +1,41 @@
+main{
+    width: 100%;
+    height: 700px;
+    background-size: cover;
+    overflow: visible !important; 
+  }
+
+.changeDiv{
+   padding-top: 150px;
+   padding-left: 50px;
+   background-color: rgb(246, 252, 253);
+}
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label{
+    color: rgb(7, 170, 179) !important;
+}
+.mat-mdc-tab .mdc-tab__text-label:hover{
+    color: rgb(25, 109, 205) !important;
+}
+
+.box{
+    background-color: rgb(182, 180, 180);
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 10px 10px 10px 10px black;
+}
+.footer {
+    background-color: #343a40;
+    color: white;       
+    position: relative;   
+    width: 100%;    
+    bottom: 0;   
+  }
+  
+  .footer a {
+    text-decoration: none; 
+  }
+  
+  .footer mat-icon {
+    vertical-align: middle;
+  }
+  

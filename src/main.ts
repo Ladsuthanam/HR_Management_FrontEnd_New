@@ -4,7 +4,8 @@ import { AppComponent } from './app/app.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { importProvidersFrom, NgModule } from '@angular/core';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatTableModule } from '@angular/material/table';
 
 
 const extendedAppConfig = {
@@ -18,7 +19,8 @@ const extendedAppConfig = {
         positionClass: 'toast-top-right',
         preventDuplicates: true,
       })
-    ),
+    ), provideAnimationsAsync(),
+    MatTableModule,
   ],
 };
 
