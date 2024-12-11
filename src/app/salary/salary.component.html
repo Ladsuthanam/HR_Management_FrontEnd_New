@@ -1,119 +1,102 @@
-<div class="container mt-5">
-    <div class="main">
-    <div class="row">  
-      <div class="ml-2">
-        <form class="d-flex">
-            <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-      </div>
-    </div>
-  </div>
-
-    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#userModal">Add User</button>
+<main>
+  <div class="container">
+    <div class="row">
+      <!-- Left Div: Account Details Form -->
+      <div class="col-md-6">
+        <form>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Account Number</mat-label>
+            <input matInput [(ngModel)]="accountDetails.accountNumber" name="accountNumber" />
+          </mat-form-field>
   
-    <!-- Modal -->
-    <div class="modal fade" id="userModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="userModalLabel">Add User</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form #userForm="ngForm">
-              <div class="mb-3">
-                <label for="userId" class="form-label">User ID</label>
-                <input type="text" id="userId" class="form-control" [(ngModel)]="newUser.userId" name="userId" required />
-              </div>
-              <div class="mb-3">
-                <label for="userName" class="form-label">User Name</label>
-                <input type="text" id="userName" class="form-control" [(ngModel)]="newUser.userName" name="userName" required />
-              </div>
-              <div class="mb-3">
-                <label for="role" class="form-label">Role</label>
-                <select id="role" class="form-select" [(ngModel)]="newUser.role" name="role">
-                  <option value="Employee">Employee</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Lecturer">Lecturer</option>
-                  <option value="Manager">Manager</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="basicSalary" class="form-label">Basic Salary</label>
-                <input type="number" id="basicSalary" class="form-control" [(ngModel)]="newUser.basicSalary" name="basicSalary" required />
-              </div>
-              <div class="mb-3">
-                <label for="deduction" class="form-label">Deduction</label>
-                <input type="number" id="deduction" class="form-control" [(ngModel)]="newUser.deduction" name="deduction" required />
-              </div>
-              <div class="mb-3">
-                <label for="bonus" class="form-label">Bonus</label>
-                <input type="number" id="bonus" class="form-control" [(ngModel)]="newUser.bonus" name="bonus" required />
-              </div>
-              <div class="mb-3">
-                <label for="epf" class="form-label">EPF</label>
-                <input type="number" id="epf" class="form-control" [(ngModel)]="newUser.epf" name="epf" required />
-              </div>
-              <div class="mb-3">
-                <label for="etf" class="form-label">ETF</label>
-                <input type="number" id="etf" class="form-control" [(ngModel)]="newUser.etf" name="etf" required />
-              </div>
-              <div class="mb-3">
-                <label for="allowances" class="form-label">Allowances</label>
-                <input type="number" id="allowances" class="form-control" [(ngModel)]="newUser.allowances" name="allowances" required />
-              </div>
-              <div class="mb-3">
-                <label for="workingDays" class="form-label">Working Days</label>
-                <input type="number" id="workingDays" class="form-control" [(ngModel)]="newUser.workingDays" name="workingDays" required />
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="saveUser()">Save</button>
-          </div>
-        </div>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Bank Name</mat-label>
+            <input matInput [(ngModel)]="accountDetails.bankName" name="bankName" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Branch Name</mat-label>
+            <input matInput [(ngModel)]="accountDetails.branchName" name="branchName" />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" (click)="submitAccountDetails()">Submit</button>
+          <button mat-raised-button (click)="resetForm()">Reset</button>
+        </form>
+      </div>
+  
+      <!-- Right Div: Working Days Add -->
+      <div class="col-md-6">
+        <form>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Working Days</mat-label>
+            <input matInput [(ngModel)]="workingDays" name="workingDays" />
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" (click)="addWorkingDays()">Add Working Days</button>
+        </form>
       </div>
     </div>
   
-    <!-- User Table -->
-    <table class="table table-bordered mt-3">
-      <thead>
-        <tr>
-          <th>User ID</th>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Basic Salary</th>
-          <th>Deduction</th>
-          <th>Bonus</th>
-          <th>EPF</th>
-          <th>ETF</th>
-          <th>Allowances</th>
-          <th>Working Days</th>
-          <th>Net Salary</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.userId }}</td>
-          <td>{{ user.userName }}</td>
-          <td>{{ user.role }}</td>
-          <td>{{ user.basicSalary }}</td>
-          <td>{{ user.deduction }}</td>
-          <td>{{ user.bonus }}</td>
-          <td>{{ user.epf }}</td>
-          <td>{{ user.etf }}</td>
-          <td>{{ user.allowances }}</td>
-          <td>{{ user.workingDays }}</td>
-          <td>{{ calculateNetSalary(user) }}</td>
-          <td>{{ user.status }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Salary Table -->
+    <div class="row mt-4">
+      <table mat-table [dataSource]="salaryData" class="mat-elevation-z8">
+        <ng-container matColumnDef="basicSalary">
+          <th mat-header-cell *matHeaderCellDef> Basic Salary </th>
+          <td mat-cell *matCellDef="let element"> {{element.basicSalary}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="deduction">
+          <th mat-header-cell *matHeaderCellDef> Deduction </th>
+          <td mat-cell *matCellDef="let element"> {{element.deduction}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="bonus">
+          <th mat-header-cell *matHeaderCellDef> Bonus </th>
+          <td mat-cell *matCellDef="let element"> {{element.bonus}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="allowances">
+          <th mat-header-cell *matHeaderCellDef> Allowances </th>
+          <td mat-cell *matCellDef="let element"> {{element.allowances}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="workingDays">
+          <th mat-header-cell *matHeaderCellDef> Working Days </th>
+          <td mat-cell *matCellDef="let element"> {{element.workingDays}} </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="salaryStatus">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> 
+            <span [ngClass]="{'status-get': element.salaryStatus === 'Get', 'status-pending': element.salaryStatus === 'Pending', 'status-sent': element.salaryStatus === 'Sent'}">
+              {{element.salaryStatus}}
+            </span>
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="editSalary(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteSalary(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button (click)="saveSalary(element)">
+              <mat-icon>save</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
   </div>
+  
 
+</main>
 <div>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
