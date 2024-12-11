@@ -1,21 +1,6 @@
 import {
-  iosTransitionAnimation
-} from "./chunk-UWMSXM6I.js";
-import {
   mdTransitionAnimation
 } from "./chunk-3LV54IGZ.js";
-import {
-  bootstrapLazy,
-  componentOnReady as componentOnReady2,
-  createAnimation as createAnimation2,
-  doc as doc2,
-  getIonMode as getIonMode2,
-  getIonPageElement,
-  getPlatforms as getPlatforms2,
-  initialize,
-  isPlatform as isPlatform2,
-  printIonWarning as printIonWarning2
-} from "./chunk-2TYK2BCW.js";
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
@@ -41,6 +26,21 @@ import {
   isPlatform,
   printIonWarning
 } from "./chunk-5CLJQ7IX.js";
+import {
+  iosTransitionAnimation
+} from "./chunk-UWMSXM6I.js";
+import {
+  bootstrapLazy,
+  componentOnReady as componentOnReady2,
+  createAnimation as createAnimation2,
+  doc as doc2,
+  getIonMode as getIonMode2,
+  getIonPageElement,
+  getPlatforms as getPlatforms2,
+  initialize,
+  isPlatform as isPlatform2,
+  printIonWarning as printIonWarning2
+} from "./chunk-2TYK2BCW.js";
 import "./chunk-BANTIVOZ.js";
 import "./chunk-LML5PMF5.js";
 import {

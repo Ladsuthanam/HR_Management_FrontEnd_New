@@ -1,94 +1,345 @@
-<div class="container-f mt-5">
+<div class="container-fluid mt-5">
   <div class="row">
-    <div class="d-flex justify-content-center align-items-center h-100 w-100 p-5">
+    <!-- Left Column: Personal Details -->
+    <div class="col-lg-4 mb-4">
+      <div class="card p-4 shadow-sm border-5 text-center">
+        <img [src]="employee.image || 'https://via.placeholder.com/150'" alt="Profile Image"
+          class="img-thumbnail mx-auto mb-3" style="width: 120px; height: 120px; border-radius: 50%;" />
+        <h3 class="text-primary">{{ employee.firstName }} {{ employee.lastName }}</h3>
+        <p class="text-muted">Employee ID: {{ employee.usersId }}</p>
+        <hr>
+        <p><i class="bi bi-envelope-fill"></i> {{ employee.email }}</p>
+        <p><i class="bi bi-person-badge-fill"></i>{{ employee.nic}}</p>
+        <p><i class="bi bi-telephone-fill"></i> {{ employee.phoneNumber }}</p>
+        <p><i class="bi bi-calendar-fill"></i> {{ employee.dateOfBirth }}</p>
+        <p><i class="bi bi-gender-ambiguous"></i> {{ employee.gender }}</p>
+        <p><strong>Marital Status:</strong> {{ employee.merritalStatus }}</p>
+      </div>
       
-      <!-- Employee Personal Details -->
-      <div *ngIf="employee; else noData" class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <div class="text-center mb-4">
-            <img [src]="employee.profile || 'https://via.placeholder.com/150'" alt="Profile Image"
-              class="img-thumbnail" style="width: 150px; height: 150px; border-radius: 50%;" />
-            <h2 class="mt-3">{{ employee.firstName }} {{ employee.lastName }}</h2>
+      <div class="mt-4">
+       
+        <div *ngIf="employee.useraddress?.length > 0">
+          <h2>Address Details</h2>
+          <div *ngFor="let address of employee.useraddress">
+            <p><strong>Address:</strong> {{ address.houseNumber }}, {{ address.street }},
+              {{address.city}}, {{address.state}}, {{address.postalCode}}, {{address.country}}
+            </p>
+            <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+              <i class="bi bi-pen"></i>Edit Address
+            </button>
+            <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteAddress(address.id)">
+              <i class="bi bi-calendar-x"></i>Delete Address
+            </button>
           </div>
-          <hr>
-          <div class="content">
-            <p>
-              <i class="bi bi-person-badge-fill text-primary me-2"></i>
-              <strong>Employee ID:</strong> {{ employee.employeeId }}
-            </p>
-            <p>
-              <i class="bi bi-card-text text-primary me-2"></i>
-              <strong>NIC:</strong> {{ employee.nic }}
-            </p>
-            <p>
-              <i class="bi bi-envelope-fill text-primary me-2"></i>
-              <strong>Email:</strong> 
-              <a href="mailto:{{ employee.email }}" class="text-decoration-none">
-                {{ employee.email }}
-              </a>
-            </p>
-            <p>
-              <i class="bi bi-telephone-fill text-primary me-2"></i>
-              <strong>Phone Number:</strong> 
-              <a href="tel:{{ employee.phoneNumber }}" class="text-decoration-none">
-                {{ employee.phoneNumber }}
-              </a>
-            </p>
-            <p>
-              <i class="bi bi-calendar-date-fill text-primary me-2"></i>
-              <strong>Date of Birth:</strong> {{ employee.dob | date: 'longDate' }}
-            </p>
-            <p>
-              <i class="bi bi-person-heart text-primary me-2"></i>
-              <strong>Marital Status:</strong> {{ employee.maritalStatus }}
-            </p>
-            <p>
-              <i class="bi bi-gender-ambiguous text-primary me-2"></i>
-              <strong>Gender:</strong> {{ employee.gender }}
-            </p>
+        </div>
 
-            <div class="mt-4">
-              <button class="btn btn-outline-primary btn-sm w-100">
-                <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
-              </button>
+     
+        <button class="btn btn-outline-primary btn-sm w-100 mt-3" (click)="openModal('address')">
+          <i class="bi bi-geo-alt-fill me-1"></i> + Add Address
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card p-4 shadow-sm border-0">
+        <h4 class="text-danger">O Level Qualifications</h4>
+        <div *ngFor="let olevel of employee.olevel">
+          <p><strong>Index No:</strong> {{ olevel.indexNo}} </p>
+          <p><strong>Year:</strong> {{ olevel.year }}</p>
+          <p><strong>School:</strong> {{ olevel.school }}</p>
+          <p><strong>Tamil:</strong> {{ olevel.tamil}}</p>
+          <p><strong>Science:</strong> {{ olevel.science}}</p>
+          <p><strong>Maths:</strong> {{ olevel.maths}}</p>
+          <p><strong>Religion:</strong> {{ olevel.religion}}</p>
+          <p><strong>English:</strong> {{ olevel.english}}</p>
+          <p><strong>History:</strong> {{ olevel.history}}</p>
+          <p><strong>Basket1:</strong> {{ olevel.basket1}}</p>
+          <p><strong>Basket2:</strong> {{ olevel.basket2}}</p>
+          <p><strong>Basket3:</strong> {{ olevel.basket3}}</p>
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+            <i class="bi bi-pen"></i>Edit OL Result
+          </button>
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteOlevel(olevel.id)">
+            <i class="bi bi-calendar-x"></i>Delete OL Result
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm w-100 mt-3" (click)="openModal('olevel')">
+        <i class="bi bi-book-half me-1"></i> + Add Ol Result
+      </button>
+      <hr>
+      <div class="card p-4 shadow-sm border-0">
+        <h4 class="text-danger">A Level Qualifications</h4>
+        <div *ngFor="let alevel of employee. userAlevel">
+          <p><strong>Index No:</strong> {{ alevel.indexNo}} </p>
+          <p><strong>Year:</strong> {{ alevel.year }}</p>
+          <p><strong>School:</strong> {{ alevel.school }}</p>
+          <p><strong>Stream:</strong> {{ alevel.stream}}</p>
+          <p><strong>Subject1:</strong> {{ alevel.subject1}}</p>
+          <p><strong>Subject2:</strong> {{ alevel.subject2}}</p>
+          <p><strong>Subject3:</strong> {{ alevel.subject3}}</p>
+          <p><strong>General English:</strong> {{ alevel.generalEnglish}}</p>
+          <p><strong>General Knowledge:</strong> {{ alevel.generalKnowledge}}</p>
+          <p><strong>GIT:</strong> {{ alevel.git}}</p>
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+            <i class="bi bi-pen"></i>Edit AL Result
+          </button>
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteAlevel(alevel.id)">
+            <i class="bi bi-calendar-x"></i>Delete AL Result
+          </button>
+          
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm w-100 mt-3" (click)="openModal('alevel')">
+        <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
+      </button>
+      <hr>
+      
+      <div class="card p-4 shadow-sm border-0">
+        <h4 class="text-danger">Higher Study Qualifications</h4>
+        <div *ngFor="let hstudy of employee. userHStudy">
+          <p><strong>Type:</strong> {{ hstudy.type}} </p>
+          <p><strong>Stream:</strong> {{ hstudy.stream }}</p>
+          <p><strong>Year:</strong> {{ hstudy.year }}</p>
+          <p><strong>Duration:</strong> {{ hstudy.duration}}</p>
+          <p><strong>Institute:</strong> {{ hstudy.institute}}</p>
+          <p><strong>Grade:</strong> {{ hstudy.grade}}</p>
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+            <i class="bi bi-pen"></i>Edit Higher Study
+          </button>
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteHigherStudy(hstudy.id)"  >
+            <i class="bi bi-calendar-x"></i>Delete Higher Study
+          </button>
+         
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm w-100 mt-3" (click)="openModal('higherStudy')">
+        <i class="bi bi-mortarboard-fill me-1"></i> + Add Higher Study
+      </button>
+      <hr>
+      <div class="card p-4 shadow-sm border-0">
+        <h4 class="text-danger">Works Experiance</h4>
+        <div *ngFor="let exp of employee.userExperiances">
+          <p><strong>Company Name:</strong> {{ exp.companyName }}</p>
+          <p><strong>Position:</strong> {{ exp.position }}</p>
+          <p><strong>Start Date:</strong> {{ exp.startDate }}</p>
+          <p><strong>End Date:</strong> {{ exp.endDate }}</p>
+          <p><strong>Description:</strong> {{ exp.description }}</p>
+          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+            <i class="bi bi-pen"></i>Edit Work Experiance
+          </button>
+          <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteExperience(exp.id)">
+            <i class="bi bi-calendar-x"></i>Delete Work Experiance
+          </button>
+        </div>
+      </div>
+      <button class="btn btn-outline-primary btn-sm w-100 mt-3" (click)="openModal('experiance')">
+        <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
+      </button>
+      <hr>
+  </div>
+</div>
+
+<!-- Address Modal -->
+<div class="modal fade" id="addresDetailsModel" tabindex="-1" aria-labelledby="employeeDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isAddressAdded }" style="display: block;" *ngIf="isAddressAdded">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Address Details</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addressForm" (ngSubmit)=" onSubmitAddress()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of  addressFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              id="{{ field.controlName }}"
+              class="form-control"
+              formControlName="{{ field.controlName }}"
+              placeholder="{{ field.placeholder }}"
+            />
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Student Education Qualifications -->
-      <div class="col-md-6">
-        <div class="card p-4 shadow-sm border-0">
-          <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
-              <i class="bi bi-book-half me-1"></i> + Add OLevel Qualification
-            </button>
-          </div>
-          <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
-              <i class="bi bi-journal-text me-1"></i> + Add ALevel Qualification
-            </button>
-          </div>
-          <div class="mb-3">
-            <button class="btn btn-outline-primary btn-sm w-100">
-              <i class="bi bi-mortarboard-fill me-1"></i> + Add Higher Study
-            </button>
-          </div>
-          <div>
-            <button class="btn btn-outline-primary btn-sm w-100">
-              <i class="bi bi-briefcase-fill me-1"></i> + Add Work Experience
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
-      </div>
-
+      </form>
     </div>
   </div>
-
-  <!-- No Data Template -->
-  <ng-template #noData>
-    <div class="text-center">
-      <p class="text-danger fw-bold">No Employee details found here.</p>
-    </div>
-  </ng-template>
 </div>
+</div>
+
+<!-- OLevel Modal -->
+<div class="modal fade" id="olevelDetailsModel" tabindex="-1" aria-labelledby="employeeDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isOlevelAdded  }" style="display: block;" *ngIf="isOlevelAdded ">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="employeeDetailsModalLabel">Add Employee Olevel Result</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="olevelsForm" (ngSubmit)=" onSubmitOlevel()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of  olevelsFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              id="{{ field.controlName }}"
+              class="form-control"
+              formControlName="{{ field.controlName }}"
+              placeholder="{{ field.placeholder }}"
+            />
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Alevel Modal -->
+<div class="modal fade" id="alevelDetailsModel" tabindex="-1" aria-labelledby="employeeDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isAlevelAdded  }" style="display: block;" *ngIf="isAlevelAdded ">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="employeeDetailsModalLabel">Add Student Alevel Result</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="alevelsForm" (ngSubmit)="onSubmitAlevels()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of alevelFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              id="{{ field.controlName }}"
+              class="form-control"
+              formControlName="{{ field.controlName }}"
+              placeholder="{{ field.placeholder }}"
+            />
+
+             
+
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Higher Study Modal -->
+<div class="modal fade" id="hStudyDetailsModel" tabindex="-1" aria-labelledby="employeeDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isHigherStudyAdded  }" style="display: block;" *ngIf=" isHigherStudyAdded ">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="employeeDetailsModalLabel">Add Student Higher Study Details</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="higherstudyForm" (ngSubmit)=" onSubmitHigherStudy()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of  higherStudiesFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              id="{{ field.controlName }}"
+              class="form-control"
+              formControlName="{{ field.controlName }}"
+              placeholder="{{ field.placeholder }}"
+            />
+
+             
+
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Experiance Modal -->
+<div class="modal fade" id="experianceDetailsModel" tabindex="-1" aria-labelledby="employeeDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isExperianceAdded  }" style="display: block;" *ngIf="isExperianceAdded ">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="employeeDetailsModalLabel">Add Student Experiance Details</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="experianceForm" (ngSubmit)="onSubmitExperiance()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of   experianceFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              id="{{ field.controlName }}"
+              class="form-control"
+              formControlName="{{ field.controlName }}"
+              placeholder="{{ field.placeholder }}"
+            />
+
+             
+
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
