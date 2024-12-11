@@ -36,7 +36,7 @@ export class EmployeesComponent implements OnInit {
     { controlName: 'dateOfBirth', label: 'Date of Birth', type: 'date' },
     { controlName: 'password', label: 'Password', placeholder: 'Enter new password' },
     {
-      controlName: 'maritalStatus',
+      controlName: 'merritalStatus',
       label: 'Marital Status',
       type: 'select',
       options: [
@@ -67,15 +67,16 @@ export class EmployeesComponent implements OnInit {
       lastName: ['', Validators.required],
       nic: ['', [Validators.required, Validators.pattern('^(\\d{9}[vV]|\\d{12})$')]],
       email: ['', [Validators.required, Validators.email]],
-      maritalStatus: ['', Validators.required],
+      merritalStatus: ['', Validators.required],
       phoneNumber: ['', Validators.required],
       dateOfBirth: ['', Validators.required],
       gender: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
-  goToEmployeeCv(id: number): void {
-    this.router.navigate([`/student-cv/${id}`]);
+  goToEmployeeCv(id: string): void {
+    console.log('Navigating to CV with ID:', id);
+    this.router.navigate([`/employee-cv/${id}`]);
   }
   ngOnInit(): void {
 
@@ -112,16 +113,16 @@ export class EmployeesComponent implements OnInit {
         3: 3
       };
 
-      console.log('Marital Status:', formData.maritalStatus);
+      console.log('Marital Status:', formData.merritalStatus);
       console.log('Gender:', formData.gender);
 
-      formData.maritalStatus = maritalStatusMapping[formData.maritalStatus];
+      formData.merritalStatus = maritalStatusMapping[formData.merritalStatus];
       formData.gender = genderMapping[formData.gender];
 
-      console.log('Mapped Marital Status:', formData.maritalStatus);
+      console.log('Mapped Marital Status:', formData.merritalStatus);
       console.log('Mapped Gender:', formData.gender);
 
-      if (!formData.maritalStatus) {
+      if (!formData.merritalStatus) {
         console.error('Invalid marital status');
         formData.maritalStatus = 0;
       }

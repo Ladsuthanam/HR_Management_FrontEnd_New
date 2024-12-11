@@ -55,7 +55,66 @@ export class UserService {
   deleteUserById(userId: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${userId}`);
   }
+
+  addUserAddress(userId: string, address: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Add_User_Address?UserId=${userId}`, address, this.getHeaders());
+  }
+
+  addUserOlevel(id: string, olevelData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Add_User_Olevel?Id=${id}`, olevelData, this.getHeaders());
+  }
+
+  addUserAlevel(id: string, alevelData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Add_User_Alevel?Id=${id}`, alevelData, this.getHeaders());
+  }
+
+  addUserExperience(id: string, experience: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Add_User_Experiance?id=${id}`, experience, this.getHeaders());
+  }
+
+  addUserHigherStudies(id: string, higherStudies: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/Add_User_HigherStudies?Id=${id}`, higherStudies, this.getHeaders());
+  }
   
+  getUserAddress(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Get_User_Address?Id=${userId}`);
+  }
+
+  getUserOlevel(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Get_User_Olevel?Id=${userId}`);
+  }
+
+  getUserAlevel(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Get_User_Alevel?Id=${userId}`);
+  }
+
+  getUserExperience(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Get_User_Experiance?Id=${userId}`);
+  }
+
+  getUserHigherStudies(userId: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Get_User_HigherStudies?Id=${userId}`);
+  }
+  deleteUserExperience(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Delete_User_Experiance?Id=${userId}`, this.getHeaders());
+  }
+
+  deleteUserHigherStudies(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Delete_User_HigherStudies?Id=${userId}`, this.getHeaders());
+  }
+
+  deleteUserAlevel(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Delete_User_Alevel?Id=${userId}`, this.getHeaders());
+  }
+
+  deleteUserOlevel(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Delete_User_Olevel?Id=${userId}`, this.getHeaders());
+  }
+
+  deleteUserAddress(userId: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/Delete_User_Address?Id=${userId}`, this.getHeaders());
+  }
+
   private getHeaders() {
     return {
       headers: new HttpHeaders({
