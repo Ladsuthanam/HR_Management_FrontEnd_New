@@ -16,6 +16,15 @@ import {
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
 } from "./chunk-2TYK2BCW.js";
+import {
+  ActivatedRoute,
+  ChildrenOutletContexts,
+  NavigationStart,
+  PRIMARY_OUTLET,
+  Router,
+  RouterLink,
+  UrlSerializer
+} from "./chunk-ZMFXFHYO.js";
 import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
 import {
@@ -32,15 +41,8 @@ import {
   isPlatform,
   printIonWarning
 } from "./chunk-5CLJQ7IX.js";
-import {
-  ActivatedRoute,
-  ChildrenOutletContexts,
-  NavigationStart,
-  PRIMARY_OUTLET,
-  Router,
-  RouterLink,
-  UrlSerializer
-} from "./chunk-ZMFXFHYO.js";
+import "./chunk-BANTIVOZ.js";
+import "./chunk-LML5PMF5.js";
 import {
   MaxValidator,
   MinValidator,
@@ -48,8 +50,6 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl
 } from "./chunk-FERJMQPB.js";
-import "./chunk-BANTIVOZ.js";
-import "./chunk-LML5PMF5.js";
 import {
   CommonModule,
   DOCUMENT,

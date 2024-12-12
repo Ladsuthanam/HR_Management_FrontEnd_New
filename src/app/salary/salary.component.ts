@@ -1,5 +1,5 @@
 import { Component, NgModule, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,23 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { SalaryService } from '../services/salary.service';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
-
-
-export interface Salary {
-  basicSalary: number;
-  deduction: number;
-  bonus: number;
-  allowances: number;
-  workingDays: number;
-  salaryStatus: string;
-}
 
 @Component({
-  selector: 'app-salary',
-  imports: [
-
-
+  selector: 'app-salary', 
+  imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
@@ -31,25 +21,40 @@ export interface Salary {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-<<<<<<< HEAD
-    HttpClientModule,
-=======
-    MatIconModule,
-    MatTableModule,
-    RouterOutlet
->>>>>>> 919f1d63d236e8fe8e5cc420e5f25811b06ad4ae
+    RouterModule
+
   ],
+  
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css']
 })
 export class SalaryComponent implements OnInit {
   accountDetails: any[] = [];
   displayedColumns: string[] = ['name', 'id', 'role', 'email', 'accountNumber', 'bankName', 'branchName', 'actions'];
+  accountForm!: FormGroup;
+  selectedUserId!: string;
+  isModalOpen = false;
+  isEditMode = false;
 
-  constructor(private salaryService: SalaryService) {}
+  accountFields = [
+    { controlName: 'accountNumber', label: 'Account Number', placeholder: 'Enter Account Number' },
+    { controlName: 'bankName', label: 'Bank Name', placeholder: 'Enter Bank Name' },
+    { controlName: 'branchName', label: 'Branch', placeholder: 'Enter Branch name' },
+  ];
+
+  constructor(private salaryService: SalaryService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.loadAccountDetails();
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.accountForm = this.fb.group({
+      accountNumber: ['', Validators.required],
+      bankName: ['', Validators.required],
+      branchName: ['', Validators.required]
+    });
   }
 
   loadAccountDetails(): void {
@@ -64,15 +69,94 @@ export class SalaryComponent implements OnInit {
     });
   }
 
-  editUser(element: any): void {
-    console.log('Edit action for:', element);
+  openAddAccountModal(userId: string): void {
+    if (userId) {
+      this.selectedUserId = userId;
+      this.accountForm.reset();
+      this.isModalOpen = true;
+      this.isEditMode = false;
+    } else {
+      console.error('User ID is missing!');
+    }
   }
 
-  deleteUser(element: any): void {
-    console.log('Delete action for:', element);
+
+  openEditAccountModal(userId: string, accountData: any): void {
+    this.selectedUserId = userId;
+    this.accountForm.patchValue(accountData);
+    this.isModalOpen = true;
+    this.isEditMode = true;
+  }
+
+  closeAddAccountModal(): void {
+    this.isModalOpen = false;
+  }
+
+  onSubmitAccount(): void {
+    if (this.accountForm.valid) {
+      const accountDetails = this.accountForm.value;
+      if (this.isEditMode) {
+        this.salaryService.updateAccount(this.selectedUserId, accountDetails).subscribe({
+          next: (response) => {
+            console.log('Account updated:', response);
+            this.closeAddAccountModal();
+            this.loadAccountDetails();
+          },
+          error: (error) => {
+            console.error('Error updating account:', error);
+            alert(`An error occurred: ${error.message}`);
+          }
+        });
+      } else {
+        // Pass userId and accountDetails correctly
+        this.salaryService.addAccount(this.selectedUserId, accountDetails).subscribe({
+          next: (response) => {
+            console.log('Account added:', response);
+            this.closeAddAccountModal();
+            this.loadAccountDetails();
+          },
+          error: (error) => {
+            console.error('Error adding account:', error);
+            alert(`An error occurred: ${error.message}`);
+          }
+        });
+      }
+    } else {
+      this.accountForm.markAllAsTouched();
+    }
+  }
+  
+
+
+  isInvalid(controlName: string): boolean {
+    const control = this.accountForm.get(controlName);
+    return control ? control.invalid && (control.touched || control.dirty) : false;
+  }
+
+  editUser(element: any): void {
+    this.openEditAccountModal(element.usersId, {
+      accountNumber: element.accountNumber,
+      bankName: element.bankName,
+      branchName: element.branchName
+    });
+  }
+  deleteUser(accountId: string): void {
+    this.salaryService.deleteAccountDetails(accountId).subscribe({
+      next: () => {
+        console.log('Account deleted successfully');
+        this.loadAccountDetails();
+      },
+      error: (err) => {
+        console.error('Error deleting account:', err);
+      }
+    });
   }
 
   saveUser(element: any): void {
     console.log('Save action for:', element);
+  }
+
+  cancel(): void {
+    this.accountForm.reset();
   }
 }

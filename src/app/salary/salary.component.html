@@ -45,20 +45,22 @@
           <td mat-cell *matCellDef="let element"> {{element.branchName}} </td>
         </ng-container>
 
+       
         <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="openAddAccountModal(element.usersId)">
+              <mat-icon>add</mat-icon>
+            </button>
             <button mat-icon-button (click)="editUser(element)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button (click)="deleteUser(element)">
+            <button mat-icon-button  (click)="deleteUser(element.id)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="saveUser(element)">
-              <mat-icon>save</mat-icon>
-            </button>
           </td>
+          
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -66,4 +68,46 @@
       </table>
     </div>
   </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="accountDetailsModel" tabindex="-1" aria-labelledby="accontDetailsModalLabel"
+aria-hidden="true" [ngClass]="{ show: isModalOpen }" style="display: block;" *ngIf="isModalOpen">
+<div class="modal-dialog modal-xl">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="accountDetailsModalLabel">Add Account Details</h5>
+      <button type="button" class="btn-close" (click)="closeAddAccountModal()"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="accountForm" (ngSubmit)="onSubmitAccount()">
+        <div class="row">
+          <div class="col-12">
+            <div *ngFor="let field of accountFields" class="mb-3">
+              <label for="field.controlName" class="form-label">{{ field.label }}</label>
+              <input
+              *ngIf="field"
+              [id]="field.controlName"
+              class="form-control"
+              [formControlName]="field.controlName"
+              [placeholder]="field.placeholder"
+            />
+              <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                <small>{{ field.controlName | uppercase }} is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+        
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+  
 </main>
