@@ -1,16 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { RouterOutlet } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { SalaryService } from '../services/salary.service';
+
+
 
 export interface Salary {
-
-
   basicSalary: number;
   deduction: number;
   bonus: number;
@@ -22,60 +22,51 @@ export interface Salary {
 @Component({
   selector: 'app-salary',
   imports: [
+
+
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
     MatButtonModule,
+    MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule,
-    MatTableModule
+    HttpClientModule,
   ],
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css']
 })
-export class SalaryComponent {
-  accountDetails = {
-    accountNumber: 0,
-    bankName: '',
-    branchName: ''
-  };
+export class SalaryComponent implements OnInit {
+  accountDetails: any[] = [];
+  displayedColumns: string[] = ['name', 'id', 'role', 'email', 'accountNumber', 'bankName', 'branchName', 'actions'];
 
-  workingDays!: number;
+  constructor(private salaryService: SalaryService) {}
 
-  // Remove the duplicate salaryData declaration
-  salaryData: Salary[] = [
-    {
-      basicSalary: 1000,
-      deduction: 100,
-      bonus: 200,
-      allowances: 50,
-      workingDays: 20,
-      salaryStatus: 'Pending'
-    }
-  ];
-
-  // Use the Salary interface for the 'element' parameter
-  deleteSalary(element: Salary) {
-    // Handle delete logic
+  ngOnInit(): void {
+    this.loadAccountDetails();
   }
 
-  saveSalary(element: Salary) {
-    // Handle save logic
+  loadAccountDetails(): void {
+    this.salaryService.getAllAccountDetails().subscribe({
+      next: (data: any[]) => {
+        this.accountDetails = data;
+        console.log('Account details:', this.accountDetails);
+      },
+      error: (err) => {
+        console.error('Error fetching account details:', err);
+      }
+    });
   }
 
-  displayedColumns: string[] = ['basicSalary', 'deduction', 'bonus', 'allowances', 'workingDays', 'salaryStatus', 'actions'];
-
-  submitAccountDetails() {
-    // Handle submit logic
+  editUser(element: any): void {
+    console.log('Edit action for:', element);
   }
 
-  resetForm() {
-    this.accountDetails = { accountNumber: 0, bankName: '', branchName: '' };
+  deleteUser(element: any): void {
+    console.log('Delete action for:', element);
   }
 
-  addWorkingDays() {
-    // Handle adding working days logic
-  }
-
-  editSalary() {
-    // Handle edit logic
+  saveUser(element: any): void {
+    console.log('Save action for:', element);
   }
 }

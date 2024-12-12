@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -20,7 +20,7 @@ import { UserService } from '../services/user.service';
   templateUrl: './lectures.component.html',
   styleUrl: './lectures.component.css'
 })
-export class LecturesComponent {
+export class LecturesComponent implements OnInit {
   lecturerForm: FormGroup;
   lecturer: any[] = [];
   filteredLecturers: any[] = [];
@@ -79,7 +79,7 @@ export class LecturesComponent {
     });
   }
   goToLecturerCv(id: number): void {
-    this.router.navigate([`/student-cv/${id}`]);
+    this.router.navigate([`/lecture-cv/${id}`]);
   }
   ngOnInit(): void {
 

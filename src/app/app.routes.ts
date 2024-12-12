@@ -24,7 +24,7 @@ import { EventShowComponent } from './Event/event-show/event-show.component';
 import { HollyDayPageComponent } from './LeavePage/holly-day-page/holly-day-page.component';
 import { StaffCvComponent } from './staff/staff-cv/staff-cv.component';
 import { AdminCvComponent } from './admin-page/admin-cv/admin-cv.component';
-import { LecturerCvComponent } from './lectures/lecturer-cv/lecturer-cv.component';
+import { LectureCvComponent } from './lectures/lecturer-cv/lecturer-cv.component';
 
 export const routes: Routes = [
     {
@@ -104,7 +104,7 @@ export const routes: Routes = [
 
             {
                 path:'lecture-cv/:id',
-                component:LecturerCvComponent,
+                component:LectureCvComponent,
                 title:"Lectures-Cv Page"
 
             },
