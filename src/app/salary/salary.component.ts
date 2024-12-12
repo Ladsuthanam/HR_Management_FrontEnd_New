@@ -36,6 +36,17 @@ export class SalaryComponent implements OnInit {
   isModalOpen = false;
   isEditMode = false;
 
+  workingDaysForm!: FormGroup;
+  workingDays = [
+    { controlName: 'monday', label: 'Monday' },
+    { controlName: 'tuesday', label: 'Tuesday' },
+    { controlName: 'wednesday', label: 'Wednesday' },
+    { controlName: 'thursday', label: 'Thursday' },
+    { controlName: 'friday', label: 'Friday' },
+    { controlName: 'saturday', label: 'Saturday' },
+    { controlName: 'sunday', label: 'Sunday' }
+  ];
+
   accountFields = [
     { controlName: 'accountNumber', label: 'Account Number', placeholder: 'Enter Account Number' },
     { controlName: 'bankName', label: 'Bank Name', placeholder: 'Enter Bank Name' },
@@ -47,6 +58,7 @@ export class SalaryComponent implements OnInit {
   ngOnInit(): void {
     this.loadAccountDetails();
     this.initializeForm();
+    this.initializeWorkingDaysForm();
   }
 
   initializeForm(): void {
@@ -54,6 +66,20 @@ export class SalaryComponent implements OnInit {
       accountNumber: ['', Validators.required],
       bankName: ['', Validators.required],
       branchName: ['', Validators.required]
+    });
+    this.workingDaysForm = this.fb.group({
+      monday: [false],
+      tuesday: [false],
+      wednesday: [false],
+      thursday: [false],
+      friday: [false],
+      saturday: [false],
+      sunday: [false]
+    });
+  }
+  initializeWorkingDaysForm(): void {
+    this.workingDaysForm = this.fb.group({
+      weekdays: [[], Validators.required] 
     });
   }
 
@@ -126,7 +152,36 @@ export class SalaryComponent implements OnInit {
     }
   }
   
-
+  onSubmitWorkingDays(): void {
+    if (this.workingDaysForm.valid) {
+      const weekdays = this.workingDaysForm.value.weekdays;  // An array of weekdays, e.g. [1, 2, 3, 4, 7]
+      const userId = this.selectedUserId;
+  
+      // Call the service to add working days
+      this.salaryService.addWorkingDays(userId, weekdays).subscribe({
+        next: (response) => {
+          console.log('Working days added:', response);
+          this.loadWorkingDays();  // Optionally refresh the list of working days
+        },
+        error: (error) => {
+          console.error('Error adding working days:', error);
+          alert(`An error occurred: ${error.message}`);
+        }
+      });
+    } else {
+      this.workingDaysForm.markAllAsTouched();
+    }
+  }
+  loadWorkingDays(): void {
+    this.salaryService.getAllAccountDetails().subscribe({
+      next: (data: any[]) => {
+       
+      },
+      error: (err) => {
+        console.error('Error fetching working days:', err);
+      }
+    });
+  }
 
   isInvalid(controlName: string): boolean {
     const control = this.accountForm.get(controlName);
