@@ -79,7 +79,7 @@ export class AdminPageComponent {
     });
   }
   goToAdminCv(id: number): void {
-    this.router.navigate([`/student-cv/${id}`]);
+    this.router.navigate([`/admin-cv/${id}`]);
   }
   ngOnInit(): void {
 

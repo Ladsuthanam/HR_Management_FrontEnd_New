@@ -1,102 +1,69 @@
 <main>
   <div class="container">
-    <div class="row">
-      <!-- Left Div: Account Details Form -->
-      <div class="col-md-6">
-        <form>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Account Number</mat-label>
-            <input matInput [(ngModel)]="accountDetails.accountNumber" name="accountNumber" />
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Bank Name</mat-label>
-            <input matInput [(ngModel)]="accountDetails.bankName" name="bankName" />
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Branch Name</mat-label>
-            <input matInput [(ngModel)]="accountDetails.branchName" name="branchName" />
-          </mat-form-field>
-  
-          <button mat-raised-button color="primary" (click)="submitAccountDetails()">Submit</button>
-          <button mat-raised-button (click)="resetForm()">Reset</button>
-        </form>
-      </div>
-  
-      <!-- Right Div: Working Days Add -->
-      <div class="col-md-6">
-        <form>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Working Days</mat-label>
-            <input matInput [(ngModel)]="workingDays" name="workingDays" />
-          </mat-form-field>
-  
-          <button mat-raised-button color="primary" (click)="addWorkingDays()">Add Working Days</button>
-        </form>
-      </div>
-    </div>
-  
     <!-- Salary Table -->
     <div class="row mt-4">
-      <table mat-table [dataSource]="salaryData" class="mat-elevation-z8">
-        <ng-container matColumnDef="basicSalary">
-          <th mat-header-cell *matHeaderCellDef> Basic Salary </th>
-          <td mat-cell *matCellDef="let element"> {{element.basicSalary}} </td>
+      <table mat-table [dataSource]="accountDetails" class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.usersName}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="deduction">
-          <th mat-header-cell *matHeaderCellDef> Deduction </th>
-          <td mat-cell *matCellDef="let element"> {{element.deduction}} </td>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.users_Id}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="bonus">
-          <th mat-header-cell *matHeaderCellDef> Bonus </th>
-          <td mat-cell *matCellDef="let element"> {{element.bonus}} </td>
+
+        <!-- Role Column -->
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef> Role </th>
+          <td mat-cell *matCellDef="let element"> {{element.role}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="allowances">
-          <th mat-header-cell *matHeaderCellDef> Allowances </th>
-          <td mat-cell *matCellDef="let element"> {{element.allowances}} </td>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let element"> {{element.usersEmail}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="workingDays">
-          <th mat-header-cell *matHeaderCellDef> Working Days </th>
-          <td mat-cell *matCellDef="let element"> {{element.workingDays}} </td>
+
+        <!-- Account Number Column -->
+        <ng-container matColumnDef="accountNumber">
+          <th mat-header-cell *matHeaderCellDef> Account Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.accountNumber}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="salaryStatus">
-          <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element"> 
-            <span [ngClass]="{'status-get': element.salaryStatus === 'Get', 'status-pending': element.salaryStatus === 'Pending', 'status-sent': element.salaryStatus === 'Sent'}">
-              {{element.salaryStatus}}
-            </span>
-          </td>
+
+        <!-- Bank Name Column -->
+        <ng-container matColumnDef="bankName">
+          <th mat-header-cell *matHeaderCellDef> Bank Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.bankName}} </td>
         </ng-container>
-  
+
+        <!-- Branch Name Column -->
+        <ng-container matColumnDef="branchName">
+          <th mat-header-cell *matHeaderCellDef> Branch Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.branchName}} </td>
+        </ng-container>
+
+        <!-- Actions Column -->
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="editSalary(element)">
+            <button mat-icon-button (click)="editUser(element)">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button (click)="deleteSalary(element)">
+            <button mat-icon-button (click)="deleteUser(element)">
               <mat-icon>delete</mat-icon>
             </button>
-            <button mat-icon-button (click)="saveSalary(element)">
+            <button mat-icon-button (click)="saveUser(element)">
               <mat-icon>save</mat-icon>
             </button>
           </td>
         </ng-container>
-  
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </div>
   </div>
-  
-
 </main>
-<div>
-  <router-outlet></router-outlet>
-</div>

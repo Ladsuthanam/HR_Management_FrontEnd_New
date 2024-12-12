@@ -12,12 +12,6 @@ import {
 import "./chunk-BLGTXTVF.js";
 import "./chunk-4FV4QTPG.js";
 import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  Validators
-} from "./chunk-FERJMQPB.js";
-import {
   ErrorStateMatcher,
   MatCommonModule,
   Platform,
@@ -30,6 +24,12 @@ import {
   getSupportedInputTypes,
   normalizePassiveListenerOptions
 } from "./chunk-7XPFOFYJ.js";
+import {
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+  Validators
+} from "./chunk-FERJMQPB.js";
 import {
   DOCUMENT
 } from "./chunk-EPNFJBJQ.js";
