@@ -22,7 +22,8 @@ export class LoginPageComponent {
   constructor(private router: Router) {}
 
   toggleSignUp() {
-    this.isSignUpMode = true;
+    // this.isSignUpMode = true;
+    this.router.navigateByUrl('/regirer');
   }
 
   toggleSignIn() {

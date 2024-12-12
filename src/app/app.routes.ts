@@ -25,6 +25,7 @@ import { HollyDayPageComponent } from './LeavePage/holly-day-page/holly-day-page
 import { StaffCvComponent } from './staff/staff-cv/staff-cv.component';
 import { AdminCvComponent } from './admin-page/admin-cv/admin-cv.component';
 import { LectureCvComponent } from './lectures/lecturer-cv/lecturer-cv.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,12 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LoginPageComponent
+    },
+    {
+        path:'regirer',
+        component:RegisterPageComponent,
+        title:'RegisterPage'
+
     },
     {
         path: '', 
