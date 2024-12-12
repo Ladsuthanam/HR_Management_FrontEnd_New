@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 
 interface Notification {
@@ -18,7 +20,8 @@ interface Notification {
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
   styleUrls: ['./layout-page.component.css'],
-  imports: [FormsModule,CommonModule,RouterOutlet,RouterLink,IonicModule],
+  imports: [FormsModule,CommonModule,RouterOutlet,RouterLink,IonicModule, MatButtonModule,
+    MatIconModule,],
 })
 export class LayoutPageComponent implements OnInit, AfterViewInit{
   private sidebar!: HTMLElement;

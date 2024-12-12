@@ -31,7 +31,13 @@ export interface Salary {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
+<<<<<<< HEAD
     HttpClientModule,
+=======
+    MatIconModule,
+    MatTableModule,
+    RouterOutlet
+>>>>>>> 919f1d63d236e8fe8e5cc420e5f25811b06ad4ae
   ],
   templateUrl: './salary.component.html',
   styleUrls: ['./salary.component.css']

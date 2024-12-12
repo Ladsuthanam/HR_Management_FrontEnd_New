@@ -41,8 +41,6 @@ import {
   RouterLink,
   UrlSerializer
 } from "./chunk-ZMFXFHYO.js";
-import "./chunk-BANTIVOZ.js";
-import "./chunk-LML5PMF5.js";
 import {
   MaxValidator,
   MinValidator,
@@ -50,6 +48,8 @@ import {
   NG_VALUE_ACCESSOR,
   NgControl
 } from "./chunk-FERJMQPB.js";
+import "./chunk-BANTIVOZ.js";
+import "./chunk-LML5PMF5.js";
 import {
   CommonModule,
   DOCUMENT,
