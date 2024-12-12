@@ -1,6 +1,6 @@
 import {
   DOCUMENT
-} from "./chunk-EPNFJBJQ.js";
+} from "./chunk-IKHKS422.js";
 import {
   Directive,
   ElementRef,
@@ -21,7 +21,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵgetInheritedFactory
-} from "./chunk-WP6J3BCS.js";
+} from "./chunk-XYIUVBTN.js";
 
 // node_modules/@angular/cdk/fesm2022/portal.mjs
 function throwNullPortalError() {
@@ -586,9 +586,10 @@ var PortalModule = class _PortalModule {
 export {
   ComponentPortal,
   TemplatePortal,
+  BasePortalOutlet,
   DomPortalOutlet,
   CdkPortal,
   CdkPortalOutlet,
   PortalModule
 };
-//# sourceMappingURL=chunk-3J4AR22X.js.map
+//# sourceMappingURL=chunk-Q7QESK5I.js.map

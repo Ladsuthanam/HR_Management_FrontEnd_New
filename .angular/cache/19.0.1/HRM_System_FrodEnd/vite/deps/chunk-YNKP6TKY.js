@@ -1,7 +1,7 @@
 import {
   DOCUMENT,
   isPlatformBrowser
-} from "./chunk-EPNFJBJQ.js";
+} from "./chunk-IKHKS422.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -79,7 +79,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate1,
   ɵɵviewQuery
-} from "./chunk-WP6J3BCS.js";
+} from "./chunk-XYIUVBTN.js";
 import {
   __spreadProps,
   __spreadValues
@@ -696,14 +696,6 @@ var ObserversModule = class _ObserversModule {
   }], null, null);
 })();
 
-// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
-function coerceObservable(data) {
-  if (!isObservable(data)) {
-    return of(data);
-  }
-  return data;
-}
-
 // node_modules/@angular/cdk/fesm2022/layout.mjs
 var LayoutModule = class _LayoutModule {
   static ɵfac = function LayoutModule_Factory(__ngFactoryType__) {
@@ -889,6 +881,30 @@ var BreakpointObserver = class _BreakpointObserver {
 })();
 function splitQueries(queries) {
   return queries.map((query) => query.split(",")).reduce((a1, a2) => a1.concat(a2)).map((query) => query.trim());
+}
+var Breakpoints = {
+  XSmall: "(max-width: 599.98px)",
+  Small: "(min-width: 600px) and (max-width: 959.98px)",
+  Medium: "(min-width: 960px) and (max-width: 1279.98px)",
+  Large: "(min-width: 1280px) and (max-width: 1919.98px)",
+  XLarge: "(min-width: 1920px)",
+  Handset: "(max-width: 599.98px) and (orientation: portrait), (max-width: 959.98px) and (orientation: landscape)",
+  Tablet: "(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait), (min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)",
+  Web: "(min-width: 840px) and (orientation: portrait), (min-width: 1280px) and (orientation: landscape)",
+  HandsetPortrait: "(max-width: 599.98px) and (orientation: portrait)",
+  TabletPortrait: "(min-width: 600px) and (max-width: 839.98px) and (orientation: portrait)",
+  WebPortrait: "(min-width: 840px) and (orientation: portrait)",
+  HandsetLandscape: "(max-width: 959.98px) and (orientation: landscape)",
+  TabletLandscape: "(min-width: 960px) and (max-width: 1279.98px) and (orientation: landscape)",
+  WebLandscape: "(min-width: 1280px) and (orientation: landscape)"
+};
+
+// node_modules/@angular/cdk/fesm2022/coercion/private.mjs
+function coerceObservable(data) {
+  if (!isObservable(data)) {
+    return of(data);
+  }
+  return data;
 }
 
 // node_modules/@angular/cdk/fesm2022/a11y.mjs
@@ -3554,6 +3570,17 @@ function MatOption_Conditional_6_Template(rf, ctx) {
 var _c5 = ["mat-internal-form-field", ""];
 var _c6 = ["*"];
 var VERSION = new Version("19.0.1");
+var AnimationCurves = class {
+  static STANDARD_CURVE = "cubic-bezier(0.4,0.0,0.2,1)";
+  static DECELERATION_CURVE = "cubic-bezier(0.0,0.0,0.2,1)";
+  static ACCELERATION_CURVE = "cubic-bezier(0.4,0.0,1,1)";
+  static SHARP_CURVE = "cubic-bezier(0.4,0.0,0.6,1)";
+};
+var AnimationDurations = class {
+  static COMPLEX = "375ms";
+  static ENTERING = "225ms";
+  static EXITING = "195ms";
+};
 var MATERIAL_SANITY_CHECKS = new InjectionToken("mat-sanity-checks", {
   providedIn: "root",
   factory: () => true
@@ -5639,6 +5666,7 @@ export {
   RtlScrollAxisType,
   supportsScrollBehavior,
   getRtlScrollAxisType,
+  _getFocusedElementPierceShadowDom,
   _getEventTarget,
   _isTestEnvironment,
   _CdkPrivateStyleLoader,
@@ -5659,11 +5687,17 @@ export {
   coerceElement,
   CdkObserveContent,
   ObserversModule,
+  BreakpointObserver,
+  Breakpoints,
   addAriaReferencedId,
   removeAriaReferencedId,
   AriaDescriber,
   ActiveDescendantKeyManager,
   FocusKeyManager,
+  InteractivityChecker,
+  FocusTrapFactory,
+  isFakeMousedownFromScreenReader,
+  isFakeTouchstartFromScreenReader,
   LiveAnnouncer,
   FocusMonitor,
   CdkMonitorFocus,
@@ -5671,6 +5705,8 @@ export {
   _IdGenerator,
   Directionality,
   BidiModule,
+  AnimationCurves,
+  AnimationDurations,
   MatCommonModule,
   _ErrorStateTracker,
   ErrorStateMatcher,
@@ -5680,6 +5716,7 @@ export {
   MatRippleModule,
   MAT_OPTION_PARENT_COMPONENT,
   MAT_OPTGROUP,
+  MatOptgroup,
   MatOption,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
@@ -5687,4 +5724,4 @@ export {
   MatRippleLoader,
   _MatInternalFormField
 };
-//# sourceMappingURL=chunk-7XPFOFYJ.js.map
+//# sourceMappingURL=chunk-YNKP6TKY.js.map
