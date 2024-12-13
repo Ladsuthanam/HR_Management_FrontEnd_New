@@ -45,4 +45,8 @@ export class RegisterPageComponent {
     }
   }
 
+  toggleSignIn(){ 
+    this.router.navigate([`/login`]) 
+  }
+
 }
