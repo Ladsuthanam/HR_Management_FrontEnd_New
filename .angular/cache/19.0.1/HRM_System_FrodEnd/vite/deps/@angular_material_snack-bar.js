@@ -1,4 +1,8 @@
 import {
+  MatButton,
+  MatButtonModule
+} from "./chunk-3TGBS3A6.js";
+import {
   Overlay,
   OverlayConfig,
   OverlayModule
@@ -11,10 +15,6 @@ import {
   TemplatePortal
 } from "./chunk-Q7QESK5I.js";
 import "./chunk-NZOHYWIK.js";
-import {
-  MatButton,
-  MatButtonModule
-} from "./chunk-3TGBS3A6.js";
 import {
   animate,
   state,

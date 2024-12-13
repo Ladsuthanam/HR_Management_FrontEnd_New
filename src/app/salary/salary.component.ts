@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { SalaryService } from '../services/salary.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 
@@ -38,16 +38,7 @@ export class SalaryComponent implements OnInit {
   searchQuery: string = '';
   filteredAccountDetails: any[] = []; 
 
-  workingDaysForm!: FormGroup;
-  workingDays = [
-    { controlName: 'monday', label: 'Monday' },
-    { controlName: 'tuesday', label: 'Tuesday' },
-    { controlName: 'wednesday', label: 'Wednesday' },
-    { controlName: 'thursday', label: 'Thursday' },
-    { controlName: 'friday', label: 'Friday' },
-    { controlName: 'saturday', label: 'Saturday' },
-    { controlName: 'sunday', label: 'Sunday' }
-  ];
+  
 
   accountFields = [
     { controlName: 'accountNumber', label: 'Account Number', placeholder: 'Enter Account Number' },
@@ -55,12 +46,19 @@ export class SalaryComponent implements OnInit {
     { controlName: 'branchName', label: 'Branch', placeholder: 'Enter Branch name' },
   ];
 
-  constructor(private salaryService: SalaryService, private fb: FormBuilder) {}
+  constructor(private salaryService: SalaryService, private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.loadAccountDetails();
     this.initializeForm();
-    this.initializeWorkingDaysForm();
+   
+  }
+
+  goToWorkingDays(): void {
+    this.router.navigate([`workingdays`]);
+  }
+  goToSalaryGenaratePage(): void{
+    this.router.navigate(['salaryGenarate'])
   }
 
   initializeForm(): void {
@@ -69,21 +67,9 @@ export class SalaryComponent implements OnInit {
       bankName: ['', Validators.required],
       branchName: ['', Validators.required]
     });
-    this.workingDaysForm = this.fb.group({
-      monday: [false],
-      tuesday: [false],
-      wednesday: [false],
-      thursday: [false],
-      friday: [false],
-      saturday: [false],
-      sunday: [false]
-    });
+   
   }
-  initializeWorkingDaysForm(): void {
-    this.workingDaysForm = this.fb.group({
-      weekdays: [[], Validators.required] 
-    });
-  }
+ 
 
   loadAccountDetails(): void {
     this.salaryService.getAllAccountDetails().subscribe({
@@ -153,37 +139,7 @@ export class SalaryComponent implements OnInit {
       this.accountForm.markAllAsTouched();
     }
   }
-  
-  onSubmitWorkingDays(): void {
-    if (this.workingDaysForm.valid) {
-      const weekdays = this.workingDaysForm.value.weekdays;  // An array of weekdays, e.g. [1, 2, 3, 4, 7]
-      const userId = this.selectedUserId;
-  
-      // Call the service to add working days
-      this.salaryService.addWorkingDays(userId, weekdays).subscribe({
-        next: (response) => {
-          console.log('Working days added:', response);
-          this.loadWorkingDays();  // Optionally refresh the list of working days
-        },
-        error: (error) => {
-          console.error('Error adding working days:', error);
-          alert(`An error occurred: ${error.message}`);
-        }
-      });
-    } else {
-      this.workingDaysForm.markAllAsTouched();
-    }
-  }
-  loadWorkingDays(): void {
-    this.salaryService.getAllAccountDetails().subscribe({
-      next: (data: any[]) => {
-       
-      },
-      error: (err) => {
-        console.error('Error fetching working days:', err);
-      }
-    });
-  }
+
 
   isInvalid(controlName: string): boolean {
     const control = this.accountForm.get(controlName);
