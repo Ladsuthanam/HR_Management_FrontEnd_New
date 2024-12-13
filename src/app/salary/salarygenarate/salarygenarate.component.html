@@ -1,0 +1,143 @@
+<main>
+    <div class="container">
+      <!-- Search and Action Buttons -->
+      
+  
+      <!-- Salary Table -->
+      <div class="row mt-4">
+        <table mat-table [dataSource]="salaryDetails" class="mat-elevation-z8 styled-table">
+          <!-- Name Column -->
+          <ng-container matColumnDef="user_Id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{ element.user_Id }} </td>
+          </ng-container>
+  
+          <!-- ID Column -->
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{ element.userName }} </td>
+          </ng-container>
+  
+          <!-- Role Column -->
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef> Role </th>
+            <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
+          </ng-container>
+  
+          <!-- Email Column -->
+          <ng-container matColumnDef="basicSalary">
+            <th mat-header-cell *matHeaderCellDef> Basic Salary </th>
+            <td mat-cell *matCellDef="let element"> {{ element.basicSalary }} </td>
+          </ng-container>
+  
+          <!-- Account Number Column -->
+          <ng-container matColumnDef="deduction">
+            <th mat-header-cell *matHeaderCellDef> Deduction </th>
+            <td mat-cell *matCellDef="let element"> {{ element.deduction }} </td>
+          </ng-container>
+  
+          <!-- Bank Name Column -->
+          <ng-container matColumnDef="bonus">
+            <th mat-header-cell *matHeaderCellDef> Bonus </th>
+            <td mat-cell *matCellDef="let element"> {{ element.bonus }} </td>
+          </ng-container>
+  
+          <!-- Branch Name Column -->
+          <ng-container matColumnDef="epf">
+            <th mat-header-cell *matHeaderCellDef> EPF </th>
+            <td mat-cell *matCellDef="let element"> {{ element.epf }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="etf">
+            <th mat-header-cell *matHeaderCellDef> ETF </th>
+            <td mat-cell *matCellDef="let element"> {{ element.etf }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="allowances">
+            <th mat-header-cell *matHeaderCellDef> Allowances </th>
+            <td mat-cell *matCellDef="let element"> {{ element.allowances }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="workingDays">
+            <th mat-header-cell *matHeaderCellDef> Working Days </th>
+            <td mat-cell *matCellDef="let element"> {{ element.workingDays }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="netSalary">
+            <th mat-header-cell *matHeaderCellDef> Net Salary </th>
+            <td mat-cell *matCellDef="let element"> {{ element.netSalary }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="salaryStatus">
+            <th mat-header-cell *matHeaderCellDef> Salary Status </th>
+            <td mat-cell *matCellDef="let element"> {{ element.salaryStatus }} </td>
+          </ng-container>
+  
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button  (click)="openAddSalaryModal(element.userId)">
+                <mat-icon>add</mat-icon>
+              </button>
+              <button mat-icon-button (click)="openEditSalaryModal(element.userId)" >
+                <mat-icon>edit</mat-icon>
+              </button>
+             
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="salaryDetailsModel"
+      tabindex="-1"
+      aria-labelledby="salaryModalLabel"
+      aria-hidden="true"
+      [ngClass]="{ show: isModalOpen }"
+      style="display: block;"
+      *ngIf="isModalOpen"
+    >
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="salaryDetailsModalLabel">Add Salary </h5>
+            <button type="button" class="btn-close" (click)=" closeModal()"></button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="salaryForm" (ngSubmit)="onSubmitSalary()">
+              <div class="row">
+                <div class="col-12">
+                  <div *ngFor="let field of salaryFields" class="mb-3">
+                    <label for="field.controlName" class="form-label">{{ field.label }}</label>
+                    <input *ngIf="field.type !== 'select'" type="{{ field.type || 'text' }}" class="form-control"
+                      formControlName="{{ field.controlName }}" placeholder="{{ field.placeholder }}" />
+  
+                    <select *ngIf="field.type === 'select'" formControlName="{{ field.controlName }}"
+                      class="form-control">
+                      <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+                    </select>
+                    <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                      <small>{{ field.controlName | uppercase }} is required!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  

@@ -12,14 +12,15 @@
       </div>
       <div class="col-md-6 text-end">
         <button class="btn btn-info me-2" (click)="onSearch()">Search</button>
-        <button class="btn btn-success me-2" (click)="generateSalary()">Salary Generate</button>
-        <button class="btn btn-warning" (click)="selectWorkingDays()">Working Days</button>
+        <button class="btn btn-warning" (click)="selectWorkingDays()" (click)="goToWorkingDays()">Working Days</button>
+        <button class="btn btn-success me-2" (click)="generateSalary()" (click)=" goToSalaryGenaratePage()" >Salary Generate</button>
+        
       </div>
     </div>
 
     <!-- Salary Table -->
     <div class="row mt-4">
-      <table mat-table [dataSource]="filteredAccountDetails" class="mat-elevation-z8 styled-table">
+      <table mat-table [dataSource]="accountDetails" class="mat-elevation-z8 styled-table">
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
@@ -120,23 +121,7 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-4">
-              <div class="col-12">
-                <label class="form-label">Select Working Days</label>
-                <div *ngFor="let day of workingDays" class="form-check form-check-inline">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    [formControlName]="day.controlName"
-                    [id]="day.controlName"
-                  />
-                  <label class="form-check-label" for="{{ day.controlName }}">{{ day.label }}</label>
-                </div>
-                <div *ngIf="workingDaysForm.invalid && (workingDaysForm.touched || workingDaysForm.dirty)" class="text-danger">
-                  <small>Working days are required!</small>
-                </div>
-              </div>
-            </div>
+         
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Submit</button>
             </div>
