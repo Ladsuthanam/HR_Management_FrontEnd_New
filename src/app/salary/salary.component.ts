@@ -35,6 +35,8 @@ export class SalaryComponent implements OnInit {
   selectedUserId!: string;
   isModalOpen = false;
   isEditMode = false;
+  searchQuery: string = '';
+  filteredAccountDetails: any[] = []; 
 
   workingDaysForm!: FormGroup;
   workingDays = [
@@ -214,4 +216,25 @@ export class SalaryComponent implements OnInit {
   cancel(): void {
     this.accountForm.reset();
   }
+
+  onSearch(): void {
+    if (this.searchQuery) {
+      this.filteredAccountDetails = this.accountDetails.filter((account) =>
+        Object.values(account).some((val) =>
+          String(val).toLowerCase().includes(this.searchQuery.toLowerCase())
+        )
+      );
+    } else {
+      this.filteredAccountDetails = [...this.accountDetails];
+    }
+  }
+  
+  generateSalary(): void {
+    
+  }
+  
+  selectWorkingDays(): void {
+    
+  }
+  
 }

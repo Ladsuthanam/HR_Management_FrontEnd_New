@@ -4,17 +4,17 @@
         <div class="signin-signup">
           
           <!-- Sign-in Form -->
-          <form (ngSubmit)="onLogin()" class="sign-in-form">
+          <form  class="sign-in-form">
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" [(ngModel)]="loginAdmin.userName" name="userName" required />
+              <input type="text" placeholder="Enter Username"  formControlName="username"/>
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" [(ngModel)]="loginAdmin.password" name="password" required />
+              <input type="password" placeholder="Enter Password" formControlName="password"/>
             </div>
-            <input type="submit" value="Login" class="btn solid" />
+            <input type="submit" (click)="onLogin()" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -72,7 +72,7 @@
         <div class="panel left-panel">
           <div class="content">
             <h3>Welcome to joining</h3>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis, ex ratione. Aliquid!</p>
+            <p>Welcome to our HR_ work platform with secure and easy maintaining work</p>
             <button class="btn transparent" (click)="toggleSignUp()">Sign up</button>
           </div>
           <img src="https://i.ibb.co/6HXL6q1/Privacy-policy-rafiki.png" class="image" alt="" />
@@ -81,8 +81,8 @@
         <!-- Right Panel -->
         <div class="panel right-panel">
           <div class="content">
-            <h3>One of us?</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum laboriosam ad deleniti.</p>
+            <h3>Register With Us!</h3>
+            <p>Joining Today to maintain work easy and secure of your work</p>
             <button class="btn transparent" (click)="toggleSignIn()">Sign in</button>
           </div>
           <img src="https://i.ibb.co/nP8H853/Mobile-login-rafiki.png" class="image" alt="" />

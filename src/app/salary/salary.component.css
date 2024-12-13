@@ -14,3 +14,28 @@ main{
     color: blue;
   }
   
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+  }
+  .styled-table th {
+    background-color: #009879;
+    color: white;
+    padding: 10px;
+  }
+  .styled-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  .btn {
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+  .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
