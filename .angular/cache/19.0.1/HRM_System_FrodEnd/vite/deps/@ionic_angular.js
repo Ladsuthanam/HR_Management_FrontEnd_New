@@ -1,6 +1,3 @@
-import {
-  mdTransitionAnimation
-} from "./chunk-3LV54IGZ.js";
 import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
 import {
@@ -20,6 +17,9 @@ import {
 import {
   iosTransitionAnimation
 } from "./chunk-UWMSXM6I.js";
+import {
+  mdTransitionAnimation
+} from "./chunk-3LV54IGZ.js";
 import {
   bootstrapLazy,
   componentOnReady as componentOnReady2,
