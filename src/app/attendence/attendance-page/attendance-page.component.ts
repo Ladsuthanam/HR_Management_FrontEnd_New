@@ -17,14 +17,14 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatButtonModule,
     MatCheckboxModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './attendance-page.component.html',
   styleUrls: ['./attendance-page.component.css']
 })
 export class AttendancePageComponent {
   selectedTab: string = 'staff';
-  staffDisplayedColumns: string[] = ['id', 'firstName', 'role', 'inTime', 'outTime', 'status', 'active'];
+  staffDisplayedColumns: string[] = ['id', 'firstName', 'role', 'inTime', 'outTime', 'status', 'active', 'report'];
 
   staffData = new MatTableDataSource<UserAttendance>([]);
   presentCount: number = 0;
@@ -32,7 +32,7 @@ export class AttendancePageComponent {
   latecomeCount: number = 0;
   searchQuery: string = '';
 
-  constructor(private attendanceService: AttendanceService) {}
+  constructor(private attendanceService: AttendanceService,private router : Router) {}
 
   ngOnInit(): void {
     this.fetchStaffAttendance();
@@ -97,5 +97,8 @@ export class AttendancePageComponent {
 
   saveAttendance(): void {
     alert('Attendance data saved!');
+  }
+  goToReport(id: string): void {
+    this.router.navigate([`/attendanceStaff/${id}`]);
   }
 }

@@ -29,7 +29,7 @@ import { SalaryService } from '../../services/salary.service';
 })
 export class SalarygenarateComponent implements OnInit {
   salaryDetails: any[] = [];
-  displayedColumns: string[] = ['user_Id', 'userName', 'role', 'basicSalary', 'deduction', 'bonus', 'epf', 'etf', 'allowances', 'workingDays', 'netSalary', 'salaryStatus', 'actions'];
+  displayedColumns: string[] = ['user_Id', 'userName', 'role', 'basicSalary', 'deduction', 'bonus', 'epf', 'etf', 'allowances', 'workingDays', 'netSalary', 'salaryStatus', 'actions',];
   salaryForm!: FormGroup;
   selectedUserId!: string;
   isModalOpen = false;
@@ -172,4 +172,6 @@ export class SalarygenarateComponent implements OnInit {
     const control = this.salaryForm.get(controlName);
     return control ? control.invalid && (control.touched || control.dirty) : false;
   }
+
+ 
 }

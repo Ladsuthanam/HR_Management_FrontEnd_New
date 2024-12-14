@@ -1,0 +1,73 @@
+<div class="report-container">
+    <h1>Staff Attendance Report</h1>
+
+    <button routerLink="/attendancePage" class="back-button">
+      <i class="back-icon"></i> Back
+    </button>
+    <div class="filter-container">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="startDate" [value]="startDate"/>
+  
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="endDate" [value]="endDate" />
+  
+      <button (click)="filterReportData()">Show Data</button>
+    </div>
+  
+  
+   
+    <div *ngIf="reportData; else loading">
+      <!-- Attendance Details -->
+      <h2>Attendance Details</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Date</th>
+            <th>In Time</th>
+            <th>Out Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let detail of reportData.attendanceDetails">
+            
+            <td>{{ detail.user_Id }}</td>
+            <td>{{ detail.name }}</td>
+            <td>{{ detail.role }}</td>
+            <td>{{ detail.date }}</td>
+            <td>{{ detail.inTime }}</td>
+            <td>{{ detail.outTime }}</td>
+            <td>{{ detail.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Status Count -->
+      <h2>Status Count</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let status of reportData.statusCount">
+            <td>{{ status.status }}</td>
+            <td>{{ status.count }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Download PDF Button -->
+      <button (click)="downloadPdf()">Download PDF</button>
+    </div>
+  
+    <ng-template #loading>
+      <p>Loading report data...</p>
+    </ng-template>
+  </div>
+  
