@@ -26,7 +26,8 @@ import{MatToolbarModule} from '@angular/material/toolbar';
         MatIconModule,
         MatDialogModule,
         MatMenuModule,
-        MatToolbarModule,        
+        MatToolbarModule, 
+               
     ]
 })
 export class MaterialModule{

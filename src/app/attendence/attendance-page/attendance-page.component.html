@@ -1,11 +1,11 @@
-<div>
+<div class="box">
   <h1>Staff Attendance</h1>
 
   <!-- Tab Selection -->
   <button mat-button (click)="selectTab('staff')">Staff</button>
 
   <!-- Staff Attendance Counts -->
-  <div>
+  <div style="border: 3px solid rgb(18, 90, 123) ;float: inline-start;">
     <p>Present: {{ presentCount }}</p>
     <p>Absent: {{ absentCount }}</p>
     <p>Latecome: {{ latecomeCount }}</p>
@@ -58,7 +58,6 @@
     <tr mat-header-row *matHeaderRowDef="staffDisplayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: staffDisplayedColumns;"></tr>
   </table>
-  
 
   <!-- Save Button -->
   <button mat-button (click)="saveAttendance()">Save Attendance</button>

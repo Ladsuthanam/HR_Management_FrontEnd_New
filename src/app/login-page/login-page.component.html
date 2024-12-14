@@ -4,17 +4,22 @@
         <div class="signin-signup">
           
           <!-- Sign-in Form -->
-          <form  class="sign-in-form">
+          <form  class="sign-in-form" [formGroup]="form" (ngSubmit)="onSubmit()">
             <h2 class="title">Sign in</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Enter Username"  formControlName="username"/>
-            </div>
+              <input 
+                type="text" 
+                placeholder="Enter Username" 
+                formControlName="username"
+                [class.error]="hasDisplayableError('username') && form.controls['username'].hasError('required')"
+              />
+            </div>          
             <div class="input-field">
               <i class="fas fa-lock"></i>
               <input type="password" placeholder="Enter Password" formControlName="password"/>
             </div>
-            <input type="submit" (click)="onLogin()" value="Login" class="btn solid" />
+            <input type="submit" value="Login" class="btn solid" />
             <p class="social-text">Or Sign in with social platforms</p>
             <div class="social-media">
               <a href="#" class="social-icon">

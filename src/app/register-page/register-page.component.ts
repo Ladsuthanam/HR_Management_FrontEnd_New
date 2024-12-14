@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup,FormBuilder,ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup,FormBuilder,ReactiveFormsModule, Validators,ValidatorFn, AbstractControl,ValidationErrors } from '@angular/forms';
 import { MaterialModule } from '../material.model';
 import { Router, RouterModule} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,46 +7,83 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule,MaterialModule,RouterModule],
+  imports: [CommonModule, ReactiveFormsModule,MaterialModule,RouterModule,MaterialModule],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css'
 })
 export class RegisterPageComponent {
   regForm!:FormGroup
-
-  constructor(private builder: FormBuilder ,private snackBar: MatSnackBar,
-    private router:Router
-  ) {
-
-  this.regForm = this.builder.group({
-      name: this.builder.control('', Validators.compose([Validators.required, Validators.minLength(5)])),
-      email: this.builder.control('', [Validators.required, Validators.email]),
-      image: this.builder.control(''),
-      password: this.builder.control('',  [Validators.required, Validators.minLength(6)]),
-      confirmpassword: this.builder.control('', Validators.required)
-    });
-  
+  isSubmited : boolean = false;
+  constructor(private builder: FormBuilder, private toaster: ToastrService, private router: Router,private authserice :AuthService) {
+    // Form group with custom password match validator
+    this.regForm = this.builder.group(
+      {
+        name: this.builder.control('', [Validators.required, Validators.minLength(5)]),
+        email: this.builder.control('', [Validators.required, Validators.email]),
+        image: this.builder.control(''),
+        password: this.builder.control('', [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.pattern(/(?=.*[^a-zA-Z0-9])/)
+        ]),
+        confirmpassword: this.builder.control('', [Validators.required]),
+      },
+      { validators: this.passwordMatchValidator } // Set validator for the whole form group
+    );
   }
+
+  // Password match validator function
+  passwordMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmpassword')?.value;
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  };
+  
 
   onSubmit() {
-    if (this.regForm.invalid) {
-      this.snackBar.open('Please fill all fields correctly!', 'Close', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        panelClass: ['error-snackbar']
+    this.isSubmited = true;
+  
+    if (this.regForm.valid) {
+      const formData = {
+        Username: this.regForm.value.name,
+        Email: this.regForm.value.email,
+        Image: this.regForm.value.image || null,
+        Password: this.regForm.value.password
+      };
+  
+      this.authserice.createSuperAdmin(formData).subscribe({
+        next: (res: any) => {
+          if (res.succeeded) {
+            this.toaster.success('New Super Admin Added');
+            setTimeout(() => {
+              this.regForm.reset();
+              this.isSubmited = false;
+              this.router.navigate(['/login']); // Navigate to login
+            }, 1000);
+          } else {
+            this.toaster.error('Registration Failed', 'This username or email may already exist');
+            this.isSubmited = false;
+          }
+        },
+        error: (err) => {
+          console.log('Error:', err);
+          this.toaster.error('Registration Failed', 'Something went wrong');
+          this.isSubmited = false;
+        }
       });
     } else {
-      // Proceed with form submission logic
-      console.log('Form Submitted:', this.regForm.value);
+      this.toaster.error('Invalid Form', 'Please check all required fields');
+      this.isSubmited = false;
     }
-  }
+  }  
 
-  toggleSignIn(){ 
-    this.router.navigate([`/login`]) 
+  toggleSignIn() {
+    this.router.navigate([`/login`]);
   }
-
 }

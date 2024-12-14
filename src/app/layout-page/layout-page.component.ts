@@ -2,7 +2,7 @@ import { Component,  AfterViewInit, OnInit ,HostListener} from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,6 +37,10 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
 
   newNotificationCount: number = this.notifications.filter(n => !n.isRead).length;
   isNotificationModalOpen: boolean = false;
+
+  constructor(private router:Router){
+
+  }
 
   toggleNotificationModal(): void {
     this.isNotificationModalOpen = !this.isNotificationModalOpen;
@@ -98,6 +102,11 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
     if (!target.closest('.dropdown-usrn')) {
       this.isDropdownOpen = false;
     }
+  }
+
+  gotoBack(){
+
+    this.router.navigateByUrl('/login')
   }
   
 }
