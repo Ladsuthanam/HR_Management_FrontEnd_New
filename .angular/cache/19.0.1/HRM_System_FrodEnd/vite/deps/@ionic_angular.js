@@ -1,19 +1,3 @@
-import "./chunk-H7QBR36Q.js";
-import "./chunk-UPH7H4I5.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  createAnimation,
-  doc,
-  getIonMode,
-  getPlatforms,
-  isPlatform,
-  printIonWarning
-} from "./chunk-5CLJQ7IX.js";
 import {
   iosTransitionAnimation
 } from "./chunk-UWMSXM6I.js";
@@ -40,16 +24,32 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-5PNSUDYY.js";
-import "./chunk-LV5M7SDD.js";
+} from "./chunk-556MZN67.js";
+import "./chunk-H7QBR36Q.js";
+import "./chunk-UPH7H4I5.js";
+import {
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  createAnimation,
+  doc,
+  getIonMode,
+  getPlatforms,
+  isPlatform,
+  printIonWarning
+} from "./chunk-5CLJQ7IX.js";
+import "./chunk-PGGW777L.js";
+import "./chunk-IJQQSWIL.js";
 import {
   MaxValidator,
   MinValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NgControl
-} from "./chunk-G5LU4QSQ.js";
-import "./chunk-6RR6CFS5.js";
+} from "./chunk-SMNJ25JM.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -57,12 +57,11 @@ import {
   LocationStrategy,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-IKHKS422.js";
+} from "./chunk-PUAQK3MF.js";
 import {
   APP_INITIALIZER,
   ApplicationRef,
   Attribute,
-  BehaviorSubject,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -83,21 +82,14 @@ import {
   Optional,
   Output,
   SkipSelf,
-  Subject,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
-  combineLatest,
   createComponent,
-  distinctUntilChanged,
-  filter,
   forwardRef,
-  fromEvent,
   inject,
-  of,
   reflectComponentType,
   setClassMetadata,
-  switchMap,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
   ɵɵProvidersFeature,
@@ -130,7 +122,17 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-XYIUVBTN.js";
+} from "./chunk-4JJG5MWX.js";
+import {
+  BehaviorSubject,
+  Subject,
+  combineLatest,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  of,
+  switchMap
+} from "./chunk-5ZTXZYAG.js";
 import {
   __awaiter,
   __decorate,
