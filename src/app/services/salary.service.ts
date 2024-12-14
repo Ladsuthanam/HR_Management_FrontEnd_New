@@ -9,6 +9,7 @@ export class SalaryService {
 
   private baseUrl = 'http://localhost:5162/api/AccountDetails';
   private workingDaysUrl = 'http://localhost:5162/api/WorkingDays'; 
+  private apiUrl = 'http://localhost:5162/api/Salary'; 
 
   constructor(private http: HttpClient) { }
 
@@ -33,13 +34,37 @@ export class SalaryService {
     return this.http.delete<any>(url, { params });
   }
 
-  addWorkingDays(userId: string, weekdays: number[]): Observable<any> {
-    const url = `${this.workingDaysUrl}/Add_workingDays?UserId=${userId}`;
-    const body = { weekdays: weekdays };
-    return this.http.post<any>(url, body);
+  addWorkingDays(userId: string, payload: any): Observable<any> {
+    return this.http.post(`${this.workingDaysUrl}/Add_workingDays?UserId=${userId}`,payload );
   }
 
   getAllWorkingDays(): Observable<any> {
     return this.http.get(`${this.workingDaysUrl}/Get_All_workingDays`);
   }
+
+  updateWorkingDays(userId: string, payload: any): Observable<any> {
+    return this.http.put<any>(`${this.workingDaysUrl}/Update_wokingDays?userId=${userId}`, payload);
+  }
+  
+
+  getAllSalaries(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/All_Salaries`);
+  }
+
+  addSalary(userId: string, salaryRequest: any): Observable<any> {
+    
+    return this.http.post(`${this.apiUrl}/Add_Salary?UserId=${userId}`, salaryRequest);
+  }
+
+  updateSalary(userId: string, salaryRequest: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/Update_salary?userId=${userId}`, salaryRequest);
+  }
+
+  getSalaryByUserId(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/Get_salary_By_UserId?UserId=${userId}`);
+  }
 }
+
+
+
+

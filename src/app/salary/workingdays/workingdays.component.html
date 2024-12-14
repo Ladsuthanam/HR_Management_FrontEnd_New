@@ -1,0 +1,90 @@
+
+        <main>
+            <div class="container">
+                <!-- Salary Table -->
+                <div class="row mt-4">
+                    <table mat-table [dataSource]="workingDetails" class="mat-elevation-z8">
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="userName">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+                          </ng-container>
+
+                        <!-- ID Column -->
+                        <ng-container matColumnDef="user_Id">
+                            <th mat-header-cell *matHeaderCellDef> ID </th>
+                            <td mat-cell *matCellDef="let element"> {{element.user_Id}} </td>
+                          </ng-container>
+
+                        <!-- Role Column -->
+                        <ng-container matColumnDef="role">
+                            <th mat-header-cell *matHeaderCellDef> Role </th>
+                            <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="weekdays">
+                            <th mat-header-cell *matHeaderCellDef> Working Days </th>
+                            <td mat-cell *matCellDef="let element"> {{element.weekdays}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef> Actions </th>
+                            <td mat-cell *matCellDef="let element">
+                              <button mat-icon-button (click)="openAddWorkingModal(element.userId)">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                              <button mat-icon-button (click)="editUser(element)">
+                                <mat-icon>edit</mat-icon>
+                              </button>
+                            
+                            </td>
+                          </ng-container>
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                      </div>
+                    </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="workingDaysDetailsModel" tabindex="-1"
+            aria-labelledby="workingDaysDetailsModalLabel"   [attr.aria-hidden]="!isModalOpen" [ngClass]="{ show: isModalOpen }"
+            style="display: block;" *ngIf="isModalOpen">
+         <div class="modal-dialog modal-xl">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="workingDaysDetailsModalLabel">Add Working Days Details</h5>
+               <button type="button" class="btn-close" (click)="closeAddWorkingModal()"></button>
+             </div>
+             <div class="modal-body">
+                <form [formGroup]="workingForm" (ngSubmit)="onSubmitWorkingDays()">
+                  <div class="row">
+                    <div class="col-12">
+                      <div *ngFor="let field of workidaysFields" class="mb-3">
+                        <label for="{{ field.controlName }}" class="form-label">{{ field.label }}</label>
+                       
+                        <div *ngIf="isInvalid(field.controlName)" class="text-danger">
+                          <small>{{ field.controlName | uppercase }} is required!</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <div class="row mt-4">
+                    <div class="col-12">
+                      <label class="form-label">Select Working Days</label>
+                      <div *ngFor="let day of workingDays" class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox"
+                               [formControlName]="day.controlName" [id]="day.controlName" />
+                        <label class="form-check-label" for="{{ day.controlName }}">{{ day.label }}</label>
+                      </div>
+                    </div>
+                  </div><div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    

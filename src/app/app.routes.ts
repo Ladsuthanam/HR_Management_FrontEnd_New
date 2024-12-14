@@ -26,6 +26,8 @@ import { StaffCvComponent } from './staff/staff-cv/staff-cv.component';
 import { AdminCvComponent } from './admin-page/admin-cv/admin-cv.component';
 import { LectureCvComponent } from './lectures/lecturer-cv/lecturer-cv.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { WorkingdaysComponent } from './salary/workingdays/workingdays.component';
+import { SalarygenarateComponent } from './salary/salarygenarate/salarygenarate.component';
 
 export const routes: Routes = [
     {
@@ -132,6 +134,16 @@ export const routes: Routes = [
               component:SalaryComponent,
               title:'Salary-Managemet'
 
+            },
+            {
+                path:'workingdays',
+                component:WorkingdaysComponent,
+                title:'Working-Days'
+            },
+            {
+                path:'salaryGenarate',
+                component: SalarygenarateComponent,
+                title:'Salary-Genarate'
             },
             {
                 path:'leavePage',
