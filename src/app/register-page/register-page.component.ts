@@ -51,7 +51,7 @@ export class RegisterPageComponent {
   
     if (this.regForm.valid) {
       const formData = {
-        Username: this.regForm.value.name,
+        name: this.regForm.value.name,
         Email: this.regForm.value.email,
         Image: this.regForm.value.image || null,
         Password: this.regForm.value.password
@@ -67,18 +67,18 @@ export class RegisterPageComponent {
               this.router.navigate(['/login']); // Navigate to login
             }, 1000);
           } else {
-            this.toaster.error('Registration Failed', 'This username or email may already exist');
+            // this.toaster.error('Registration Failed', 'This username or email may already exist');
             this.isSubmited = false;
           }
         },
         error: (err) => {
           console.log('Error:', err);
-          this.toaster.error('Registration Failed', 'Something went wrong');
+          // this.toaster.error('Registration Failed', 'Something went wrong');
           this.isSubmited = false;
         }
       });
     } else {
-      this.toaster.error('Invalid Form', 'Please check all required fields');
+      // this.toaster.error('Invalid Form', 'Please check all required fields');
       this.isSubmited = false;
     }
   }  

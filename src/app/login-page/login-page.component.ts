@@ -1,78 +1,88 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'; 
-import { CommonModule } from '@angular/common';  
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'; 
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login-page',
-  standalone: true,  
-  imports: [CommonModule, FormsModule,ReactiveFormsModule], 
   templateUrl: './login-page.component.html',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule, // Add this to enable reactive forms
+    // other imports
+  ],
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent {
-   form!:FormGroup;
+export class LoginPageComponent implements OnInit {
+  form!: FormGroup;
   isSignUpMode = false;
-  loginAdmin: any = {
-  //   userName: '',
-  //  password: '',
-  };
-  
 
-  constructor(private router: Router,private builder: FormBuilder,private authservice : AuthService ,private toaster: ToastrService){
-  
-  this.form = this.builder.group({
-    username:['',Validators.compose([Validators.required, Validators.minLength(2)])],
-    password:['',Validators.required]
-  });
-}
-  toggleSignUp() {
-    // this.isSignUpMode = true;
-    this.router.navigateByUrl('/regirer');
+  constructor(
+    private router: Router,
+    private builder: FormBuilder,
+    private authService: AuthService,
+    private toaster: ToastrService
+  ) {
+    // Form group initialization
+    this.form = this.builder.group({
+      email: ['', Validators.compose([Validators.required, Validators.email, Validators.minLength(2)])],
+      password: ['', Validators.required]
+    });
+  }
+  token:any;
+  decodeToken:any;
+  ngOnInit(): void {
+    // On initialization, check if the user is already authenticated
+    if (this.authService.isAuthenticated()) {
+
+       this.token = this.authService.getToken()
+     console.log(this.token)
+       this.decodeToken = this.authService.decodeToken(this.token);
+      console.log('Decoded Token:',   this.decodeToken);
+    }
   }
 
-  toggleSignIn() {
-    //this.isSignUpMode = false;
-   }
-
-   onSubmit() {
+  onSubmit() {
     if (this.form.valid) {
       const loginData = this.form.value;
-  
+      
       // Call login API from AuthService
-      this.authservice.loginSuperAdmin(loginData).subscribe({
+      this.authService.loginSuperAdmin(loginData).subscribe({
         next: (res: any) => {
-          if (res.isAuthenticated) {
-            this.toaster.success('Login Successful');
-            this.router.navigate(['/dashboard']); // Navigate to dashboard
+          console.log('Response:', res);  // Log response for debugging
+          if (res && this.decodeToken.isAuthenticated) {
+           // this.toaster.success('Login Successful');
+            this.router.navigate(['/adminPage/dashboard']);
           } else {
-            this.toaster.error('Login Failed', 'Invalid username or password');
+           // this.toaster.error('Login Failed', 'Invalid username or password');
           }
         },
-        error: (err:any) => {
-          console.log('Error:', err);
-          this.toaster.error('Login Failed', 'Something went wrong');
+        error: (err: any) => {
+          console.log('Error:', err);  // Log the error
+         // this.toaster.error('Login Failed', 'Something went wrong');
         }
       });
     } else {
-      this.toaster.error('Invalid Form', 'Please fill in the required fields');
+      // Log the invalid fields
+      for (const control in this.form.controls) {
+        if (this.form.controls[control].invalid) {
+          console.log(`${control} is invalid`);
+        }
+      }
+      //this.toaster.error('Invalid Form', 'Please fill in the required fields');
     }
   }
-  
+  hasDisplayableError(controlName: string): boolean {
+    const control = this.form.get(controlName);
+    return control?.touched && control?.invalid ? true : false;
+  }
+  toggleSignUp() {
+    this.router.navigateByUrl('/register');
+  }
 
-   hasDisplayableError(controlName:string) : Boolean{
-    const control =this.form.get(controlName);
-    return Boolean(control?.invalid) &&
-    (this.isSignUpMode || Boolean(control?.touched) || Boolean(control?.dirty))
-   }
- 
-  // onLogin() {
-  //   if (this.loginAdmin.userName === 'admin' && this.loginAdmin.password === 'admin0') {
-  //     this.router.navigateByUrl('/dashboard'); 
-  //   } else {
-  //     alert("Please enter correct username or password"); 
-  //   }
-  // }
+  toggleSignIn() {
+   
+  }
 }
