@@ -48,7 +48,7 @@
         </div>
         <ul class="nav flex-column mt-2">
           <li class="nav-item">
-            <a routerLink="/adminPage/dashboard" routerLinkActive="active" class="nav-link active" aria-current="page" href="#">
+            <a routerLink="/dashboard" routerLinkActive="active" class="nav-link active" aria-current="page" href="#">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                 class="feather feather-home align-text-bottom" aria-hidden="true">
@@ -58,32 +58,32 @@
               Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a routerLink="/adminPage/admin" class="nav-link" href="#">
+          <li class="nav-item"  *ngIf="userRole !== 'Admin'">
+            <a routerLink="/admin" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/material/24/user--v1.png" alt="user--v1" />
               Admin
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/staff" routerLinkActive="active" class="nav-link" href="#">
+            <a routerLink="/staff" routerLinkActive="active" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
               Staffs
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/employees" routerLinkActive="active" class="nav-link" href="#">
+            <a routerLink="/employees" routerLinkActive="active" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
               Employees
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/students" routerLinkActive="active" class="nav-link">
+            <a routerLink="/students" routerLinkActive="active" class="nav-link">
               <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
               Students
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/lectures" class="nav-link" routerLinkActive="active" href="#">
+            <a routerLink="/lectures" class="nav-link" routerLinkActive="active" href="#">
               <img width="24" height="24" src="https://img.icons8.com/plumpy/24/arrow.png" alt="arrow" />
               Lecturers
             </a>
@@ -96,33 +96,33 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" routerLinkActive="active" routerLink="/adminPage/leavePage">
+            <a class="nav-link" routerLinkActive="active" routerLink="/leavePage">
               <img width="23" height="22" src="https://img.icons8.com/ink/48/leave.png" alt="leave" />
 
               Leave Management
             </a>
           </li>
           <li class="nav-item">
-            <a routerLinkActive="active" class="nav-link" href="#" routerLink="/adminPage/todo">
+            <a routerLinkActive="active" class="nav-link" href="#" routerLink="/todo">
               <img width="24" height="24" src="https://img.icons8.com/ink/48/task.png" alt="task" />
               Task Management
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/salary" routerLinkActive="active" class="nav-link" href="#">
+            <a routerLink="/salary" routerLinkActive="active" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/receive-change.png"
                 alt="receive-change" />
               Salary Management
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/attendancePage" routerLinkActive="active" class="nav-link" href="#">
+            <a routerLink="/attendancePage" routerLinkActive="active" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/color/48/checked-user-male--v1.png" alt="checked-user-male--v1"/>
               Attendance Management
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="/adminPage/eventPage" routerLinkActive="active" class="nav-link" href="#">
+            <a routerLink="/eventPage" routerLinkActive="active" class="nav-link" href="#">
               <img width="24" height="24" src="https://img.icons8.com/ios-filled/50/event-accepted-tentatively.png" alt="event-accepted-tentatively"/>
               Event Management
             </a>

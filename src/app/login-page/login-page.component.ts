@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { Token } from '@angular/compiler';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login-page',
@@ -34,14 +36,7 @@ export class LoginPageComponent implements OnInit {
   token:any;
   decodeToken:any;
   ngOnInit(): void {
-    // On initialization, check if the user is already authenticated
-    if (this.authService.isAuthenticated()) {
-
-       this.token = this.authService.getToken()
-     console.log(this.token)
-       this.decodeToken = this.authService.decodeToken(this.token);
-      console.log('Decoded Token:',   this.decodeToken);
-    }
+    
   }
 
   onSubmit() {
@@ -51,17 +46,21 @@ export class LoginPageComponent implements OnInit {
       // Call login API from AuthService
       this.authService.loginSuperAdmin(loginData).subscribe({
         next: (res: any) => {
-          console.log('Response:', res);  // Log response for debugging
-          if (res && this.decodeToken.isAuthenticated) {
-           // this.toaster.success('Login Successful');
-            this.router.navigate(['/adminPage/dashboard']);
+          this.token = this.authService.getToken()
+          console.log(this.token)
+            this.decodeToken = this.authService.decodeToken(this.token);
+           console.log('Decoded Token:',   this.decodeToken);
+
+          if (this.decodeToken.Role==="SuperAdmin") {
+            this.toaster.success('Login Success');
+ 
+          this.router.navigate(['/dashboard']);
+         } else if(this.decodeToken.Role==="Admin")  {
+           this.toaster.error('Login Failed');
+           this.router.navigate(['/dashboard']);
           } else {
-           // this.toaster.error('Login Failed', 'Invalid username or password');
+
           }
-        },
-        error: (err: any) => {
-          console.log('Error:', err);  // Log the error
-         // this.toaster.error('Login Failed', 'Something went wrong');
         }
       });
     } else {
@@ -73,6 +72,61 @@ export class LoginPageComponent implements OnInit {
       }
       //this.toaster.error('Invalid Form', 'Please fill in the required fields');
     }
+    if (this.form.valid) {
+      const loginData = this.form.value;
+      
+      // Call login API from AuthService
+      this.authService.logInUser(loginData).subscribe({
+        next: (res: any) => {
+          this.token = this.authService.getToken()
+          console.log(this.token)
+            this.decodeToken = this.authService.decodeToken(this.token);
+           console.log('Decoded Token:',   this.decodeToken);
+
+          if (this.decodeToken.Role==="SuperAdmin") {
+            this.toaster.success('Login Success');
+ 
+          this.router.navigate(['/dashboard']);
+         } 
+        }
+      });
+    } if (this.form.valid) {
+      const loginData = this.form.value;
+      
+      // Call login API from AuthService
+      this.authService.logInUser(loginData).subscribe({
+        next: (res: any) => {
+          this.token = this.authService.getToken()
+          console.log(this.token)
+            this.decodeToken = this.authService.decodeToken(this.token);
+           console.log('Decoded Token:',   this.decodeToken);
+
+          if (this.decodeToken.Role==="Admin") {
+            this.toaster.success('Login Success');
+ 
+          this.router.navigate(['/dashboard']);
+           } else {
+
+          }
+        },
+        error: (err: any) => {
+          console.log('Error:', err);  // Log the error
+        
+         if(err.status==500){
+          // this.toaster.error('Invalid Username or Password');
+        }
+        }
+      });
+    } else {
+      // Log the invalid fields
+      for (const control in this.form.controls) {
+        if (this.form.controls[control].invalid) {
+          console.log(`${control} is invalid`);
+        }
+      }
+      this.toaster.error('Invalid Form', 'Please fill in the required fields');
+    }
+
   }
   hasDisplayableError(controlName: string): boolean {
     const control = this.form.get(controlName);

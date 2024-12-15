@@ -15,7 +15,7 @@
           <main>
             <h1 class="h2 my-4">Dashboard</h1>
             <div class="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-4 row-stats">
-              <div class="col">
+              <div class="col"  *ngIf="userRole !== 'Admin'">
                 <a href="#" class="h-primary-outline">
                   <div class="card shadow-sm">
                     <div class="card-body">

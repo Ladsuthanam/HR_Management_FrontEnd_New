@@ -3,6 +3,7 @@ import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { Chart,registerables } from 'chart.js';
+import { AuthService } from '../services/auth.service';
 Chart.register(...registerables)
 @Component({
   selector: 'app-dashboard-page',
@@ -23,8 +24,11 @@ export class DashboardPageComponent {
   currentTime: string = '';
   currentMonthName: string = '';
   events: { date: string, title: string, description: string }[] = [];  
+  decodedToken: any;
+  userRole: any;
+  token: any;
 
-  constructor() {
+  constructor(private authService:AuthService) {
     
   }
 
@@ -71,8 +75,12 @@ export class DashboardPageComponent {
     this.updateCalendar();
     this.updateTime();
     setInterval(() => this.updateTime(), 1000);
+    this.token = this.authService.getToken()
+    console.log(this.token)
+      this.decodedToken = this.authService.decodeToken(this.token);
+     console.log('Decoded Token:',   this.decodedToken);
+     this.userRole = this.decodedToken.Role;
 
-    
   }
 
   showSidebar(): void {

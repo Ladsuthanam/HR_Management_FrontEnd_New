@@ -125,11 +125,13 @@ export class UserService {
 
    private readonly ApibaseUrl = 'http://localhost:5162/api/UserAttendance';
   // Fetch attendance report
-  getAttendanceReport(userId: string): Observable<any> {
-    return this.http.get(`${this.ApibaseUrl}/Genarete_Report?userId=${userId}`);
+  getAttendanceReport(userId:string): Observable<any> {
+    return this.http.get(`${this.ApibaseUrl}/Genarete_Report?userId=${userId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
    // New method to get filtered attendance report
-   getFilteredAttendanceReport(userId: string, startDate: string, endDate: string): Observable<any> {
+   getFilteredAttendanceReport(userId:string,startDate:string,endDate:string): Observable<any> {
     const params = {
       userId: userId,
       startDate: startDate,
@@ -137,7 +139,9 @@ export class UserService {
     };
 
     // Make a GET request with query parameters
-    return this.http.get<any>(`${this.ApibaseUrl}/Genarete_Report?userId= ${userId}`);
+    return this.http.get<any>(`${this.ApibaseUrl}/Genarete_Report?userId= ${userId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
   }
 
 
