@@ -8,7 +8,8 @@ import {jwtDecode} from 'jwt-decode';
 })
 export class AuthService {
 
-  ApiUrl = environment.apiUrl + '/api/SuperAdmin'; // Environment-based API URL
+  ApiUrl = environment.apiUrl + '/api/SuperAdmin';
+  userApi = environment.apiUrl +'/api/userLogIn'; 
 
   constructor(private http: HttpClient) { }
 
@@ -18,14 +19,40 @@ export class AuthService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
+logInUser(data:{email:string;  password: string}){
+  return this.http.post<any>(`${this.userApi}/LogIn_User`, data,{
+    headers: new HttpHeaders().set('Content-Type', 'application/json')
+  }).pipe(
+    tap((res: any) => {
+      // console.log('Response from login:', res);
 
+      if (!res.token) {
+        console.error('Login failed: No token received');
+        return;
+      }
+
+      // Decode and store token
+      const decodedToken = this.decodeToken(res.token);
+      if (decodedToken) {
+        localStorage.setItem('authToken', res.token);
+        this.storeUserData(decodedToken);
+      } else {
+        console.error('Failed to decode token');
+      }
+    }),
+    catchError((error) => {
+      console.error('Login error:', error);
+      return throwError(() => error);
+    })
+  )
+}
   // Super Admin login
   loginSuperAdmin(data: { email: string; password: string }) {
     return this.http.post<any>(`${this.ApiUrl}/LogIn_Sup_Admin`, data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     }).pipe(
       tap((res: any) => {
-        console.log('Response from login:', res);
+        // console.log('Response from login:', res);
 
         if (!res.token) {
           console.error('Login failed: No token received');
@@ -59,8 +86,8 @@ export class AuthService {
   decodeToken(token: string): any {
     try {
       const decoded = jwtDecode(token);
-      console.log(decoded)
-      alert("work")
+      // console.log(decoded)
+      // alert("work")
       return decoded;
     } catch (error) {
       console.error('Invalid token:', error);

@@ -33,6 +33,7 @@ export class StaffAttendanceReportComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
+    
     if (this.userId) {
       this.fetchReportData(this.userId);
     }
@@ -84,10 +85,10 @@ export class StaffAttendanceReportComponent implements OnInit {
         .subscribe(
           (data) => {
             console.log('Filtered Report Data:', data);
-            if (data.attendanceDetails.length === 0 && data.statusCount.length === 0) {
-              alert('No data found for the selected dates.');
+            if (data.attendanceDetails && data.statusCount) {
+              this.reportData = data;
             }
-            this.reportData = data;
+           
           },
           (error) => {
             console.error('Error fetching filtered report data:', error);

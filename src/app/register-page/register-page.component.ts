@@ -18,7 +18,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class RegisterPageComponent {
   regForm!:FormGroup
-  isSubmited : boolean = false;
+  isSubmited : boolean = true;
   constructor(private builder: FormBuilder, private toaster: ToastrService, private router: Router,private authserice :AuthService) {
     // Form group with custom password match validator
     this.regForm = this.builder.group(
@@ -63,22 +63,21 @@ export class RegisterPageComponent {
             this.toaster.success('New Super Admin Added');
             setTimeout(() => {
               this.regForm.reset();
-              this.isSubmited = false;
+              // this.isSubmited = false;
               this.router.navigate(['/login']); // Navigate to login
-            }, 1000);
+            });
           } else {
-            // this.toaster.error('Registration Failed', 'This username or email may already exist');
-            this.isSubmited = false;
+          
           }
         },
         error: (err) => {
           console.log('Error:', err);
-          // this.toaster.error('Registration Failed', 'Something went wrong');
+          this.toaster.error('Registration Failed', 'Something went wrong');
           this.isSubmited = false;
         }
       });
     } else {
-      // this.toaster.error('Invalid Form', 'Please check all required fields');
+     this.toaster.error('Invalid Form', 'Please check all required fields');
       this.isSubmited = false;
     }
   }  

@@ -41,7 +41,7 @@ export const routes: Routes = [
         component: LoginPageComponent
     },
     {
-        path:'regirer',
+        path:'register',
         component:RegisterPageComponent,
         title:'RegisterPage'
 
