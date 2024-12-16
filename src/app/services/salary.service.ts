@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalaryService {
 
-  private baseUrl = 'http://localhost:5162/api/AccountDetails';
-  private workingDaysUrl = 'http://localhost:5162/api/WorkingDays'; 
-  private apiUrl = 'http://localhost:5162/api/Salary'; 
+  private baseUrl = environment.apiUrl + 'AccountDetails';
+  private workingDaysUrl = environment.apiUrl + 'WorkingDays'; 
+  private apiUrl = environment.apiUrl +'Salary'; 
 
   constructor(private http: HttpClient) { }
 

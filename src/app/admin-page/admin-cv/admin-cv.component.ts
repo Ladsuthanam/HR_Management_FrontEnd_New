@@ -195,6 +195,7 @@ export class AdminCvComponent implements OnInit {
       (responce) =>{
         this.address = responce;
         console.log('Address Data:', this.address);
+      
       },
       (error) =>{
         console.error('Error fetching Address Data:', error)

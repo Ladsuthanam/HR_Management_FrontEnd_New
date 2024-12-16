@@ -16,6 +16,15 @@ import {
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
 } from "./chunk-2TYK2BCW.js";
+import {
+  ActivatedRoute,
+  ChildrenOutletContexts,
+  NavigationStart,
+  PRIMARY_OUTLET,
+  Router,
+  RouterLink,
+  UrlSerializer
+} from "./chunk-556MZN67.js";
 import "./chunk-H7QBR36Q.js";
 import "./chunk-UPH7H4I5.js";
 import {
@@ -32,15 +41,6 @@ import {
   isPlatform,
   printIonWarning
 } from "./chunk-5CLJQ7IX.js";
-import {
-  ActivatedRoute,
-  ChildrenOutletContexts,
-  NavigationStart,
-  PRIMARY_OUTLET,
-  Router,
-  RouterLink,
-  UrlSerializer
-} from "./chunk-556MZN67.js";
 import "./chunk-PGGW777L.js";
 import "./chunk-IJQQSWIL.js";
 import {

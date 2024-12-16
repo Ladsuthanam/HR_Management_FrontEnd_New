@@ -8,8 +8,8 @@ import {jwtDecode} from 'jwt-decode';
 })
 export class AuthService {
 
-  ApiUrl = environment.apiUrl + '/api/SuperAdmin';
-  userApi = environment.apiUrl +'/api/userLogIn'; 
+  ApiUrl = environment.apiUrl + 'SuperAdmin';
+  userApi = environment.apiUrl +'userLogIn'; 
 
   constructor(private http: HttpClient) { }
 

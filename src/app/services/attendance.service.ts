@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // Define the UserAttendance model (optional but useful for type safety)
 export interface UserAttendance {
@@ -26,7 +27,9 @@ export enum Status {
   providedIn: 'root'
 })
 export class AttendanceService {
-  private baseUrl: string = 'http://localhost:5162/api/UserAttendance';
+  private baseUrl: string = environment.apiUrl + 'UserAttendance'
+  
+
 
   constructor(private http: HttpClient) { }
   
@@ -40,5 +43,33 @@ export class AttendanceService {
   getAllUserAttendance(): Observable<UserAttendance[]> {
     const url = `${this.baseUrl}/Get_All_User_Attendance`;
     return this.http.get<UserAttendance[]>(url);
+  }
+
+
+  getAttendanceReport(userId:string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/Genarete_Report?userId=${userId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+   // New method to get filtered attendance report
+   getFilteredAttendanceReport(userId:string,startDate:string,endDate:string): Observable<any> {
+    const params = {
+      userId: userId,
+      startDate: startDate,
+      endDate: endDate
+    };
+
+    // Make a GET request with query parameters
+    return this.http.get<any>(`${this.baseUrl}/Genarete_Report?userId= ${userId}`, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json')
+    });
+  }
+
+
+  // Download PDF
+  downloadPdf(userId: string): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/Genarete_Report?userId=${userId}`, {
+      responseType: 'blob',
+    });
   }
 }

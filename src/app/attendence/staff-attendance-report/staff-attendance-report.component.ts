@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { DatePipe } from '@angular/common';
+import { AttendanceService } from '../../services/attendance.service';
 
 @Component({
   selector: 'app-staff-attendance-report',
@@ -23,7 +24,7 @@ export class StaffAttendanceReportComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
+    private attendanceService: AttendanceService,
     private datePipe: DatePipe 
   ) {
 
@@ -40,7 +41,7 @@ export class StaffAttendanceReportComponent implements OnInit {
   }
 
   fetchReportData(userId: string): void {
-    this.userService.getAttendanceReport(userId).subscribe(
+    this.attendanceService.getAttendanceReport(userId).subscribe(
       (data) => {
         console.log('Report Data:', data);
         this.reportData = {
@@ -80,7 +81,7 @@ export class StaffAttendanceReportComponent implements OnInit {
       const formattedStartDate = this.formatDate(startDateObj);
       const formattedEndDate = this.formatDate(endDateObj);
   
-      this.userService
+      this.attendanceService
         .getFilteredAttendanceReport(this.userId, formattedStartDate, formattedEndDate)
         .subscribe(
           (data) => {
@@ -111,7 +112,7 @@ export class StaffAttendanceReportComponent implements OnInit {
   
   downloadPdf(): void {
     this.isDownloading = true; // Set loading state to true
-    this.userService.downloadPdf(this.userId).subscribe(
+    this.attendanceService.downloadPdf(this.userId).subscribe(
       (response) => {
         const blob = new Blob([response], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);

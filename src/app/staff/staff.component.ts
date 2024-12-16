@@ -82,7 +82,7 @@ export class StaffComponent {
     });
   }
   goToStaffCv(id: number): void {
-    this.router.navigate([`/student-cv/${id}`]);
+    this.router.navigate([`/staff-cv/${id}`]);
   }
   ngOnInit(): void {
 

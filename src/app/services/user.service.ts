@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private baseUrl = 'http://localhost:5162/api/User';
+  private baseUrl = environment.apiUrl +'User';
 
 
   constructor(private http: HttpClient) { }
@@ -123,34 +124,8 @@ export class UserService {
     };
   }
 
-   private readonly ApibaseUrl = 'http://localhost:5162/api/UserAttendance';
-  // Fetch attendance report
-  getAttendanceReport(userId:string): Observable<any> {
-    return this.http.get(`${this.ApibaseUrl}/Genarete_Report?userId=${userId}`, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-   // New method to get filtered attendance report
-   getFilteredAttendanceReport(userId:string,startDate:string,endDate:string): Observable<any> {
-    const params = {
-      userId: userId,
-      startDate: startDate,
-      endDate: endDate
-    };
 
-    // Make a GET request with query parameters
-    return this.http.get<any>(`${this.ApibaseUrl}/Genarete_Report?userId= ${userId}`, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
-    });
-  }
-
-
-  // Download PDF
-  downloadPdf(userId: string): Observable<Blob> {
-    return this.http.get(`${this.ApibaseUrl}/Genarete_Report?userId=${userId}`, {
-      responseType: 'blob',
-    });
-  }
+ 
 
   getLoggedInUser(){
     
