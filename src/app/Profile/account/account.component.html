@@ -1,0 +1,19 @@
+<div class="account-container">
+    <h2>Edit Profile</h2>
+    <form (ngSubmit)="saveDetails()">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" [(ngModel)]="name" name="name" required />
+      </div>
+      <div>
+        <label for="address">Address</label>
+        <input id="address" [(ngModel)]="address" name="address" required />
+      </div>
+      <div>
+        <label for="profilePicture">Profile Picture</label>
+        <input id="profilePicture" type="file" (change)="onFileSelected($event)" />
+      </div>
+      <button type="submit">Save</button>
+    </form>
+  </div>
+  

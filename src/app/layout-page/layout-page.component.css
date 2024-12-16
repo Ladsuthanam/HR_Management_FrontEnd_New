@@ -35,58 +35,14 @@ header {
 mat-icon {
   font-size: 20px;
 }
-
-/* Notification Icon */
-ion-icon[name="notifications-outline"] {
-  font-size: 1.85rem;
-  color: var(--gray-100);
-}
-
-/* Dropdown css */
 .dropdown-wrapper {
   position: relative;
 }
 
 .dropdown-toggle {
-  display: none; /* Hide the checkbox */
+  display: none;
 }
 
-
-
-.dropdown-label {
-  height: 2rem;
-  width: 2rem;
-  display: block;
-  background-color: white;
-  cursor: pointer;
-  border-radius: 50%;
-  background-image: url("https://d39qlo6vcf2ui2.cloudfront.net/codepen/profile-drop-down/pexels-pixabay-415829.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 6rem;
-  left: -6rem;
-  padding: 1rem 0rem;
-  color: var(--gray-100);
-  background-color: rgb(16, 14, 14);
-  border-radius: 5px;
-  color: wheat;
-}
-
-.upper-triangle {
-  position: absolute;
-  right: 30%;
-  top: -0.75rem;
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent; /* Left border */
-  border-right: 12px solid transparent; /* Right border */
-  border-bottom: 12px solid var(--gray-900); /* Bottom border */
-}
 
 /* Toogle dropdown menu */
 .dropdown-menu--display {
@@ -128,67 +84,6 @@ ion-icon[name="notifications-outline"] {
   font-size: 1rem;
 }
 
-.notification-wrapper {
-  position: relative;
-  cursor: pointer;
-}
-
-.notification-count {
-  position: absolute;
-  top: -5px;
-  right: -10px;
-  background-color: red;
-  color: white;
-  font-size: 0.8rem;
-  border-radius: 50%;
-  padding: 0.2rem 0.5rem;
-  font-weight: bold;
-}
-
-.notification-modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 25%;
-  height: 100%;
-  background-color: rgb(16, 14, 14);
-  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-}
-
-.notification-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem;
-  background-color: black;
-  color: rgb(255, 255, 255);
-  align-items: center;
-}
-
-.notification-content {
-  padding: 1rem;
-  overflow-y: auto;
-  background-color: #058ea7;
-}
-
-.notification-item {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.notification-item button {
-  background-color: var(--emerald-500);
-  color: white;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 
 /* For large screens (PCs and large laptops, 1200px and above) */
 @media (min-width: 1200px) {
@@ -211,7 +106,6 @@ ion-icon[name="notifications-outline"] {
   }
 }
 
-/* For medium screens (laptops and tablets, 768px to 1199px) */
 @media (max-width: 1199px) and (min-width: 768px) {
   header {
     padding: 1rem 1rem;
@@ -230,13 +124,8 @@ ion-icon[name="notifications-outline"] {
   .dropdown-list {
     width: 13rem;
   }
-
-  ion-icon[name="notifications-outline"] {
-    font-size: 1.75rem;
-  }
 }
 
-/* For small screens (phones, less than 768px) */
 @media (max-width: 767px) {
   header {
     padding: 1rem 1rem;
@@ -254,8 +143,8 @@ ion-icon[name="notifications-outline"] {
   .dropdown-menu {
     top: 4rem;
     left: 0;
-    width: 100%; /* Dropdown takes full width */
-    border-radius: 0; /* Remove border radius for mobile dropdown */
+    width: 100%; 
+    border-radius: 0; 
   }
 
   .dropdown-list {

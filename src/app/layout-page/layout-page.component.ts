@@ -8,15 +8,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../services/auth.service';
 
-
-interface Notification {
-  id: number;
-  message: string;
-  isRead: boolean;
-}
-
-
-
 @Component({
   selector: 'app-layout-page',
   templateUrl: './layout-page.component.html',
@@ -32,44 +23,11 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
   decodedToken: any;
   userRole: any;
   token: any;
-  
-  notifications: Notification[] = [
-    { id: 1, message: 'New leave request submitted', isRead: false },
-    { id: 2, message: 'Meeting scheduled for tomorrow', isRead: false },
-    { id: 3, message: 'Update your profile information', isRead: false }
-  ];
-
-  newNotificationCount: number = this.notifications.filter(n => !n.isRead).length;
-  isNotificationModalOpen: boolean = false;
 
   constructor(private router:Router, private authService:AuthService){
 
   }
 
-  toggleNotificationModal(): void {
-    this.isNotificationModalOpen = !this.isNotificationModalOpen;
-    this.markNotificationsAsRead();
-  }
-
-  closeNotificationModal(): void {
-    this.isNotificationModalOpen = false;
-  }
-
-  markNotificationsAsRead(): void {
-    this.notifications.forEach(notification => (notification.isRead = true));
-    this.updateNotificationCount();
-  }
-
-  updateNotificationCount(): void {
-    this.newNotificationCount = this.notifications.filter(n => !n.isRead).length;
-  }
-
-  replyToNotification(notificationId: number): void {
-    const notification = this.notifications.find(n => n.id === notificationId);
-    if (notification) {
-      alert(`Replying to: "${notification.message}"`);
-    }
-  }
 
    ngOnInit(): void {
     // Initialization logic that doesn't depend on the DOM
@@ -77,7 +35,12 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
     console.log(this.token)
       this.decodedToken = this.authService.decodeToken(this.token);
      console.log('Decoded Token:',   this.decodedToken);
-     this.userRole = this.decodedToken.Role;
+     this.userRole = this.decodedToken.Role;  
+   
+    
+  }
+  navigateToAccount(): void {
+    this.router.navigate(['/account']);
   }
 
   ngAfterViewInit(): void {
@@ -99,8 +62,8 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
     }
   }
   toggleDropdown(event: MouseEvent): void {
-    event.preventDefault(); // Prevent default anchor behavior
-    this.isDropdownOpen = !this.isDropdownOpen; // Toggle dropdown state
+    event.preventDefault();
+    this.isDropdownOpen = !this.isDropdownOpen; 
   }
 
   @HostListener('document:click', ['$event'])
@@ -112,7 +75,9 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
       this.isDropdownOpen = false;
     }
   }
-
+  logoutsPro(): void {
+    this.router.navigate(['/login']);
+  }
   gotoBack(){
 
     this.router.navigateByUrl('/login')

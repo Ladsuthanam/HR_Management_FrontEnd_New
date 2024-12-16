@@ -8,6 +8,26 @@ import {jwtDecode} from 'jwt-decode';
 })
 export class AuthService {
 
+  private userProfile = {
+    name: 'John Doe',
+    address: '123 Main St',
+    profileImage: 'https://th.bing.com/th?id=OIP.jryuUgIHWL-1FVD2ww8oWgHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2'
+  };
+
+  getUserProfileImage(): string {
+    return this.userProfile.profileImage;
+  }
+  getUserDetails(): any {
+    return this.userProfile;
+  }
+
+  updateUserProfile(details: any): void {
+    this.userProfile = { ...this.userProfile, ...details };
+  }
+  logoutsPro(): void {
+    console.log('User logged out');
+  }
+
   ApiUrl = environment.apiUrl + 'SuperAdmin';
   userApi = environment.apiUrl +'userLogIn'; 
 
@@ -19,7 +39,7 @@ export class AuthService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
-logInUser(data:{email:string;  password: string}){
+ logInUser(data:{email:string;  password: string}){
   return this.http.post<any>(`${this.userApi}/LogIn_User`, data,{
     headers: new HttpHeaders().set('Content-Type', 'application/json')
   }).pipe(
@@ -45,7 +65,7 @@ logInUser(data:{email:string;  password: string}){
       return throwError(() => error);
     })
   )
-}
+ }
   // Super Admin login
   loginSuperAdmin(data: { email: string; password: string }) {
     return this.http.post<any>(`${this.ApiUrl}/LogIn_Sup_Admin`, data, {
@@ -115,8 +135,12 @@ logInUser(data:{email:string;  password: string}){
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
-}
-function jwt_decode(token: string): any {
+ }
+   function jwt_decode(token: string): any {
   throw new Error('Function not implemented.');
-}
+
+   }
+ 
+   
+
 
