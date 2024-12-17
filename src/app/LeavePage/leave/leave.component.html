@@ -58,7 +58,7 @@
                               <!-- Leave Type -->
                               <div class="form-group">
                                 <label for="leaveType">Leave Type</label>
-                                <input type="text" id="leaveType" name="leaveType" class="form-control" [(ngModel)]="leaveData.leaveType" placeholder="Enter Leave Type" required />
+                                <input type="text" id="leaveType" name="name" class="form-control" [(ngModel)]="leaveData.name" placeholder="Enter Leave Type" required />
                               
                               </div>
                               <!-- Count Per Year -->
@@ -77,7 +77,7 @@
                               <!-- Buttons -->
                               <div class="form-group text-center">
                                 <button type="submit" class="btn btn-success m-2" [disabled]="!leaveForm.valid">Submit</button>
-                                <button type="reset" class="btn btn-secondary m-2" (click)="onReset()">Reset</button>
+                     
                               </div>
                             </form>
                           </div>
@@ -101,10 +101,11 @@
                       <tbody>
                         <tr *ngFor="let leave of leaveTypes; let i = index">
                           <td>{{ i + 1 }}</td>
-                          <td>{{ leave.leaveType }}</td>
+                          <td>{{ leave.name }}</td>
                           <td>{{ leave.countPerYear }}</td>
                           <td>
-                            <button class="btn btn-danger btn-sm" (click)="deleteLeaveType(i)">Delete</button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteLeaveType(leave.id)">Delete</button>
+
                           </td>
                         </tr>
                         <tr *ngIf="leaveTypes.length === 0">
@@ -128,24 +129,32 @@
                             <tr>
                               <th>User ID</th>
                               <th>First Name</th>
+                              <th>Role</th>
                               <th>Reason</th>
                               <th>Leave Type</th>
                               <th>Leave Date</th>
                               <th>Rejoin Date</th>
+                              <th>Leave Count</th>
+                              <th> Available Leave Count</th>
+                              <th>status</th>
                               <th>Action</th>
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let leave of userLeaves">
-                              <td>{{ leave.userId }}</td>
-                              <td>{{ leave.firstName }}</td>
+                            <tr *ngFor="let leave of leaveRequests">
+                              <td>{{ leave.user_Id }}</td>
+                              <td>{{ leave.userName }}</td>
+                              <td>{{ leave.userRole}}</td>
                               <td>{{ leave.reason }}</td>
-                              <td>{{ leave.leaveType }}</td>
+                              <td>{{ leave.leaveTypeName }}</td>
                               <td>{{ leave.leaveDate | date }}</td>
                               <td>{{ leave.reJoinDate | date }}</td>
+                              <td>{{ leave.leaveCount}}</td>
+                              <td>{{leave.availableLeaves}}</td>
+                              <td>{{ leave.status }}</td>
                               <td>
-                                <span class="badge bg-primary">{{ leave.status }}</span>
-                                <button class="btn btn-outline-secondary btn-sm ms-2" (click)="editLeave(leave)">
+                               
+                                <button class="btn btn-outline-secondary btn-sm ms-2" >
                                   <img src="https://img.icons8.com/material-outlined/24/edit--v1.png" alt="Edit" />
                                 </button>
                               </td>

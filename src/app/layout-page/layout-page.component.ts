@@ -23,6 +23,7 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
   decodedToken: any;
   userRole: any;
   token: any;
+  imageUrl: string | undefined;
 
   constructor(private router:Router, private authService:AuthService){
 
@@ -36,8 +37,13 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
       this.decodedToken = this.authService.decodeToken(this.token);
      console.log('Decoded Token:',   this.decodedToken);
      this.userRole = this.decodedToken.Role;  
+     this.imageUrl = this.decodedToken.imageUrl;  
    
-    
+    if (!this.imageUrl) {
+      this.imageUrl = 'assets/images/default-image.png'; // Path to a default image
+    }
+   
+  
   }
   navigateToAccount(): void {
     this.router.navigate(['/account']);
@@ -82,6 +88,7 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
 
     this.router.navigateByUrl('/login')
   }
+  
   
 }
   

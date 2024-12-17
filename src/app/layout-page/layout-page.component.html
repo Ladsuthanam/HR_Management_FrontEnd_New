@@ -1,6 +1,8 @@
 <header class="p-4 mb-4 shadow-sm fixed">
   <nav class="navs">
-    
+    <div class="profile.Image" *ngIf="imageUrl">
+      <img width="24" height="24" [src]="imageUrl" alt="user-profile-image" />
+    </div>
   </nav>
 </header>
 <div class="container-fluid d-flex justify-content-between">
