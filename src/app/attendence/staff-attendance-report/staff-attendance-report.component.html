@@ -1,9 +1,14 @@
+<main>
 <div class="report-container">
     <h1>Staff Attendance Report</h1>
-
+ <div class="d-flex">
     <button routerLink="/attendancePage" class="back-button">
       <i class="back-icon"></i> Back
     </button>
+    <button (click)="gotoDaybasePage()">
+      Report Of Day Base =>
+    </button>
+</div>
     <div class="filter-container">
       <label for="startDate">Start Date:</label>
       <input type="date" id="startDate" [(ngModel)]="startDate" [value]="startDate"/>
@@ -74,4 +79,4 @@
       <p>Loading report data...</p>
     </ng-template>
   </div>
-  
+</main>

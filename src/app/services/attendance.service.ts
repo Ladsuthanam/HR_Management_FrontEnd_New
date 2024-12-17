@@ -72,4 +72,17 @@ export class AttendanceService {
       responseType: 'blob',
     });
   }
+
+  private ApibaseUrl = 'http://localhost:5162/api/UserAttendance/Get_User_Attendance'; 
+
+  getAttendanceByUserAndDate(userId: string, date: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.ApibaseUrl}?userId=${userId}&date=${date}`);
+  }
+
+  getReport(userId: string): Observable<any> {
+    const url = `http://localhost:5162/api/UserAttendance/Genarete_Report?userId=${userId}`;
+    return this.http.get<any>(url);
+  }
+  
+  
 }
