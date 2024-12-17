@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
@@ -25,7 +25,8 @@ export class StaffAttendanceReportComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private attendanceService: AttendanceService,
-    private datePipe: DatePipe 
+    private datePipe: DatePipe ,
+    private router: Router
   ) {
 
 
@@ -131,6 +132,8 @@ export class StaffAttendanceReportComponent implements OnInit {
     );
   }
   
-
+  gotoDaybasePage(){
+    this.router.navigateByUrl('/dayBaseAttendance/:id');
+  }
 
 }

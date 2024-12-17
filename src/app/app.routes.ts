@@ -29,6 +29,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { WorkingdaysComponent } from './salary/workingdays/workingdays.component';
 import { SalarygenarateComponent } from './salary/salarygenarate/salarygenarate.component';
 import { StaffAttendanceReportComponent } from './attendence/staff-attendance-report/staff-attendance-report.component';
+import { DayBaseAttendanceComponent } from './day-base-attendance/day-base-attendance.component';
 
 export const routes: Routes = [
     {
@@ -174,5 +175,10 @@ export const routes: Routes = [
         path:'attendanceStaff/:id',
         component:StaffAttendanceReportComponent,
         title:'SaffAttendance'
+    },
+    {
+        path:'dayBaseAttendance/:id',
+        component:DayBaseAttendanceComponent,
+        title:'DayBaseAttendance'
     }
 ];
