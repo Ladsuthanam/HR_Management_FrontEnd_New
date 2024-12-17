@@ -51,6 +51,7 @@ export class SalaryComponent implements OnInit {
   ngOnInit(): void {
     this.loadAccountDetails();
     this.initializeForm();
+    this.filteredAccountDetails = this.accountDetails; 
    
   }
 
@@ -173,17 +174,22 @@ export class SalaryComponent implements OnInit {
     this.accountForm.reset();
   }
 
-  onSearch(): void {
-    if (this.searchQuery) {
-      this.filteredAccountDetails = this.accountDetails.filter((account) =>
-        Object.values(account).some((val) =>
-          String(val).toLowerCase().includes(this.searchQuery.toLowerCase())
-        )
-      );
-    } else {
-      this.filteredAccountDetails = [...this.accountDetails];
-    }
+  onSearch(searchValue: string): void {
+    this.searchDetails(searchValue);
   }
+  
+  searchDetails(searchValue: string): void {
+    const lowerSearch = searchValue.toLowerCase();
+    
+    // Filter logic with type conversion to handle non-string values
+    this.filteredAccountDetails = this.accountDetails.filter((item) =>
+      (item.users_Id && String(item.users_Id).toLowerCase().includes(lowerSearch)) ||
+      (item.accountNumber && String(item.accountNumber).toLowerCase().includes(lowerSearch)) ||
+      (item.branchName && String(item.branchName).toLowerCase().includes(lowerSearch))
+    );
+  }
+  
+  
   
   generateSalary(): void {
     

@@ -1,5 +1,8 @@
-body {
-  background-color: rgb(118, 152, 155);
+main {
+  background-color: rgb(178, 207, 215);
+  margin-top: 0;
+  width: 100%;
+  
 }
 
 .report-container {
@@ -31,7 +34,7 @@ th, td {
 }
 
 th {
-  background-color: #007bff;
+  background-color: #132c47;
   color: white;
 }
 
