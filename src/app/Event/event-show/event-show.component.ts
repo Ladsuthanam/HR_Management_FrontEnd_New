@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CalendarEvent, CalendarView } from 'angular-calendar';
+import { addHours } from 'date-fns';
 
 @Component({
   selector: 'app-event-show',
