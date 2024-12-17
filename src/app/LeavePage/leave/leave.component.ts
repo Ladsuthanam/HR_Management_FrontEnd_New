@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { StudentService } from '../../services/student.service';
 import { UserService } from '../../services/user.service';
+import { LeaveService } from '../../services/leave.service';
 @Component({
   selector: 'app-leave',
   imports: [RouterOutlet,CommonModule,ReactiveFormsModule,FormsModule,],
@@ -12,72 +13,113 @@ import { UserService } from '../../services/user.service';
   templateUrl: './leave.component.html',
   styleUrl: './leave.component.css'
 })
-export class LeaveComponent{
-  activeTab: string = 'Account Details';
-  leaveData: any = {
-    leaveType: '',
-    countPerYear: '',
-  };
-  userLeaves: any[] = [];
-  leaveTypes: any[] = [];
+export class LeaveComponent implements OnInit{
+  activeTab: string = 'Add Leave';
+  leaveData: any = { name: '', countPerYear: '' };
+  leaveTypes: any[] = []; 
+  leaveRequests: any[] = [];
 
-  loggedInUser: any = {
-    userId: '12345',
-    firstName: 'John Doe'
-  };
-
-onTabClick(tab: string) {
-  this.activeTab = tab;
- }
- onSubmit() {
-  const newLeaveType = {
-    leaveType: this.leaveData.leaveType,
-    countPerYear: this.leaveData.countPerYear,
-  };
-  this.leaveTypes.push(newLeaveType);
-  this.leaveData = { leaveType: '', countPerYear: '' };
-}
+// onTabClick(tab: string) {
+//   this.activeTab = tab;
+//  }
+//  onSubmit() {
+//   const newLeaveType = {
+//     name: this.leaveData.name,
+//     countPerYear: this.leaveData.countPerYear,
+//   };
+//   this.leaveTypes.push(newLeaveType);
+//   this.leaveData = { name: '', countPerYear: '' };
+// }
 
 
-  constructor(private fb: FormBuilder, private userservice: UserService, private router: Router){
+  constructor(private fb: FormBuilder, private userservice: UserService,
+     private router: Router, private leaveService: LeaveService){
 
   }
-
-  // Handle form reset
-  onReset() {
-    this.leaveData = {
-      leaveType: '',
-      countPerYear: '',
-    };
+  ngOnInit(): void {
+    this.loadLeaveTypes();
   }
+  loadLeaveTypes() {
+    this.leaveService.getAllLeaveTypes().subscribe(
+      (data) => {
+        this.leaveTypes = data;
+        console.log('Leave Types loaded:', data);
+      },
+      (error) => {
+        console.error('Error loading leave types:', error);
+      }
+    );
+  }
+  loadLeaveRequests(): void {
+    this.leaveService.getAllLeaveRequests().subscribe(
+      (data) => {
+        this.leaveRequests = data;
+        console.log('Leave Requests loaded:', data);
+      },
+      (error) => {
+        console.error('Error loading leave requests:', error);
+      }
+    );
+  }
+
+  onSubmit() {
+    if (!this.leaveData.name || !this.leaveData.countPerYear) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    this.leaveService.addLeaveType(this.leaveData).subscribe(
+      (response) => {
+        console.log('Leave Type Added:', response);
+        this.loadLeaveTypes(); // Refresh table
+        this.leaveData = { name: '', countPerYear: '' }; // Reset form
+      },
+      (error) => {
+        console.error('Error adding leave type:', error);
+      }
+    );
+  }
+  // // Handle form reset
+  // onReset() {
+  //   this.leaveData = {
+  //     name: '',
+  //     countPerYear: '',
+  //   };
+  // }
 // Placeholder function for editing leave
-editLeave(leave: any) {
-  console.log('Edit Leave:', leave);
-}
+// editLeave(leave: any) {
+//   console.log('Edit Leave:', leave);
+// }
 
   goToHolly(){
     this.router.navigate([`/hollydaypage`]);
 
   }
 
-  addLeaveType() {
-    console.log('Add Leave Type button clicked');
-    // Add navigation logic or open modal here
+ 
+  
+  
+  
+  
+  deleteLeaveType(id: string) {
+    if (confirm('Are you sure you want to delete this leave type?')) {
+      this.leaveService.deleteLeaveType(id).subscribe(
+        () => {
+          console.log('Leave Type Deleted');
+          this.loadLeaveTypes(); // Refresh table
+        },
+        (error) => {
+          console.error('Error deleting leave type:', error);
+        }
+      );
+    }
   }
   
-  applyLeave() {
-    console.log('Apply Leave button clicked');
-    // Open leave form or navigate to leave page
+  onTabClick(tab: string): void {
+    this.activeTab = tab;
+    if (tab === 'Account Details') {
+      
+      this.loadLeaveRequests();
+    }
   }
-  
-  viewLeaveResponse() {
-    console.log('Leave Response button clicked');
-    // Navigate or display leave response information
-  }
-
-  deleteLeaveType(index: number) {
-    this.leaveTypes.splice(index, 1);
-  }
-  
-
 }

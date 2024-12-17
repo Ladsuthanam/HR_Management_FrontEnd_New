@@ -99,7 +99,7 @@ export class AdminPageComponent {
     this.closeModal();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void>  {
     if (this.adminForm.valid) {
       const formData = { ...this.adminForm.value };
 
@@ -137,7 +137,15 @@ export class AdminPageComponent {
 
       formData.dateOfBirth = this.formatDate(new Date(formData.dateOfBirth));
       formData.isDeleted = false;
-      
+      if (formData.image instanceof File) {
+        try {
+          const imageUrl = await this.uploadToCloudinary(formData.image);
+          formData.image = imageUrl;
+        } catch (error) {
+          console.error('Error uploading image to Cloudinary:', error);
+          return;
+        }
+      }
 
       console.log('Sending admin data:', formData);
 
@@ -224,4 +232,25 @@ export class AdminPageComponent {
 
     return `${year}-${month}-${day}`;
   }
+  private async uploadToCloudinary(file: File): Promise<string> {
+    const url = 'https://api.cloudinary.com/v1_1/Unicom Tic /image/upload';  // Use your Cloudinary URL
+    const formData = new FormData();
+    formData.append('HR Management', file);
+    formData.append('upload_preset', 'Unicom Tic');  // Replace with your upload preset
+
+    const response = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to upload image');
+    }
+
+    const data = await response.json();
+    return data.secure_url;  // Return the URL of the uploaded image
+  }
 }
+
+
+
