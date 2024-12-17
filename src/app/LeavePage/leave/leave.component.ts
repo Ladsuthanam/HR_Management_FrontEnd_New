@@ -13,14 +13,13 @@ import { UserService } from '../../services/user.service';
   styleUrl: './leave.component.css'
 })
 export class LeaveComponent{
-  activeTab: string = 'Personal Details';
+  activeTab: string = 'Account Details';
   leaveData: any = {
-    reason: '',
     leaveType: '',
-    leaveDate: '',
-    reJoinDate: ''
+    countPerYear: '',
   };
   userLeaves: any[] = [];
+  leaveTypes: any[] = [];
 
   loggedInUser: any = {
     userId: '12345',
@@ -30,19 +29,13 @@ export class LeaveComponent{
 onTabClick(tab: string) {
   this.activeTab = tab;
  }
-
  onSubmit() {
-  const newLeave = {
-    userId: this.loggedInUser.userId,
-    firstName: this.loggedInUser.firstName,
-    reason: this.leaveData.reason,
+  const newLeaveType = {
     leaveType: this.leaveData.leaveType,
-    leaveDate: this.leaveData.leaveDate,
-    reJoinDate: this.leaveData.reJoinDate,
-    status: 'Pending'
+    countPerYear: this.leaveData.countPerYear,
   };
-  this.userLeaves.push(newLeave); // Add leave data to the table
-    this.leaveData = { reason: '', leaveType: '', leaveDate: '', reJoinDate: '' };
+  this.leaveTypes.push(newLeaveType);
+  this.leaveData = { leaveType: '', countPerYear: '' };
 }
 
 
@@ -53,10 +46,8 @@ onTabClick(tab: string) {
   // Handle form reset
   onReset() {
     this.leaveData = {
-      reason: '',
       leaveType: '',
-      leaveDate: '',
-      reJoinDate: ''
+      countPerYear: '',
     };
   }
 // Placeholder function for editing leave
@@ -68,5 +59,25 @@ editLeave(leave: any) {
     this.router.navigate([`/hollydaypage`]);
 
   }
+
+  addLeaveType() {
+    console.log('Add Leave Type button clicked');
+    // Add navigation logic or open modal here
+  }
+  
+  applyLeave() {
+    console.log('Apply Leave button clicked');
+    // Open leave form or navigate to leave page
+  }
+  
+  viewLeaveResponse() {
+    console.log('Leave Response button clicked');
+    // Navigate or display leave response information
+  }
+
+  deleteLeaveType(index: number) {
+    this.leaveTypes.splice(index, 1);
+  }
+  
 
 }
