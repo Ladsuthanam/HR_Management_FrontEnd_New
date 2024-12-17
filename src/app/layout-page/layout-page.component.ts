@@ -37,11 +37,10 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
       this.decodedToken = this.authService.decodeToken(this.token);
      console.log('Decoded Token:',   this.decodedToken);
      this.userRole = this.decodedToken.Role;  
-     this.imageUrl = this.decodedToken.imageUrl;  
+     this.imageUrl = this.decodedToken.Image;  
+       console.log(this.imageUrl);
+  
    
-    if (!this.imageUrl) {
-      this.imageUrl = 'assets/images/default-image.png'; // Path to a default image
-    }
    
   
   }

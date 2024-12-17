@@ -310,4 +310,6 @@ mat-icon {
   
   @media (max-width: 1399.98px) {
   }
- 
+ .profileImage img{
+border-radius: 50%;
+ }

@@ -20,7 +20,7 @@ export class LeaveService {
       );
   }
   getAllLeaveTypes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/GetAll_LeaveTypes`)
+    return this.http.get(`${this.apiUrl}/GetAll_LeaveType`)
       .pipe(
         catchError(this.handleError)
       );
@@ -33,7 +33,7 @@ export class LeaveService {
         catchError(this.handleError)
       );
   }
-
+ 
 
   updateLeaveType(id: string, leaveType: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/Update_LeaveType?Id=${id}`, leaveType)
@@ -48,6 +48,7 @@ export class LeaveService {
       .pipe(
         catchError(this.handleError)
       );
+
   }
 
   private handleError(error: any): Observable<never> {

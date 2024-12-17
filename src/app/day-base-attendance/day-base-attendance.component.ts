@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DayBaseAttendanceComponent implements OnInit{
 
-  userId: string = '69d8cc6d-b131-4031-9d33-139ec4586c8b'; 
+  userId: string = ''; 
   selectedDate: string = '';
   attendanceData: any[] = [];
   isLoading: boolean = false;
@@ -33,18 +33,19 @@ export class DayBaseAttendanceComponent implements OnInit{
       return;
     }
 
-    this.isLoading = true;
+    
     this.errorMessage = '';
 
     this.attendanceService.getAttendanceByUserAndDate(this.userId, this.selectedDate).subscribe({
       next: (data) => {
         this.attendanceData = data;
-        this.isLoading = false;
+        
+        console.log(this.attendanceData)
       },
       error: (error) => {
         this.errorMessage = 'Failed to load attendance data.';
         console.error('Error:', error);
-        this.isLoading = false;
+        
       },
     });
   }
