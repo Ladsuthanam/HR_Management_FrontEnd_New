@@ -1,4 +1,19 @@
-import "./chunk-UPH7H4I5.js";
+import "./chunk-G327TNLK.js";
+import "./chunk-PY6IA7WX.js";
+import {
+  LIFECYCLE_DID_ENTER,
+  LIFECYCLE_DID_LEAVE,
+  LIFECYCLE_WILL_ENTER,
+  LIFECYCLE_WILL_LEAVE,
+  LIFECYCLE_WILL_UNLOAD,
+  componentOnReady,
+  createAnimation,
+  doc,
+  getIonMode,
+  getPlatforms,
+  isPlatform,
+  printIonWarning
+} from "./chunk-OYBWN5Y3.js";
 import {
   iosTransitionAnimation
 } from "./chunk-UWMSXM6I.js";
@@ -17,21 +32,6 @@ import {
   isPlatform as isPlatform2,
   printIonWarning as printIonWarning2
 } from "./chunk-2TYK2BCW.js";
-import "./chunk-H7QBR36Q.js";
-import {
-  LIFECYCLE_DID_ENTER,
-  LIFECYCLE_DID_LEAVE,
-  LIFECYCLE_WILL_ENTER,
-  LIFECYCLE_WILL_LEAVE,
-  LIFECYCLE_WILL_UNLOAD,
-  componentOnReady,
-  createAnimation,
-  doc,
-  getIonMode,
-  getPlatforms,
-  isPlatform,
-  printIonWarning
-} from "./chunk-5CLJQ7IX.js";
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
@@ -40,16 +40,16 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-6JEJGEK2.js";
+} from "./chunk-ASRNEIEC.js";
 import {
   MaxValidator,
   MinValidator,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   NgControl
-} from "./chunk-VCDBY7EX.js";
-import "./chunk-A43VVI4S.js";
-import "./chunk-HGHNK3TA.js";
+} from "./chunk-LQFGQ4SA.js";
+import "./chunk-O4EXL5NN.js";
+import "./chunk-YKD2I7ZN.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -57,7 +57,7 @@ import {
   LocationStrategy,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-NW336PLC.js";
+} from "./chunk-QBUQH5KG.js";
 import {
   APP_INITIALIZER,
   ApplicationRef,
@@ -122,11 +122,11 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-5ONHGE56.js";
-import "./chunk-YFK3VKK3.js";
+} from "./chunk-OKI7VC3R.js";
 import {
   fromEvent
 } from "./chunk-RPPT2532.js";
+import "./chunk-YFK3VKK3.js";
 import {
   BehaviorSubject,
   Subject,
@@ -147,7 +147,7 @@ import {
   __objRest,
   __spreadProps,
   __spreadValues
-} from "./chunk-QHQP2P2Z.js";
+} from "./chunk-SCNEKAWF.js";
 
 // node_modules/@ionic/core/components/gesture-controller.js
 var GestureController = class {

@@ -58,7 +58,8 @@
     <ng-container matColumnDef="report">
       <th mat-header-cell *matHeaderCellDef>Report</th>
       <td mat-cell *matCellDef="let element">
-        <button (click)="goToReport(element.userId)" class=".buttonbox">Go to Report</button>
+        <button (click)=" goTorRangeReport(element.userId)" class=".buttonbox">Go to Range Report</button>
+        <button (click)="goToDayReport(element.userId)" class=".buttonbox">Go to Day Report</button>
       </td>
     </ng-container>
   

@@ -98,7 +98,10 @@ export class AttendancePageComponent {
   saveAttendance(): void {
     alert('Attendance data saved!');
   }
-  goToReport(id: string): void {
+  goTorRangeReport(id: string): void {
     this.router.navigate([`/attendanceStaff/${id}`]);
+  }
+  goToDayReport(id:string): void{
+    this.router.navigate([`/dayBaseAttendance/${id}`]);
   }
 }

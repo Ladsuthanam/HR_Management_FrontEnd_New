@@ -5,9 +5,7 @@
     <button routerLink="/attendancePage" class="back-button">
       <i class="back-icon"></i> Back
     </button>
-    <button (click)="gotoDaybasePage()">
-      Report Of Day Base =>
-    </button>
+    
 </div>
     <div class="filter-container">
       <label for="startDate">Start Date:</label>
@@ -72,7 +70,7 @@
       </table>
   
       <!-- Download PDF Button -->
-      <button (click)="downloadPdf()">Download PDF</button>
+      <button (click)="exportToExcel()">Download PDF</button>
     </div>
   
     <ng-template #loading>

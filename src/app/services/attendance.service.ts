@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 // Define the UserAttendance model (optional but useful for type safety)
@@ -28,6 +28,7 @@ export enum Status {
 })
 export class AttendanceService {
   private baseUrl: string = environment.apiUrl + 'UserAttendance'
+  httpClient: any;
   
 
 
@@ -51,20 +52,25 @@ export class AttendanceService {
       headers: new HttpHeaders().set('Content-Type', 'application/json')
     });
   }
+  
    // New method to get filtered attendance report
-   getFilteredAttendanceReport(userId:string,startDate:string,endDate:string): Observable<any> {
-    const params = {
-      userId: userId,
-      startDate: startDate,
-      endDate: endDate
-    };
-
-    // Make a GET request with query parameters
-    return this.http.get<any>(`${this.baseUrl}/Genarete_Report?userId= ${userId}`, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json')
+   getFilteredAttendanceReport(userId: string, startDate: string, endDate: string) {
+    const url = `${this.baseUrl}/Genarete_Report?userId=${userId}&startDate=${startDate}&endDate=${endDate}`;
+    console.log('Requesting filtered attendance report with:', {
+      userId,
+      startDate,
+      endDate,
     });
+    
+  
+    return this.httpClient.get(url).pipe(
+      catchError((error) => {
+        console.error('Error fetching filtered attendance report:', error);
+        return throwError(() => new Error('Failed to fetch attendance data.'));
+      })
+    );
   }
-
+  
 
   // Download PDF
   downloadPdf(userId: string): Observable<Blob> {
@@ -73,14 +79,16 @@ export class AttendanceService {
     });
   }
 
-  private ApibaseUrl = 'http://localhost:5162/api/UserAttendance/Get_User_Attendance'; 
+ 
 
   getAttendanceByUserAndDate(userId: string, date: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.ApibaseUrl}?userId=${userId}&date=${date}`);
+    return this.http.get<any[]>(`${this.baseUrl}/Get_User_Attendance?userId=${userId}&date=${date}`);
   }
 
+
+
   getReport(userId: string): Observable<any> {
-    const url = `http://localhost:5162/api/UserAttendance/Genarete_Report?userId=${userId}`;
+    const url = `${this.baseUrl}/Genarete_Report?userId=${userId}`;
     return this.http.get<any>(url);
   }
   

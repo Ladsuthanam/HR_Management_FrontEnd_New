@@ -1,6 +1,6 @@
 import {
   __glob
-} from "./chunk-QHQP2P2Z.js";
+} from "./chunk-SCNEKAWF.js";
 
 // node_modules/@ionic/core/components/index5.js
 var win = typeof window !== "undefined" ? window : void 0;
@@ -1260,4 +1260,4 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 */
-//# sourceMappingURL=chunk-5CLJQ7IX.js.map
+//# sourceMappingURL=chunk-OYBWN5Y3.js.map

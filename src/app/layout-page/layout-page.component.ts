@@ -82,10 +82,12 @@ export class LayoutPageComponent implements OnInit, AfterViewInit{
   }
   logoutsPro(): void {
     this.router.navigate(['/login']);
+    localStorage.removeItem('authToken');
   }
   gotoBack(){
 
-    this.router.navigateByUrl('/login')
+    this.router.navigateByUrl('/login');
+ 
   }
   
   
