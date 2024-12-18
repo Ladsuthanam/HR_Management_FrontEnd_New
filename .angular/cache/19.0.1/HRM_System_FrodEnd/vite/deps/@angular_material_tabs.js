@@ -1,11 +1,11 @@
 import {
+  SharedResizeObserver
+} from "./chunk-WTSAVEOB.js";
+import {
   CdkPortal,
   CdkPortalOutlet,
   TemplatePortal
 } from "./chunk-PSLKYNLX.js";
-import {
-  SharedResizeObserver
-} from "./chunk-WTSAVEOB.js";
 import {
   CdkScrollable,
   ViewportRuler

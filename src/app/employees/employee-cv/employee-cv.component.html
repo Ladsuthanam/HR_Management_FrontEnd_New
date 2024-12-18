@@ -1,3 +1,4 @@
+<main>
 <div class="container-fluid mt-5">
   <div class="row">
     <!-- Left Column: Personal Details -->
@@ -24,9 +25,9 @@
             <p><strong>Address:</strong> {{ address.houseNumber }}, {{ address.street }},
               {{address.city}}, {{address.state}}, {{address.postalCode}}, {{address.country}}
             </p>
-            <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+            <!-- <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
               <i class="bi bi-pen"></i>Edit Address
-            </button>
+            </button> -->
             <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteAddress(address.id)">
               <i class="bi bi-calendar-x"></i>Delete Address
             </button>
@@ -55,9 +56,9 @@
           <p><strong>Basket1:</strong> {{ olevel.basket1}}</p>
           <p><strong>Basket2:</strong> {{ olevel.basket2}}</p>
           <p><strong>Basket3:</strong> {{ olevel.basket3}}</p>
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+          <!-- <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit OL Result
-          </button>
+          </button> -->
           <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteOlevel(olevel.id)">
             <i class="bi bi-calendar-x"></i>Delete OL Result
           </button>
@@ -80,9 +81,9 @@
           <p><strong>General English:</strong> {{ alevel.generalEnglish}}</p>
           <p><strong>General Knowledge:</strong> {{ alevel.generalKnowledge}}</p>
           <p><strong>GIT:</strong> {{ alevel.git}}</p>
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+          <!-- <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit AL Result
-          </button>
+          </button> -->
           <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteAlevel(alevel.id)">
             <i class="bi bi-calendar-x"></i>Delete AL Result
           </button>
@@ -103,9 +104,9 @@
           <p><strong>Duration:</strong> {{ hstudy.duration}}</p>
           <p><strong>Institute:</strong> {{ hstudy.institute}}</p>
           <p><strong>Grade:</strong> {{ hstudy.grade}}</p>
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+          <!-- <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit Higher Study
-          </button>
+          </button> -->
           <button class="btn btn-outline-danger btn-sm w-100 mt-3"  (click)="deleteHigherStudy(hstudy.id)"  >
             <i class="bi bi-calendar-x"></i>Delete Higher Study
           </button>
@@ -124,9 +125,9 @@
           <p><strong>Start Date:</strong> {{ exp.startDate }}</p>
           <p><strong>End Date:</strong> {{ exp.endDate }}</p>
           <p><strong>Description:</strong> {{ exp.description }}</p>
-          <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
+          <!-- <button class="btn btn-outline-primary btn-sm w-100 mt-3" >
             <i class="bi bi-pen"></i>Edit Work Experiance
-          </button>
+          </button> -->
           <button class="btn btn-outline-danger btn-sm w-100 mt-3" (click)="deleteExperience(exp.id)">
             <i class="bi bi-calendar-x"></i>Delete Work Experiance
           </button>
