@@ -1,3 +1,47 @@
 <main>
-    
+    <div class="event-container">
+        <!-- Calendar Display -->
+        <div class="calendar-view">
+          <h2 class="calendar-title">Event Management</h2>
+          <div>
+            <mwl-calendar-month-view 
+            [viewDate]="viewDate" 
+            [events]="events" 
+            (eventClicked)="handleEventClick($event)">
+          </mwl-calendar-month-view>
+          </div>
+        </div>
+      
+        <!-- Event Form -->
+        <div class="event-form">
+          <form (ngSubmit)="saveEvent()">
+            <label>Event Name:</label>
+            <input type="text" [(ngModel)]="currentEvent.title" name="title" required />
+      
+            <label>Date:</label>
+            <input type="date" [(ngModel)]="currentEvent.date" name="date" required />
+      
+            <label>Time:</label>
+            <input type="time" [(ngModel)]="currentEvent.time" name="time" required />
+      
+            <button class="btn btn-add" type="submit">{{ isEdit ? 'Update' : 'Add' }} Event</button>
+            <button class="btn btn-reset" type="button" (click)="resetForm()">Reset</button>
+          </form>
+        </div>
+      </div>
+      
+      <!-- Event List -->
+      <div class="event-list">
+        <h3>Upcoming Events</h3>
+        <ul>
+          <li *ngFor="let event of events; let i = index" class="event-item">
+            <span [style.color]="getColor(i)">
+              {{ event.title }} - {{ event.start | date: 'short' }}
+            </span>
+            <button class="btn btn-icon edit" (click)="editEvent(event)">✏️</button>
+            <button class="btn btn-icon delete" (click)="deleteEvent(event)">🗑️</button>
+          </li>
+        </ul>
+      </div>
+         
 </main>
