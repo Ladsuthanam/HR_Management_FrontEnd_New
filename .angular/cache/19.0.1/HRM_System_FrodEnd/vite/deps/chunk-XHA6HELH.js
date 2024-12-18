@@ -7,10 +7,10 @@ import {
   coerceNumberProperty,
   getRtlScrollAxisType,
   supportsScrollBehavior
-} from "./chunk-S4D5QAEF.js";
+} from "./chunk-B6CWNI5L.js";
 import {
   DOCUMENT
-} from "./chunk-NW336PLC.js";
+} from "./chunk-QBUQH5KG.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -56,7 +56,7 @@ import {
   ɵɵqueryRefresh,
   ɵɵstyleProp,
   ɵɵviewQuery
-} from "./chunk-5ONHGE56.js";
+} from "./chunk-OKI7VC3R.js";
 import {
   animationFrameScheduler,
   asapScheduler,
@@ -1975,4 +1975,4 @@ export {
   CdkScrollableModule,
   ScrollingModule
 };
-//# sourceMappingURL=chunk-IL45A7XW.js.map
+//# sourceMappingURL=chunk-XHA6HELH.js.map
