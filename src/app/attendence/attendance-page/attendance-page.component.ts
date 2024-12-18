@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ export class AttendancePageComponent {
   latecomeCount: number = 0;
   searchQuery: string = '';
 
-  constructor(private attendanceService: AttendanceService,private router : Router) {}
+  constructor(private attendanceService: AttendanceService,private router : Router,  private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.fetchStaffAttendance();
@@ -63,9 +63,18 @@ export class AttendancePageComponent {
   updateCount(): void {
     this.staffData.filter = this.searchQuery.trim().toLowerCase();
     const data = this.staffData.filteredData;
+    console.log('Filtered data for count:', data);
+    console.log('Calculating counts...');
+
     this.presentCount = data.filter((item: UserAttendance) => item.Status === Status.Present).length;
     this.absentCount = data.filter((item: UserAttendance) => item.Status === Status.Absent).length;
     this.latecomeCount = data.filter((item: UserAttendance) => item.Status === Status.LateCome).length;
+
+    console.log('Present:', this.presentCount);
+  console.log('Absent:', this.absentCount);
+  console.log('LateCome:', this.latecomeCount);
+
+    this.cdr.detectChanges(); 
   }
 
   applySearch(): void {

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SalaryService } from '../services/salary.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -46,7 +47,7 @@ export class SalaryComponent implements OnInit {
     { controlName: 'branchName', label: 'Branch', placeholder: 'Enter Branch name' },
   ];
 
-  constructor(private salaryService: SalaryService, private fb: FormBuilder, private router: Router) {}
+  constructor(private salaryService: SalaryService, private fb: FormBuilder, private router: Router,private toastr:ToastrService) {}
 
   ngOnInit(): void {
     this.loadAccountDetails();
@@ -158,7 +159,9 @@ export class SalaryComponent implements OnInit {
     this.salaryService.deleteAccountDetails(accountId).subscribe({
       next: () => {
         console.log('Account deleted successfully');
+        this.toastr.success("User Deleted Successfully");
         this.loadAccountDetails();
+        location.reload();
       },
       error: (err) => {
         console.error('Error deleting account:', err);
